@@ -90,26 +90,31 @@ sly_vm:
     configurations:
         default:
             web: ~
+            db: ~
             configuration: ~
             phpModules: ~
             tools: ~
         php53:
             web: ~
+            db: ~
             configuration: ~
             phpModules: ~
             tools: ~
         php54:
             web: ~
+            db: ~
             configuration: ~
             phpModules: ~
             tools: ~
         symfony14:
             web: ~
+            db: ~
             configuration: ~
             phpModules: ~
             tools: ~
         symfony2:
             web: ~
+            db: ~
             configuration: ~
             phpModules: ~
             tools:

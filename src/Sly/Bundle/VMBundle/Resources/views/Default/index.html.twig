@@ -52,6 +52,15 @@
                     </div>
 
                     <div class="span3">
+                        <h3>Database(s)</h3>
+                        
+                        <ul class="unstyled">
+                            <li>{{ form_row(form.db_mysql, { label: 'MySQL' }) }}</li>
+                            <li>{{ form_row(form.db_mysqlRootPassword, { label: 'MySQL Root Password' }) }}</li>
+                        </ul>
+                    </div>
+
+                    <div class="span3">
                         <h3>PHP Modules</h3>
                         
                         {{ form_widget(form.phpModules) }}

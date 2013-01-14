@@ -4,4 +4,7 @@ configuration:
     ip:         '11.11.11.11'
     hostname:   'dev.local'
 
+db:
+    mysqlRootPassword: root
+
 phpModules: ['mysql', 'intl', 'xdebug', 'curl', 'sqlite', 'imagick', 'suhosin']
