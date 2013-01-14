@@ -42,24 +42,44 @@ class Generator
     private $gitSubmodules;
 
     /**
+     * @var string
+     */
+    private $kernelRootDir;
+
+    /**
      * Constructor.
      *
      * @param \Symfony\Component\HttpFoundation\SessionInterface    $session       Session
      * @param \Knp\Bundle\GaufretteBundle\FilesystemMap             $vmFileSystem  Gaufrette VM file system
      * @param \Sly\Bundle\VMBundle\Config\VMCollection              $vmCollection  VM collection
      * @param \Sly\Bundle\VMBundle\Generator\GitSubmoduleCollection $gitSubmodules Git submodules collection
+     * @param string                                                $kernelRootDir Kernel root directory
      */
-    public function __construct(SessionInterface $session, FilesystemMap $vmFileSystem, VMCollection $vmCollection, GitSubmoduleCollection $gitSubmodules)
+    public function __construct(SessionInterface $session, FilesystemMap $vmFileSystem, VMCollection $vmCollection, GitSubmoduleCollection $gitSubmodules, $kernelRootDir)
     {
         $this->session         = $session;
         $this->vmFileSystem    = $vmFileSystem->get('vm');
         $this->vmCollection    = $vmCollection;
         $this->vmConfig        = $this->vmCollection->get('default');
         $this->gitSubmodules   = $gitSubmodules;
+        $this->kernelRootDir   = $kernelRootDir;
 
         if (false === $this->session->has('generatorSessionID')) {
             $this->session->set('generatorSessionID', md5(uniqid()));
         }
+    }
+
+    /**
+     * Get cache path from filesystem and session.
+     * 
+     * @return string
+     */
+    public function getCachePath()
+    {
+        return sprintf('%s/cache/%s',
+            $this->kernelRootDir,
+            $this->session->get('generatorSessionID')
+        );
     }
 
     /**
@@ -101,6 +121,8 @@ class Generator
             $this->getGitSubmodulesFileContent(),
             true
         );
+
+        return $this->vmConfig;
     }
 
     /**

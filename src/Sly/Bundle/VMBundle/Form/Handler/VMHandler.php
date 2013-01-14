@@ -4,9 +4,12 @@ namespace Sly\Bundle\VMBundle\Form\Handler;
 
 use Sly\Bundle\VMBundle\Generator\Generator;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Request,
+    Symfony\Component\Form\Form,
+    Symfony\Component\HttpFoundation\Session\Session
+;
+
+use Doctrine\Common\Util\Inflector;
 
 /**
  * VM form handler.
@@ -58,6 +61,24 @@ class VMHandler
                 $this->generator->updateVMConfig($dataBag);
 
                 $vm = $this->generator->generate();
+
+                /**
+                 * Test with Archive_Tar PEAR package.
+                 *
+                 * @todo Fix it.
+                 */
+                $vmArchive = new \Archive_Tar(
+                    sprintf(
+                        '%s/%s.tar',
+                        $this->generator->getCachePath(),
+                        Inflector::tableize($vm['configuration']['name'])
+                    )
+                );
+
+
+                $vmArchive->setErrorHandling(PEAR_ERROR_PRINT);  
+                $vmArchiveContent = array($this->generator->getCachePath());
+                $vmArchive->create($vmArchiveContent);
             }
 
             return true;
