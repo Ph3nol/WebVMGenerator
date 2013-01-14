@@ -19,9 +19,14 @@ class AppKernel extends Kernel
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            new Sly\Bundle\MainBundle\SlyMainBundle(),
-            new Sly\Bundle\VMBundle\SlyVMBundle(),
+            new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
         );
+
+        /**
+         * Project.
+         */
+        $bundles[] = new Sly\Bundle\MainBundle\SlyMainBundle();
+        $bundles[] = new Sly\Bundle\VMBundle\SlyVMBundle();
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();

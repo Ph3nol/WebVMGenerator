@@ -6,11 +6,17 @@
 
     <parameters>
         <parameter key="sly_vm.generator.class">Sly\Bundle\VMBundle\Generator\Generator</parameter>
+        <parameter key="sly_vm.git_submodule_collection.class">Sly\Bundle\VMBundle\Generator\GitSubmoduleCollection</parameter>
     </parameters>
 
     <services>
         <service id="sly_vm.generator" class="%sly_vm.generator.class%">
+            <argument type="service" id="session" />
+            <argument type="service" id="knp_gaufrette.filesystem_map" />
             <argument type="service" id="sly_vm.config_vm_collection" />
+            <argument type="service" id="sly_vm.git_submodule_collection" />
         </service>
+
+        <service id="sly_vm.git_submodule_collection" class="%sly_vm.git_submodule_collection.class%" />
     </services>
 </container>

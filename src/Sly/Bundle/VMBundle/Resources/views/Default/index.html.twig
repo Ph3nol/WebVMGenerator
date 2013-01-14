@@ -29,6 +29,8 @@
 
         <div class="tab-content">
             <div class="tab-pane active" id="configuration">
+                <h3>Main configuration</h3>
+
                 <div class="row">
                     <div class="span3">{{ form_row(form.configuration_name, { label: 'Name' }) }}</div>
                     <div class="span3">{{ form_row(form.configuration_hostname, { label: 'Hostname' }) }}</div>
@@ -108,7 +110,7 @@
 
             <p class="pagination-centered">
                 <small>
-                    (or get it with <code>wget {{ url('download', { key: key })}} && tar zxvf vagrant.tar</code>)
+                    (or get it with <code>wget {{ url('download', { key: app.session.get('generatorSessionID') })}} && tar zxvf vagrant.tar</code>)
                 </small>
             </p>
         </div>

@@ -61,14 +61,16 @@ class GitSubmoduleCollection implements \IteratorAggregate
         $lines = array();
 
         foreach ($this->submodules as $submodule) {
-            $lines[] = sprintf("[submodule \"%s\"]\npath = %s\nurl = %s\n",
-                $this->repositories[$submodule]['path'],
-                $this->repositories[$submodule]['path'],
-                $this->repositories[$submodule]['url']
-            );
+            if (array_key_exists($submodule, $this->repositories)) {
+                $lines[] = sprintf("[submodule \"%s\"]\n    path = %s\n    url = %s\n\n",
+                    $this->repositories[$submodule]['path'],
+                    $this->repositories[$submodule]['path'],
+                    $this->repositories[$submodule]['url']
+                );
+            }
         }
 
-        return implode("\n", $lines);
+        return implode('', $lines);
     }
 
     /**

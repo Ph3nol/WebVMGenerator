@@ -73,6 +73,18 @@ swiftmailer:
     password:  %mailer_password%
     spool:     { type: memory }
 
+# KnpGaufretteBundle configuration
+knp_gaufrette:
+    adapters:
+        vm:
+            local:
+                directory: %kernel.root_dir%/cache/vm
+                create: true
+    filesystems:
+        vm:
+            adapter:    vm
+            alias:      vm_filesystem
+
 # SlyVMBundle configuration
 sly_vm:
     configurations:

@@ -2,6 +2,9 @@
 
 namespace Sly\Bundle\VMBundle\Generator;
 
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Knp\Bundle\GaufretteBundle\FilesystemMap;
+
 use Sly\Bundle\VMBundle\Config\Config,
     Sly\Bundle\VMBundle\Config\VMCollection
 ;
@@ -14,6 +17,16 @@ use Sly\Bundle\VMBundle\Config\Config,
 class Generator
 {
     /**
+     * @var \Symfony\Component\HttpFoundation\SessionInterface
+     */
+    private $session;
+
+    /**
+     * @var \Knp\Bundle\GaufretteBundle\FilesystemMap
+     */
+    private $vmFileSystem;
+
+    /**
      * @var \Sly\Bundle\VMBundle\Config\VMCollection
      */
     private $vmCollection;
@@ -24,14 +37,29 @@ class Generator
     private $vmConfig;
 
     /**
+     * @var \Sly\Bundle\VMBundle\Generator\GitSubmoduleCollection
+     */
+    private $gitSubmodules;
+
+    /**
      * Constructor.
      *
-     * @param \Sly\Bundle\VMBundle\Config\VMCollection $vmCollection VM collection
+     * @param \Symfony\Component\HttpFoundation\SessionInterface    $session       Session
+     * @param \Knp\Bundle\GaufretteBundle\FilesystemMap             $vmFileSystem  Gaufrette VM file system
+     * @param \Sly\Bundle\VMBundle\Config\VMCollection              $vmCollection  VM collection
+     * @param \Sly\Bundle\VMBundle\Generator\GitSubmoduleCollection $gitSubmodules Git submodules collection
      */
-    public function __construct(VMCollection $vmCollection)
+    public function __construct(SessionInterface $session, FilesystemMap $vmFileSystem, VMCollection $vmCollection, GitSubmoduleCollection $gitSubmodules)
     {
-        $this->vmCollection = $vmCollection;
-        $this->vmConfig     = $this->vmCollection->get('default');
+        $this->session         = $session;
+        $this->vmFileSystem    = $vmFileSystem->get('vm');
+        $this->vmCollection    = $vmCollection;
+        $this->vmConfig        = $this->vmCollection->get('default');
+        $this->gitSubmodules   = $gitSubmodules;
+
+        if (false === $this->session->has('generatorSessionID')) {
+            $this->session->set('generatorSessionID', md5(uniqid()));
+        }
     }
 
     /**
@@ -66,9 +94,13 @@ class Generator
     public function generate()
     {
         /**
-         * @todo
+         * Generate .gitmodules file.
          */
-        $gitSubmodulesFileContent = $this->getGitSubmodulesFileContent();
+        $this->vmFileSystem->write(
+            $this->session->get('generatorSessionID').'/'.'.gitmodules',
+            $this->getGitSubmodulesFileContent(),
+            true
+        );
     }
 
     /**
@@ -78,16 +110,14 @@ class Generator
      */
     private function getGitSubmodulesFileContent()
     {
-        $gitSubmodules = new GitSubmoduleCollection();
-
         if ($this->vmConfig['web']['apache'] || $this->vmConfig['web']['apacheSSL']) {
-            $gitSubmodules->add('apache');
+            $this->gitSubmodules->add('apache');
         }
 
         if ((bool) count($this->vmConfig['phpModules'])) {
-            $gitSubmodules->add('php');
+            $this->gitSubmodules->add('php');
         }
 
-        return $gitSubmodules->getFileContent();
+        return $this->gitSubmodules->getFileContent();
     }
 }
