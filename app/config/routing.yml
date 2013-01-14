@@ -1,0 +1,4 @@
+_sly_main:
+    resource: "@SlyVMBundle/Controller/"
+    type:     annotation
+    prefix:   /

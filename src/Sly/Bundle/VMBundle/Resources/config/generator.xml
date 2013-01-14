@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="sly_vm.generator.class">Sly\Bundle\VMBundle\Generator\Generator</parameter>
+    </parameters>
+
+    <services>
+        <service id="sly_vm.generator" class="%sly_vm.generator.class%">
+            <argument type="service" id="sly_vm.config_vm_collection" />
+        </service>
+    </services>
+</container>

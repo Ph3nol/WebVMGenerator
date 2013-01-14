@@ -1,0 +1,140 @@
+{% extends 'SlyMainBundle:Layout:base.html.twig' %}
+
+{% block body %}
+    <div class="hero-unit">
+        <p class="pagination-centered">
+            Some seconds to <strong>generate your Web Virtual Machine</strong>,
+            boosted with <strong>Vagrant</strong> and <strong>Puppet</strong>.
+        </p>
+    </div>
+
+    <form action="{{ path('homepage') }}" method="post" {{ form_enctype(form) }}>
+        <ul class="nav nav-tabs" id="vm-settings">
+          <li class="active">
+                <a href="#configuration" data-toogle="tab">
+                    <strong><i class="icon-hdd"></i> VM Configuration</strong>
+                </a>
+          </li>
+          <li>
+              <a href="#components-and-modules" data-toogle="tab">
+                  <strong><i class="icon-list"></i> Components and Modules</strong>
+              </a>
+          </li>
+          <li>
+              <a href="#files" data-toogle="tab">
+                  <strong><i class="icon-edit"></i> Specific Configuration Files</strong>
+              </a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="configuration">
+                <div class="row">
+                    <div class="span3">{{ form_row(form.configuration_name, { label: 'Name' }) }}</div>
+                    <div class="span3">{{ form_row(form.configuration_hostname, { label: 'Hostname' }) }}</div>
+                    <div class="span3">{{ form_row(form.configuration_ip, { label: 'IP address' }) }}</div>
+                    <div class="span3"></div>
+                </div>
+            </div>
+            <div class="tab-pane" id="components-and-modules">
+                <div class="row">
+                    <div class="span3">
+                        <h3>Web Server</h3>
+
+                        <ul class="unstyled">
+                            <li>{{ form_row(form.web_apache, { label: 'Apache' }) }}</li>
+                            <li>{{ form_row(form.web_apacheSSL, { label: 'Apache SSL Support' }) }}</li>
+                            <li>{{ form_row(form.web_nginx, { label: 'Nginx', disabled: 'disaled' }) }}</li>
+                            <li>{{ form_row(form.web_varnish, { label: 'Varnish', disabled: 'disaled' }) }}</li>
+                        </ul>
+                    </div>
+
+                    <div class="span3">
+                        <h3>PHP Modules</h3>
+
+                        <div class="row">
+                            <div class="span1">
+                                <ul class="unstyled">
+                                    <li>{{ form_row(form.phpModules_cli, { label: 'CLI' }) }}</li>
+                                    <li>{{ form_row(form.phpModules_posix, { label: 'Posix' }) }}</li>
+                                </ul>                                
+                            </div>
+
+                            <div class="span1">
+                                <ul class="unstyled">
+                                    <li>{{ form_row(form.phpModules_intl, { label: 'Intl' }) }}</li>
+                                    <li>{{ form_row(form.phpModules_gd, { label: 'GD' }) }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="span3">
+                        <h3>Tools</h3>
+
+                        <ul class="unstyled">
+                            <li>{{ form_row(form.tools_vim, { label: 'Vim' }) }}</li>
+                            <li>
+                                {{ form_row(form.tools_vimConfig, { label: 'Vim Configuration' }) }}
+                                <p><small><a href="https://github.com/stephpy/vim-config">Stéphane Py's</a> one</small></p>
+                            </li>
+                            <li>{{ form_row(form.tools_composer, { label: 'Composer' }) }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="files">
+                <div class="row">
+                    <div class="span3">
+                        <h3>System files</h3>
+
+                        <ul class="unstyled">
+                            {{ form_row(form.file_systemBashRc, { label: '~/.bashrc' }) }}
+                            {{ form_row(form.file_systemBashAliases, { label: '~/.bash_aliases' }) }}
+                        </ul>
+                    </div>
+
+                    <div class="span3">
+                        <h3>Apache files</h3>
+
+                        <ul class="unstyled">
+                            {{ form_row(form.file_vhost, { label: 'Base vHost file' }) }}
+                        </ul>
+                    </div>
+
+                    <div class="span3">
+                        <h3>PHP files</h3>
+
+                        <ul class="unstyled">
+                            {{ form_row(form.file_phpIni, { label: 'php.ini file' }) }}
+                            {{ form_row(form.file_phpCliIni, { label: 'php-cli.ini file' }) }}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <p class="pagination-centered" style="padding: 10px 0;">
+                <input type="submit" class="btn btn-primary btn-large" value="Download Vagrant + Puppet customized configuration (TAR file)" />
+            </p>
+
+            <p class="pagination-centered">
+                <small>
+                    (or get it with <code>wget {{ url('download', { key: key })}} && tar zxvf vagrant.tar</code>)
+                </small>
+            </p>
+        </div>
+
+        <hr />
+
+        <ul>
+            <li>Then untar the archive into your web project directory (into a <code>vagrant/</code> folder)</li>
+            <li>Go to <code>vagrant/</code> folder</li>
+            <li>Execute <code>git submodule update --init</code> command</li>
+            <li>Run the VM with <code>vagrant up</code> command</li>
+        </ul>
+
+        {{ form_rest(form) }}
+    </form>
+{% endblock %}
