@@ -2,7 +2,9 @@
 
 namespace Sly\Bundle\VMBundle\Generator;
 
-use Sly\Bundle\VMBundle\Config\VMCollection;
+use Sly\Bundle\VMBundle\Config\Config,
+    Sly\Bundle\VMBundle\Config\VMCollection
+;
 
 /**
  * Generator.
@@ -66,5 +68,26 @@ class Generator
         /**
          * @todo
          */
+        $gitSubmodulesFileContent = $this->getGitSubmodulesFileContent();
+    }
+
+    /**
+     * Get Git submodules file content.
+     * 
+     * @return string
+     */
+    private function getGitSubmodulesFileContent()
+    {
+        $gitSubmodules = new GitSubmoduleCollection();
+
+        if ($this->vmConfig['web']['apache'] || $this->vmConfig['web']['apacheSSL']) {
+            $gitSubmodules->add('apache');
+        }
+
+        if ((bool) count($this->vmConfig['phpModules'])) {
+            $gitSubmodules->add('php');
+        }
+
+        return $gitSubmodules->getFileContent();
     }
 }

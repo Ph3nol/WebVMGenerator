@@ -33,7 +33,7 @@
                     <div class="span3">{{ form_row(form.configuration_name, { label: 'Name' }) }}</div>
                     <div class="span3">{{ form_row(form.configuration_hostname, { label: 'Hostname' }) }}</div>
                     <div class="span3">{{ form_row(form.configuration_ip, { label: 'IP address' }) }}</div>
-                    <div class="span3"></div>
+                    <div class="span3">{{ form_row(form.configuration_timezone, { label: 'Timezone' }) }}</div>
                 </div>
             </div>
             <div class="tab-pane" id="components-and-modules">
@@ -51,28 +51,15 @@
 
                     <div class="span3">
                         <h3>PHP Modules</h3>
-
-                        <div class="row">
-                            <div class="span1">
-                                <ul class="unstyled">
-                                    <li>{{ form_row(form.phpModules_cli, { label: 'CLI' }) }}</li>
-                                    <li>{{ form_row(form.phpModules_posix, { label: 'Posix' }) }}</li>
-                                </ul>                                
-                            </div>
-
-                            <div class="span1">
-                                <ul class="unstyled">
-                                    <li>{{ form_row(form.phpModules_intl, { label: 'Intl' }) }}</li>
-                                    <li>{{ form_row(form.phpModules_gd, { label: 'GD' }) }}</li>
-                                </ul>
-                            </div>
-                        </div>
+                        
+                        {{ form_widget(form.phpModules) }}
                     </div>
 
                     <div class="span3">
                         <h3>Tools</h3>
 
                         <ul class="unstyled">
+                            <li>{{ form_row(form.tools_git, { label: 'Git' }) }}</li>
                             <li>{{ form_row(form.tools_vim, { label: 'Vim' }) }}</li>
                             <li>
                                 {{ form_row(form.tools_vimConfig, { label: 'Vim Configuration' }) }}

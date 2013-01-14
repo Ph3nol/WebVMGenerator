@@ -2,7 +2,9 @@
 
 namespace Sly\Bundle\VMBundle\Form\Type;
 
-use Sly\Bundle\VMBundle\Config\VMCollection;
+use Sly\Bundle\VMBundle\Config\Config,
+    Sly\Bundle\VMBundle\Config\VMCollection
+;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,15 +31,11 @@ class VMType extends AbstractType
     public function __construct(VMCollection $vmCollection)
     {
         $this->vmCollection = $vmCollection;
+        $this->vmDefaults   = Config::getVMDefaults();
     }
 
     /**
-     * buildForm
-     *
-     * @param FormBuilder $builder
-     * @param array       $options
-     * @access public
-     * @return void
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -52,6 +50,11 @@ class VMType extends AbstractType
                         'required' => false,
                         'data' => $vmConfig[$configPart][$configParameter],
                     ));
+                } elseif ('timezone' == $configParameter) {
+                    $builder->add($fieldName, 'timezone', array(
+                        'required' => false,
+                        'data' => $vmConfig[$configPart][$configParameter],
+                    ));
                 } else {
                     $builder->add($fieldName, 'text', array(
                         'required' => false,
@@ -61,12 +64,20 @@ class VMType extends AbstractType
             }
         }
 
+        $builder->add('phpModules', 'choice', array(
+            'choices'  => array_combine($this->vmDefaults['phpModules'], $this->vmDefaults['phpModules']),
+            'data'     => $this->vmDefaults['phpModules'],
+            'multiple' => true,
+            'expanded' => true,
+            'required' => false,
+        ));
+
         $builder
-            ->add('file_systemBashRc', 'file', array('required' => false))
+            ->add('file_systemBashRc',      'file', array('required' => false))
             ->add('file_systemBashAliases', 'file', array('required' => false))
-            ->add('file_vhost', 'file', array('required' => false))
-            ->add('file_phpIni', 'file', array('required' => false))
-            ->add('file_phpCliIni', 'file', array('required' => false))
+            ->add('file_vhost',             'file', array('required' => false))
+            ->add('file_phpIni',            'file', array('required' => false))
+            ->add('file_phpCliIni',         'file', array('required' => false))
         ;
     }
 
@@ -84,10 +95,7 @@ class VMType extends AbstractType
     }
 
     /**
-     * getName
-     *
-     * @access public
-     * @return void
+     * {@inheritdoc}
      */
     public function getName()
     {

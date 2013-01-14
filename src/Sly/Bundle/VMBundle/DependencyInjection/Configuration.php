@@ -2,6 +2,8 @@
 
 namespace Sly\Bundle\VMBundle\DependencyInjection;
 
+use Sly\Bundle\VMBundle\Config\Config;
+
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -18,6 +20,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
+        $vmDefaults  = Config::getVMDefaults();
         
         $treeBuilder
             ->root('sly_vm')
@@ -30,9 +33,10 @@ class Configuration implements ConfigurationInterface
                         ->children()
                             ->arrayNode('configuration')
                                 ->children()
-                                    ->scalarNode('name')->defaultValue('My VM, generated with WebVMGenerator')->end()
-                                    ->scalarNode('hostname')->defaultValue('dev.local')->end()
-                                    ->scalarNode('ip')->defaultValue('11.11.11.11')->end()
+                                    ->scalarNode('name')->defaultValue($vmDefaults['configuration']['name'])->end()
+                                    ->scalarNode('hostname')->defaultValue($vmDefaults['configuration']['hostname'])->end()
+                                    ->scalarNode('ip')->defaultValue($vmDefaults['configuration']['ip'])->end()
+                                    ->scalarNode('timezone')->defaultValue($vmDefaults['configuration']['timezone'])->end()
                                 ->end()
                             ->end()
                             ->arrayNode('web')
@@ -43,16 +47,10 @@ class Configuration implements ConfigurationInterface
                                     ->scalarNode('varnish')->defaultValue(false)->end()
                                 ->end()
                             ->end()
-                            ->arrayNode('phpModules')
-                                ->children()
-                                    ->booleanNode('cli')->defaultValue(true)->end()
-                                    ->booleanNode('posix')->defaultValue(true)->end()
-                                    ->booleanNode('gd')->defaultValue(true)->end()
-                                    ->booleanNode('intl')->defaultValue(true)->end()
-                                ->end()
-                            ->end()
+                            ->arrayNode('phpModules')->end()
                             ->arrayNode('tools')
                                 ->children()
+                                    ->booleanNode('git')->defaultValue(true)->end()
                                     ->booleanNode('vim')->defaultValue(true)->end()
                                     ->booleanNode('vimConfig')->defaultValue(false)->end()
                                     ->booleanNode('composer')->defaultValue(false)->end()
