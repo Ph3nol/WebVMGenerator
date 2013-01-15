@@ -29,35 +29,84 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
-     * @ORM\Column(name="configuration", type="string", length=4000, nullable=false)
+     * @ORM\Column(name="name", type="string", length=255)
      */
-    protected $configuration;
+    protected $name;
 
     /**
      * {@inheritDoc}
      *
-     * @ORM\Column(name="web", type="string", length=4000, nullable=false)
+     * @ORM\Column(name="hostname", type="string", length=150)
      */
-    protected $web;
+    protected $hostname;
 
     /**
      * {@inheritDoc}
      *
-     * @ORM\Column(name="db", type="string", length=4000, nullable=false)
+     * @ORM\Column(name="ip", type="string", length=50)
      */
-    protected $db;
+    protected $ip;
 
     /**
      * {@inheritDoc}
      *
-     * @ORM\Column(name="phpModules", type="string", length=4000, nullable=false)
+     * @ORM\Column(name="timezone", type="string", length=50)
+     */
+    protected $timezone;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @ORM\Column(name="apache", type="boolean")
+     */
+    protected $apache;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @ORM\Column(name="apache_ssl", type="boolean")
+     */
+    protected $apacheSSL;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @ORM\Column(name="php_modules", type="string", length=4000)
      */
     protected $phpModules;
 
     /**
      * {@inheritDoc}
      *
-     * @ORM\Column(name="tools", type="string", length=4000, nullable=false)
+     * @ORM\Column(name="nginx", type="boolean")
      */
-    protected $tools;
+    protected $nginx;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @ORM\Column(name="varnish", type="boolean")
+     */
+    protected $varnish;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @ORM\Column(name="vim", type="boolean")
+     */
+    protected $vim;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @ORM\Column(name="git", type="boolean")
+     */
+    protected $git;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @ORM\Column(name="composer", type="boolean")
+     */
+    protected $composer;
 }

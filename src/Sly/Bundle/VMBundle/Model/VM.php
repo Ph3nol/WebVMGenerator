@@ -15,19 +15,34 @@ class VM
     protected $id;
 
     /**
-     * @var array
-     */    
-    protected $configuration;
+     * @var string
+     */
+    protected $name;
 
     /**
-     * @var array
+     * @var string
      */
-    protected $web;
+    protected $hostname;
 
     /**
-     * @var array
+     * @var string
      */
-    protected $db;
+    protected $ip;
+
+    /**
+     * @var string
+     */
+    protected $timezone;
+
+    /**
+     * @var boolean
+     */
+    protected $apache;
+
+    /**
+     * @var boolean
+     */
+    protected $apacheSSL;
 
     /**
      * @var array
@@ -35,107 +50,254 @@ class VM
     protected $phpModules;
 
     /**
-     * @var array
+     * @var boolean
      */
-    protected $tools;
+    protected $nginx;
 
     /**
-     * Get Configuration.
-     *
-     * @return array Configuration value
+     * @var boolean
      */
-    public function getConfiguration()
-    {
-        return $this->configuration;
-    }
-    
-    /**
-     * Set Configuration.
-     *
-     * @param array $configuration Configuration value
-     */
-    public function setConfiguration($configuration)
-    {
-        $this->configuration = $configuration;
-    }
+    protected $varnish;
 
     /**
-     * Get Web.
-     *
-     * @return array Web value
+     * @var boolean
      */
-    public function getWeb()
-    {
-        return $this->web;
-    }
-    
+    protected $vim;
+
     /**
-     * Set Web.
-     *
-     * @param array $web Web value
+     * @var boolean
      */
-    public function setWeb($web)
+    protected $git;
+
+    /**
+     * @var boolean
+     */
+    protected $composer;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
     {
-        $this->web = $web;
     }
 
     /**
-     * Get Db.
+     * Get Name value.
      *
-     * @return array Db value
+     * @return string Name value to get
      */
-    public function getDb()
+    public function getName()
     {
-        return $this->db;
+        return $this->name;
     }
     
     /**
-     * Set Db.
+     * Set Name value.
      *
-     * @param array $db Db value
+     * @param string $name Name value to set
      */
-    public function setDb($db)
+    public function setName($name)
     {
-        $this->db = $db;
+        $this->name = $name;
     }
 
     /**
-     * Get PhpModules.
+     * Get Hostname value.
      *
-     * @return array PhpModules value
+     * @return string Hostname value to get
      */
-    public function getPhpModules()
+    public function getHostname()
     {
-        return $this->phpModules;
+        return $this->hostname;
     }
     
     /**
-     * Set PhpModules.
+     * Set Hostname value.
      *
-     * @param array $phpModules PhpModules value
+     * @param string $hostname Hostname value to set
      */
-    public function setPhpModules($phpModules)
+    public function setHostname($hostname)
     {
-        $this->phpModules = $phpModules;
+        $this->hostname = $hostname;
     }
 
     /**
-     * Get Tools.
+     * Get Ip value.
      *
-     * @return array Tools value
+     * @return string Ip value to get
      */
-    public function getTools()
+    public function getIp()
     {
-        return $this->tools;
+        return $this->ip;
     }
     
     /**
-     * Set Tools.
+     * Set Ip value.
      *
-     * @param array $tools Tools value
+     * @param string $ip Ip value to set
      */
-    public function setTools($tools)
+    public function setIp($ip)
     {
-        $this->tools = $tools;
+        $this->ip = $ip;
+    }
+
+    /**
+     * Get Timezone value.
+     *
+     * @return string Timezone value to get
+     */
+    public function getTimezone()
+    {
+        return $this->timezone;
+    }
+    
+    /**
+     * Set Timezone value.
+     *
+     * @param string $timezone Timezone value to set
+     */
+    public function setTimezone($timezone)
+    {
+        $this->timezone = $timezone;
+    }
+
+    /**
+     * Get Apache value.
+     *
+     * @return boolean Apache value to get
+     */
+    public function getApache()
+    {
+        return $this->apache;
+    }
+    
+    /**
+     * Set Apache value.
+     *
+     * @param boolean $apache Apache value to set
+     */
+    public function setApache($apache)
+    {
+        $this->apache = $apache;
+    }
+
+    /**
+     * Get ApacheSSL value.
+     *
+     * @return boolean ApacheSSL value to get
+     */
+    public function getApacheSSL()
+    {
+        return $this->apacheSSL;
+    }
+    
+    /**
+     * Set ApacheSSL value.
+     *
+     * @param boolean $apacheSSL ApacheSSL value to set
+     */
+    public function setApacheSSL($apacheSSL)
+    {
+        $this->apacheSSL = $apacheSSL;
+    }
+
+    /**
+     * Get Nginx value.
+     *
+     * @return boolean Nginx value to get
+     */
+    public function getNginx()
+    {
+        return $this->nginx;
+    }
+    
+    /**
+     * Set Nginx value.
+     *
+     * @param boolean $nginx Nginx value to set
+     */
+    public function setNginx($nginx)
+    {
+        $this->nginx = $nginx;
+    }
+
+    /**
+     * Get Varnish value.
+     *
+     * @return boolean Varnish value to get
+     */
+    public function getVarnish()
+    {
+        return $this->varnish;
+    }
+    
+    /**
+     * Set Varnish value.
+     *
+     * @param boolean $varnish Varnish value to set
+     */
+    public function setVarnish($varnish)
+    {
+        $this->varnish = $varnish;
+    }
+
+    /**
+     * Get Vim value.
+     *
+     * @return boolean Vim value to get
+     */
+    public function getVim()
+    {
+        return $this->vim;
+    }
+    
+    /**
+     * Set Vim value.
+     *
+     * @param boolean $vim Vim value to set
+     */
+    public function setVim($vim)
+    {
+        $this->vim = $vim;
+    }
+
+    /**
+     * Get Git value.
+     *
+     * @return boolean Git value to get
+     */
+    public function getGit()
+    {
+        return $this->git;
+    }
+    
+    /**
+     * Set Git value.
+     *
+     * @param boolean $git Git value to set
+     */
+    public function setGit($git)
+    {
+        $this->git = $git;
+    }
+
+    /**
+     * Get Composer value.
+     *
+     * @return boolean Composer value to get
+     */
+    public function getComposer()
+    {
+        return $this->composer;
+    }
+    
+    /**
+     * Set Composer value.
+     *
+     * @param boolean $composer Composer value to set
+     */
+    public function setComposer($composer)
+    {
+        $this->composer = $composer;
     }
 }
