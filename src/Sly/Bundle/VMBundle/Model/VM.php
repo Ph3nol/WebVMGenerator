@@ -10,29 +10,34 @@ namespace Sly\Bundle\VMBundle\Model;
 class VM
 {
     /**
+     * @var integer
+     */
+    protected $id;
+
+    /**
      * @var array
      */    
-    private $configuration;
+    protected $configuration;
 
     /**
      * @var array
      */
-    private $web;
+    protected $web;
 
     /**
      * @var array
      */
-    private $db;
+    protected $db;
 
     /**
      * @var array
      */
-    private $phpModules;
+    protected $phpModules;
 
     /**
      * @var array
      */
-    private $tools;
+    protected $tools;
 
     /**
      * Constructor.
