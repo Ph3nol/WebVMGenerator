@@ -26,35 +26,35 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
-     * @ORM\Column(name="roles", type="string", length=4000, nullable=false)
+     * @ORM\Column(name="configuration", type="string", length=4000, nullable=false)
      */
     protected $configuration;
 
     /**
      * {@inheritDoc}
      *
-     * @ORM\Column(name="roles", type="string", length=4000, nullable=false)
+     * @ORM\Column(name="web", type="string", length=4000, nullable=false)
      */
     protected $web;
 
     /**
      * {@inheritDoc}
      *
-     * @ORM\Column(name="roles", type="string", length=4000, nullable=false)
+     * @ORM\Column(name="db", type="string", length=4000, nullable=false)
      */
     protected $db;
 
     /**
      * {@inheritDoc}
      *
-     * @ORM\Column(name="roles", type="string", length=4000, nullable=false)
+     * @ORM\Column(name="phpModules", type="string", length=4000, nullable=false)
      */
     protected $phpModules;
 
     /**
      * {@inheritDoc}
      *
-     * @ORM\Column(name="roles", type="string", length=4000, nullable=false)
+     * @ORM\Column(name="tools", type="string", length=4000, nullable=false)
      */
     protected $tools;
 }
