@@ -25,6 +25,7 @@ class SlyVMExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('config.xml');
         $loader->load('model.xml');
+        $loader->load('orm.xml');
         $loader->load('form.xml');
         $loader->load('generator.xml');
 
