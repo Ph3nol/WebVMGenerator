@@ -5,6 +5,7 @@ namespace Sly\Bundle\VMBundle\Generator;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Knp\Bundle\GaufretteBundle\FilesystemMap;
 use Lootils\Archiver\TarArchive;
+use Doctrine\Common\Util\Inflector;
 
 use Sly\Bundle\VMBundle\Config\Config,
     Sly\Bundle\VMBundle\Config\VMCollection
@@ -79,9 +80,39 @@ class Generator
      */
     public function getCachePath($complete = true)
     {
-        return sprintf('%s/cache/vm%s',
+        return sprintf(
+            '%s/cache/vm%s',
             $this->kernelRootDir,
             $complete ? '/'.$this->session->get('generatorSessionID') : null
+        );
+    }
+
+    /**
+     * Get archive path.
+     *
+     * @param string $sessionID Specific session ID
+     * 
+     * @return string
+     */
+    public function getArchivePath($sessionID = null)
+    {
+        return sprintf(
+            '%s/%s.tar',
+            $this->getCachePath(false),
+            $sessionID ? $sessionID : $this->session->get('generatorSessionID')
+        );
+    }
+
+    /**
+     * Get archive filename.
+     *
+     * @return string
+     */
+    public function getArchiveFilename()
+    {
+        return sprintf(
+            '%s-VagrantConfig.tar',
+            Inflector::classify($this->vmConfig['configuration']['name'])
         );
     }
 

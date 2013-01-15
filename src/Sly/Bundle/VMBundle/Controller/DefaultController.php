@@ -5,12 +5,13 @@ namespace Sly\Bundle\VMBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
     /**
      * @Route("/", name="homepage")
-     * @Route("/download/{key}/vagrant.tar", name="download")
      * @Template()
      */
     public function indexAction()
@@ -24,7 +25,33 @@ class DefaultController extends Controller
 
         return array(
             'form' => $form->createView(),
-            'key'  => uniqid(),
         );
+    }
+
+    /**
+     * @Route("/download/my-vagrant-vm.tar")
+     * @Route("/download/{key}-vm.tar", name="download", requirements={ "key" = "\w+" })
+     */
+    public function downloadAction()
+    {
+        $request       = $this->get('request');
+        $session       = $this->get('session');
+        $vm            = $this->get('sly_vm.generator');
+        $vmArchivePath = $vm->getArchivePath($request->attributes->get('key'));
+
+        if (file_exists($vmArchivePath)) {
+            $response = new Response();
+            $response
+                ->setContent(file_get_contents($vmArchivePath))
+                ->setStatusCode(200)
+            ;
+
+            $response->headers->set('Content-Type', 'application/force-download');
+            $response->headers->set('Content-Disposition', 'attachment; filename="'.$vm->getArchiveFilename().'"');
+            
+            $response->send();
+        } else {
+            throw new NotFoundHttpException('No VM found for this key or user');
+        }
     }
 }
