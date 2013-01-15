@@ -36,25 +36,38 @@
                     <div class="span3">
                         <h3>Web Server</h3>
 
-                        ...
+                        <ul class="unstyled">
+                            <li>{{ form_row(form.apache, { label: 'Apache' }) }}</li>
+                            <li>{{ form_row(form.apacheSSL, { label: 'Apache SSL support' }) }}</li>
+                            <li>{{ form_row(form.nginx, { label: 'Nginx' }) }}</li>
+                            <li>{{ form_row(form.varnish, { label: 'Varnish' }) }}</li>
+                        </ul>
                     </div>
 
                     <div class="span3">
                         <h3>Database(s)</h3>
                         
-                        ...
+                        <ul class="unstyled">
+                            <li>{{ form_row(form.mysql, { label: 'MySQL' }) }}</li>
+                            <li>{{ form_row(form.mysqlRootPassword, { label: 'MySQL root password' }) }}</li>
+                        </ul>
                     </div>
 
                     <div class="span3">
                         <h3>PHP Modules</h3>
                         
-                        ...
+                        {{ form_widget(form.phpModules) }}
                     </div>
 
                     <div class="span3">
                         <h3>Tools</h3>
 
-                        ...
+                        <ul class="unstyled">
+                            <li>{{ form_row(form.git, { label: 'Git' }) }}</li>
+                            <li>{{ form_row(form.vim, { label: 'Vim' }) }}</li>
+                            <li>{{ form_row(form.vimConfig, { label: 'Vim config' }) }}</li>
+                            <li>{{ form_row(form.composer, { label: 'Composer' }) }}</li>
+                        </ul>
                     </div>
                 </div>
             </div>

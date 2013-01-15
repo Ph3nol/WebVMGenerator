@@ -62,7 +62,22 @@ class VM
     /**
      * @var boolean
      */
+    protected $mysql;
+
+    /**
+     * @var string
+     */
+    protected $mysqlRootPassword;
+
+    /**
+     * @var boolean
+     */
     protected $vim;
+
+    /**
+     * @var boolean
+     */
+    protected $vimConfig;
 
     /**
      * @var boolean
@@ -222,6 +237,46 @@ class VM
     }
 
     /**
+     * Get Mysql value.
+     *
+     * @return boolean Mysql value to get
+     */
+    public function getMysql()
+    {
+        return $this->mysql;
+    }
+    
+    /**
+     * Set Mysql value.
+     *
+     * @param boolean $mysql Mysql value to set
+     */
+    public function setMysql($mysql)
+    {
+        $this->mysql = $mysql;
+    }
+
+    /**
+     * Get MysqlRootPassword value.
+     *
+     * @return string MysqlRootPassword value to get
+     */
+    public function getMysqlRootPassword()
+    {
+        return $this->mysqlRootPassword;
+    }
+    
+    /**
+     * Set MysqlRootPassword value.
+     *
+     * @param string $mysqlRootPassword MysqlRootPassword value to set
+     */
+    public function setMysqlRootPassword($mysqlRootPassword)
+    {
+        $this->mysqlRootPassword = $mysqlRootPassword;
+    }
+
+    /**
      * Get Varnish value.
      *
      * @return boolean Varnish value to get
@@ -259,6 +314,26 @@ class VM
     public function setVim($vim)
     {
         $this->vim = $vim;
+    }
+
+    /**
+     * Get VimConfig value.
+     *
+     * @return boolean VimConfig value to get
+     */
+    public function getVimConfig()
+    {
+        return $this->vimConfig;
+    }
+    
+    /**
+     * Set VimConfig value.
+     *
+     * @param boolean $vimConfig VimConfig value to set
+     */
+    public function setVimConfig($vimConfig)
+    {
+        $this->vimConfig = $vimConfig;
     }
 
     /**

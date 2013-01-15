@@ -92,9 +92,30 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
+     * @ORM\Column(name="mysql", type="boolean")
+     */
+    protected $mysql;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @ORM\Column(name="mysql_root_password", type="string", length=50)
+     */
+    protected $mysqlRootPassword;
+
+    /**
+     * {@inheritDoc}
+     *
      * @ORM\Column(name="vim", type="boolean")
      */
     protected $vim;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @ORM\Column(name="vim_config", type="boolean")
+     */
+    protected $vimConfig;
 
     /**
      * {@inheritDoc}

@@ -41,51 +41,31 @@ class VMType extends AbstractType
     {
         $vmConfig = $this->vmCollection->get('default');
 
+        $phpModules = array('cli', 'gd', 'posix', 'intl');
+
         $builder
             ->add('name', 'text')
             ->add('ip', 'text')
             ->add('hostname', 'text')
             ->add('timezone', 'timezone')
+            ->add('apache', 'checkbox')
+            ->add('apacheSSL', 'checkbox')
+            ->add('nginx', 'checkbox')
+            ->add('varnish', 'checkbox')
+            ->add('mysql', 'checkbox')
+            ->add('mysqlRootPassword', 'text')
+            ->add('phpModules', 'choice', array(
+                'choices'  => array_combine($phpModules, $phpModules),
+                'data'     => $phpModules,
+                'multiple' => true,
+                'expanded' => true,
+                'required' => false,
+            ))
+            ->add('vim', 'checkbox')
+            ->add('vimConfig', 'checkbox')
+            ->add('git', 'checkbox')
+            ->add('composer', 'checkbox')
         ;
-
-        // foreach (array_keys($vmConfig) as $configPart) {
-        //     foreach (array_keys($vmConfig[$configPart]) as $configParameter) {
-        //         $fieldName = sprintf('%s_%s', $configPart, $configParameter);
-
-        //         if (is_bool($vmConfig[$configPart][$configParameter])) {
-        //             $builder->add($fieldName, 'checkbox', array(
-        //                 'required' => false,
-        //                 'data' => $vmConfig[$configPart][$configParameter],
-        //             ));
-        //         } elseif ('timezone' == $configParameter) {
-        //             $builder->add($fieldName, 'timezone', array(
-        //                 'required' => false,
-        //                 'data' => $vmConfig[$configPart][$configParameter],
-        //             ));
-        //         } else {
-        //             $builder->add($fieldName, 'text', array(
-        //                 'required' => false,
-        //                 'data' => $vmConfig[$configPart][$configParameter],
-        //             ));
-        //         }
-        //     }
-        // }
-
-        // $builder->add('phpModules', 'choice', array(
-        //     'choices'  => array_combine($this->vmDefaults['phpModules'], $this->vmDefaults['phpModules']),
-        //     'data'     => $this->vmDefaults['phpModules'],
-        //     'multiple' => true,
-        //     'expanded' => true,
-        //     'required' => false,
-        // ));
-
-        // $builder
-        //     ->add('file_systemBashRc',      'file', array('required' => false))
-        //     ->add('file_systemBashAliases', 'file', array('required' => false))
-        //     ->add('file_vhost',             'file', array('required' => false))
-        //     ->add('file_phpIni',            'file', array('required' => false))
-        //     ->add('file_phpCliIni',         'file', array('required' => false))
-        // ;
     }
 
     /**
