@@ -1,0 +1,22 @@
+{% extends 'SlyMainBundle:Layout:base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <h2>Your VM has been generated</h2>
+
+        <hr />
+
+        <p class="pagination-centered">
+            <a href="{{ path('vm_download', { key: app.session.get('generatorSessionID') })}}" class="btn btn-primary">
+                Download your generated Web Virtual Machine
+            </a>
+        </p>
+
+        <p class="pagination-centered">
+            <small>
+                Or run <code>wget {{ url('vm_download', { key: app.session.get('generatorSessionID') })}} && tar zxvf vagrant.tar</code>
+                into your project directory.
+            </small>
+        </p>
+    </div>
+{% endblock %}

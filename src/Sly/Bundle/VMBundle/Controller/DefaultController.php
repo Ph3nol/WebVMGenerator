@@ -21,6 +21,7 @@ class DefaultController extends Controller
         $formHandler = $this->get('sly_vm.form_handler_vm');
  
         if ($formHandler->process()) {
+            return $this->redirect($this->generateUrl('vm_informations'));
         }
 
         return array(
@@ -29,8 +30,23 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/vm-created.html", name="vm_informations")
+     * @Template()
+     */
+    public function vmInformationsAction()
+    {
+        $session = $this->get('session');
+
+        if ($session->has('generatorSessionID')) {
+            return array();
+        } else {
+            throw new NotFoundHttpException('There is no VM recently created');
+        }
+    }
+
+    /**
      * @Route("/download/my-vagrant-vm.tar")
-     * @Route("/download/{key}-vm.tar", name="download", requirements={ "key" = "\w+" })
+     * @Route("/download/{key}-vm.tar", name="vm_download", requirements={ "key" = "\w+" })
      */
     public function downloadAction()
     {
