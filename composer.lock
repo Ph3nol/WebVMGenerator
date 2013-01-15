@@ -1,5 +1,5 @@
 {
-    "hash": "f272b9e31b5145ba345437b5a2cee76d",
+    "hash": "fbec8cae6097df87b07cb73edb23d01c",
     "packages": [
         {
             "name": "doctrine/common",
@@ -842,6 +842,52 @@
                 "compression",
                 "minification"
             ]
+        },
+        {
+            "name": "lootils/archiver",
+            "version": "0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lootils/archiver",
+                "reference": "0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/lootils/archiver/zipball/0.2",
+                "reference": "0.2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "eher/phpunit": "*",
+                "fabpot/php-cs-fixer": "*",
+                "pear/archive_tar": "1.3.*"
+            },
+            "suggest": {
+                "zip": "Allows interfacing with zip archives."
+            },
+            "time": "2012-07-04 09:45:13",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Lootils\\Archiver": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Loach",
+                    "email": "robloach@gmail.com",
+                    "homepage": "http://robloach.net"
+                }
+            ],
+            "description": "An abstraction library to interface with file archives.",
+            "homepage": "https://github.com/lootils/archiver"
         },
         {
             "name": "monolog/monolog",

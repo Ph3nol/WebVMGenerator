@@ -113,6 +113,17 @@ class Generator
      */
     public function generate()
     {
+        $this->vmFileSystem->write(
+            $this->session->get('generatorSessionID').'/README',
+            'README',
+            true
+        );
+
+        /**
+         * @todo Fix it.
+         */
+        // chmod($this->getCachePath(), 0777);
+
         /**
          * Generate .gitmodules file.
          */

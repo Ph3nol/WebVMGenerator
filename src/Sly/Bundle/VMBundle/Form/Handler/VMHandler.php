@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request,
 ;
 
 use Doctrine\Common\Util\Inflector;
+use Lootils\Archiver\TarArchive;
 
 /**
  * VM form handler.
@@ -63,22 +64,17 @@ class VMHandler
                 $vm = $this->generator->generate();
 
                 /**
-                 * Test with Archive_Tar PEAR package.
-                 *
-                 * @todo Fix it.
+                 * @todo Finalize TAR archive generation.
                  */
-                $vmArchive = new \Archive_Tar(
+                $vmArchive = new TarArchive(
                     sprintf(
                         '%s/%s.tar',
                         $this->generator->getCachePath(),
-                        Inflector::tableize($vm['configuration']['name'])
+                        Inflector::camelize($vm['configuration']['name'])
                     )
                 );
 
-
-                $vmArchive->setErrorHandling(PEAR_ERROR_PRINT);  
-                $vmArchiveContent = array($this->generator->getCachePath());
-                $vmArchive->create($vmArchiveContent);
+                $vmArchive->add($this->generator->getCachePath());
             }
 
             return true;

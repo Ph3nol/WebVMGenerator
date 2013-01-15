@@ -1,5 +1,5 @@
 configuration:
-    name:       'My VM, generated with WebVMGenerator'
+    name:       'My pretty VM'
     timezone:   'Europe/Paris'
     ip:         '11.11.11.11'
     hostname:   'dev.local'
