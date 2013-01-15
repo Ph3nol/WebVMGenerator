@@ -9,9 +9,6 @@ use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Session\Session
 ;
 
-use Doctrine\Common\Util\Inflector;
-use Lootils\Archiver\TarArchive;
-
 /**
  * VM form handler.
  * 
@@ -62,19 +59,6 @@ class VMHandler
                 $this->generator->updateVMConfig($dataBag);
 
                 $vm = $this->generator->generate();
-
-                /**
-                 * @todo Finalize TAR archive generation.
-                 */
-                $vmArchive = new TarArchive(
-                    sprintf(
-                        '%s/%s.tar',
-                        $this->generator->getCachePath(),
-                        Inflector::camelize($vm['configuration']['name'])
-                    )
-                );
-
-                $vmArchive->add($this->generator->getCachePath());
             }
 
             return true;

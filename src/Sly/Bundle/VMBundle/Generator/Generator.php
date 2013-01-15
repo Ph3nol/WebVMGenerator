@@ -4,6 +4,7 @@ namespace Sly\Bundle\VMBundle\Generator;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Knp\Bundle\GaufretteBundle\FilesystemMap;
+use Lootils\Archiver\TarArchive;
 
 use Sly\Bundle\VMBundle\Config\Config,
     Sly\Bundle\VMBundle\Config\VMCollection
@@ -71,14 +72,16 @@ class Generator
 
     /**
      * Get cache path from filesystem and session.
+     *
+     * @param boolean $complete Complete path (with session id last directory)
      * 
      * @return string
      */
-    public function getCachePath()
+    public function getCachePath($complete = true)
     {
-        return sprintf('%s/cache/%s',
+        return sprintf('%s/cache/vm%s',
             $this->kernelRootDir,
-            $this->session->get('generatorSessionID')
+            $complete ? '/'.$this->session->get('generatorSessionID') : null
         );
     }
 
@@ -120,11 +123,6 @@ class Generator
         );
 
         /**
-         * @todo Fix it.
-         */
-        // chmod($this->getCachePath(), 0777);
-
-        /**
          * Generate .gitmodules file.
          */
         $this->vmFileSystem->write(
@@ -132,6 +130,16 @@ class Generator
             $this->getGitSubmodulesFileContent(),
             true
         );
+
+        /**
+         * Generate TAR archive.
+         */
+        $vmArchive = new TarArchive(
+            sprintf('%s/%s.tar', $this->getCachePath(false), $this->session->get('generatorSessionID'))
+        );
+
+        $vmArchive->add($this->getCachePath());
+        
 
         return $this->vmConfig;
     }
