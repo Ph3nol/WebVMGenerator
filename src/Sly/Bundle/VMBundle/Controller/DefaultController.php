@@ -16,8 +16,8 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $form        = $this->get('sly_vm.form_vm');
         $request     = $this->get('request');
+        $form        = $this->get('sly_vm.form_vm');
         $formHandler = $this->get('sly_vm.form_handler_vm');
  
         if ($formHandler->process()) {

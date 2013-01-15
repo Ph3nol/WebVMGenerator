@@ -65,6 +65,9 @@ class VMHandler
             if ($this->form->isValid()) {
                 $dataBag = $this->getDataBag($this->form->getData());
 
+                var_dump($this->em);
+                exit();
+
                 /**
                  * @todo To be continued.
                  */

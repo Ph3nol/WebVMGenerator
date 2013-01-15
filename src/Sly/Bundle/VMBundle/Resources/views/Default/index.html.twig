@@ -25,10 +25,7 @@
                 <h3>Main configuration</h3>
 
                 <div class="row">
-                    <div class="span3">{{ form_row(form.configuration_name, { label: 'Name' }) }}</div>
-                    <div class="span3">{{ form_row(form.configuration_hostname, { label: 'Hostname' }) }}</div>
-                    <div class="span3">{{ form_row(form.configuration_ip, { label: 'IP address' }) }}</div>
-                    <div class="span3">{{ form_row(form.configuration_timezone, { label: 'Timezone' }) }}</div>
+                    ...
                 </div>
             </div>
             <div class="tab-pane" id="components-and-modules">
@@ -36,41 +33,25 @@
                     <div class="span3">
                         <h3>Web Server</h3>
 
-                        <ul class="unstyled">
-                            <li>{{ form_row(form.web_apache, { label: 'Apache' }) }}</li>
-                            <li>{{ form_row(form.web_apacheSSL, { label: 'Apache SSL Support' }) }}</li>
-                            <li>{{ form_row(form.web_nginx, { label: 'Nginx', disabled: 'disaled' }) }}</li>
-                            <li>{{ form_row(form.web_varnish, { label: 'Varnish', disabled: 'disaled' }) }}</li>
-                        </ul>
+                        ...
                     </div>
 
                     <div class="span3">
                         <h3>Database(s)</h3>
                         
-                        <ul class="unstyled">
-                            <li>{{ form_row(form.db_mysql, { label: 'MySQL' }) }}</li>
-                            <li>{{ form_row(form.db_mysqlRootPassword, { label: 'MySQL Root Password' }) }}</li>
-                        </ul>
+                        ...
                     </div>
 
                     <div class="span3">
                         <h3>PHP Modules</h3>
                         
-                        {{ form_widget(form.phpModules) }}
+                        ...
                     </div>
 
                     <div class="span3">
                         <h3>Tools</h3>
 
-                        <ul class="unstyled">
-                            <li>{{ form_row(form.tools_git, { label: 'Git' }) }}</li>
-                            <li>{{ form_row(form.tools_vim, { label: 'Vim' }) }}</li>
-                            <li>
-                                {{ form_row(form.tools_vimConfig, { label: 'Vim Configuration' }) }}
-                                <p><small><a href="https://github.com/stephpy/vim-config">Stéphane Py's</a> one</small></p>
-                            </li>
-                            <li>{{ form_row(form.tools_composer, { label: 'Composer' }) }}</li>
-                        </ul>
+                        ...
                     </div>
                 </div>
             </div>
@@ -79,27 +60,19 @@
                     <div class="span3">
                         <h3>System files</h3>
 
-                        <ul class="unstyled">
-                            {{ form_row(form.file_systemBashRc, { label: '~/.bashrc' }) }}
-                            {{ form_row(form.file_systemBashAliases, { label: '~/.bash_aliases' }) }}
-                        </ul>
+                        ...
                     </div>
 
                     <div class="span3">
                         <h3>Apache files</h3>
 
-                        <ul class="unstyled">
-                            {{ form_row(form.file_vhost, { label: 'Base vHost file' }) }}
-                        </ul>
+                        ...
                     </div>
 
                     <div class="span3">
                         <h3>PHP files</h3>
 
-                        <ul class="unstyled">
-                            {{ form_row(form.file_phpIni, { label: 'php.ini file' }) }}
-                            {{ form_row(form.file_phpCliIni, { label: 'php-cli.ini file' }) }}
-                        </ul>
+                        ...
                     </div>
                 </div>
             </div>

@@ -41,44 +41,44 @@ class VMType extends AbstractType
     {
         $vmConfig = $this->vmCollection->get('default');
 
-        foreach (array_keys($vmConfig) as $configPart) {
-            foreach (array_keys($vmConfig[$configPart]) as $configParameter) {
-                $fieldName = sprintf('%s_%s', $configPart, $configParameter);
+        // foreach (array_keys($vmConfig) as $configPart) {
+        //     foreach (array_keys($vmConfig[$configPart]) as $configParameter) {
+        //         $fieldName = sprintf('%s_%s', $configPart, $configParameter);
 
-                if (is_bool($vmConfig[$configPart][$configParameter])) {
-                    $builder->add($fieldName, 'checkbox', array(
-                        'required' => false,
-                        'data' => $vmConfig[$configPart][$configParameter],
-                    ));
-                } elseif ('timezone' == $configParameter) {
-                    $builder->add($fieldName, 'timezone', array(
-                        'required' => false,
-                        'data' => $vmConfig[$configPart][$configParameter],
-                    ));
-                } else {
-                    $builder->add($fieldName, 'text', array(
-                        'required' => false,
-                        'data' => $vmConfig[$configPart][$configParameter],
-                    ));
-                }
-            }
-        }
+        //         if (is_bool($vmConfig[$configPart][$configParameter])) {
+        //             $builder->add($fieldName, 'checkbox', array(
+        //                 'required' => false,
+        //                 'data' => $vmConfig[$configPart][$configParameter],
+        //             ));
+        //         } elseif ('timezone' == $configParameter) {
+        //             $builder->add($fieldName, 'timezone', array(
+        //                 'required' => false,
+        //                 'data' => $vmConfig[$configPart][$configParameter],
+        //             ));
+        //         } else {
+        //             $builder->add($fieldName, 'text', array(
+        //                 'required' => false,
+        //                 'data' => $vmConfig[$configPart][$configParameter],
+        //             ));
+        //         }
+        //     }
+        // }
 
-        $builder->add('phpModules', 'choice', array(
-            'choices'  => array_combine($this->vmDefaults['phpModules'], $this->vmDefaults['phpModules']),
-            'data'     => $this->vmDefaults['phpModules'],
-            'multiple' => true,
-            'expanded' => true,
-            'required' => false,
-        ));
+        // $builder->add('phpModules', 'choice', array(
+        //     'choices'  => array_combine($this->vmDefaults['phpModules'], $this->vmDefaults['phpModules']),
+        //     'data'     => $this->vmDefaults['phpModules'],
+        //     'multiple' => true,
+        //     'expanded' => true,
+        //     'required' => false,
+        // ));
 
-        $builder
-            ->add('file_systemBashRc',      'file', array('required' => false))
-            ->add('file_systemBashAliases', 'file', array('required' => false))
-            ->add('file_vhost',             'file', array('required' => false))
-            ->add('file_phpIni',            'file', array('required' => false))
-            ->add('file_phpCliIni',         'file', array('required' => false))
-        ;
+        // $builder
+        //     ->add('file_systemBashRc',      'file', array('required' => false))
+        //     ->add('file_systemBashAliases', 'file', array('required' => false))
+        //     ->add('file_vhost',             'file', array('required' => false))
+        //     ->add('file_phpIni',            'file', array('required' => false))
+        //     ->add('file_phpCliIni',         'file', array('required' => false))
+        // ;
     }
 
     /**

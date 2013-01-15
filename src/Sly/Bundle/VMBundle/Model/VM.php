@@ -40,26 +40,6 @@ class VM
     protected $tools;
 
     /**
-     * Constructor.
-     *
-     * @param array  $configuration Configuration
-     * @param string $configName    Configuration name
-     */
-    public function __construct($configuration, $configName = null)
-    {
-        if ($configName && isset($configuration['configurations'][$configName])) {
-            $vmConfiguration = $configuration['configurations'][$configName];
-        } elseif ((bool) count($configuration)) {
-            $confNames       = array_keys($configuration);
-            $vmConfiguration = $configuration[$confNames[0]];
-        }
-
-        $this->configuration = $vmConfiguration['configuration'];
-        $this->phpModules    = $vmConfiguration['phpModules'];
-        $this->tools         = $vmConfiguration['tools'];
-    }
-
-    /**
      * Get Configuration.
      *
      * @return array Configuration value

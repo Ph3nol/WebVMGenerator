@@ -9,8 +9,6 @@
     </parameters>
 
     <services>
-        <service id="sly_vm.model_vm" class="%sly_vm.model_vm.class%">
-            <argument>%sly_vm.configuration%</argument>
-        </service>
+        <service id="sly_vm.model_vm" class="%sly_vm.model_vm.class%" />
     </services>
 </container>

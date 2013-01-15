@@ -22,7 +22,7 @@
         <service id="sly_vm.form_handler_vm" class="%sly_vm.form_handler_vm.class%" scope="request">
             <argument type="service" id="request" />
             <argument type="service" id="sly_vm.form_vm" />
-            <argument type="service" id="sly_vm.entity_vm" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="sly_vm.generator" />
         </service>
     </services>
