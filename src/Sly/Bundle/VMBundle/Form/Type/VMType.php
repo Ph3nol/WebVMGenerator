@@ -87,7 +87,7 @@ class VMType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $defaultOptions = array(
-            // 'data_class' => 'Sly\Bundle\VMBundle\Model\VM',
+            'data_class' => 'Sly\Bundle\VMBundle\Entity\VM',
         );
 
         $resolver->setDefaults($defaultOptions);

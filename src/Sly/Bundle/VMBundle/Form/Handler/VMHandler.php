@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Session\Session
 ;
 
+use Doctrine\ORM\EntityManager;
+
 /**
  * VM form handler.
  * 
@@ -27,6 +29,11 @@ class VMHandler
     private $form;
 
     /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $em;
+
+    /**
      * @var \Sly\Bundle\VMBundle\Generator\Generator
      */
     private $generator;
@@ -36,12 +43,14 @@ class VMHandler
      *
      * @param \Symfony\Component\HttpFoundation\Request $request   Request
      * @param \Symfony\Component\Form\Form              $form      Form
+     * @param \Doctrine\ORM\EntityManager               $em        Entity manager
      * @param \Sly\Bundle\VMBundle\Generator\Generator  $generator Generator
      */
-    public function __construct(Request $request, Form $form, Generator $generator)
+    public function __construct(Request $request, Form $form, EntityManager $em, Generator $generator)
     {
         $this->request   = $request;
         $this->form      = $form;
+        $this->em        = $em;
         $this->generator = $generator;
     }
 
@@ -55,6 +64,12 @@ class VMHandler
 
             if ($this->form->isValid()) {
                 $dataBag = $this->getDataBag($this->form->getData());
+
+                /**
+                 * @todo To be continued.
+                 */
+                $this->em->persist($model);
+                $this->em->flush();
 
                 $this->generator->updateVMConfig($dataBag);
 
