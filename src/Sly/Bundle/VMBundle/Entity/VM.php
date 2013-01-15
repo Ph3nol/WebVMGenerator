@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @uses \Sly\Bundle\VMBundle\Model\VM
  * @author Cédric Dugat <cedric@dugat.me>
+ *
+ * @ORM\Table(name="vm")
+ * @ORM\Entity(repositoryClass="Sly\Bundle\VMBundle\Entity\VMRepository")
  */
 class VM extends BaseVM
 {
