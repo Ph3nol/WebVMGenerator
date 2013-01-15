@@ -1,4 +1,3 @@
-app/config/config.yml
 app/config/parameters.yml
 web/bundles/
 app/bootstrap.php.cache
