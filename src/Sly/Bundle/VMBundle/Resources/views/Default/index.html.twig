@@ -25,7 +25,10 @@
                 <h3>Main configuration</h3>
 
                 <div class="row">
-                    ...
+                    <div class="span3">{{ form_row(form.name, { label: 'VM name' }) }}</div>
+                    <div class="span3">{{ form_row(form.hostname, { label: 'Hostname' }) }}</div>
+                    <div class="span3">{{ form_row(form.ip, { label: 'IP address' }) }}</div>
+                    <div class="span3">{{ form_row(form.timezone, { label: 'Timezone' }) }}</div>
                 </div>
             </div>
             <div class="tab-pane" id="components-and-modules">

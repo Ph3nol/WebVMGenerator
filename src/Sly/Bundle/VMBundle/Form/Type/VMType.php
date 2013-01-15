@@ -41,6 +41,13 @@ class VMType extends AbstractType
     {
         $vmConfig = $this->vmCollection->get('default');
 
+        $builder
+            ->add('name', 'text')
+            ->add('ip', 'text')
+            ->add('hostname', 'text')
+            ->add('timezone', 'timezone')
+        ;
+
         // foreach (array_keys($vmConfig) as $configPart) {
         //     foreach (array_keys($vmConfig[$configPart]) as $configParameter) {
         //         $fieldName = sprintf('%s_%s', $configPart, $configParameter);
