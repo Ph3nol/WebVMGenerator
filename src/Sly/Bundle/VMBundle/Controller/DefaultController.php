@@ -18,14 +18,20 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $request            = $this->get('request');
-        $form               = $this->get('sly_vm.form_vm');
-        $formHandler        = $this->get('sly_vm.form_handler_vm');
-        $formHandlerProcess = $formHandler->process();
+        $request     = $this->get('request');
+        $form        = $this->get('sly_vm.form_vm');
+        $formHandler = $this->get('sly_vm.form_handler_vm');
+        $vmProcessed = $formHandler->process();
  
-        if ($formHandlerProcess && $request->isXmlHttpRequest()) {
-            return new Response($this->get('session')->get('generatorSessionID'), 200);
-        } elseif ($formHandlerProcess) {
+        if ($vmProcessed && $request->isXmlHttpRequest()) {
+            $vmCreationSuccessContent = $this->renderView(
+                'SlyVMBundle:Default/Block:createdMessage.html.twig', array(
+                    'vm' => $vmProcessed,
+                )
+            );
+
+            return new Response($vmCreationSuccessContent, 200);
+        } elseif ($vmProcessed) {
             return $this->redirect($this->generateUrl('vm_informations'));
         }
 
@@ -50,16 +56,16 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/download/{key}-vm.tar", name="vm_download", requirements={ "key" = "\w+" })
+     * @Route("/download/{uKey}-vm.tar", name="vm_download", requirements={ "key" = "\w+" })
      */
     public function downloadAction(VM $vm)
     {
-        var_dump($vm);
-        exit();
+        $request = $this->get('request');
+        
+        $vmGenerator = $this->get('sly_vm.generator');
+        $vmGenerator->setVM($vm);
 
-        $request       = $this->get('request');
-        $vm            = $this->get('sly_vm.generator');
-        $vmArchivePath = $vm->getArchivePath($request->attributes->get('key'));
+        $vmArchivePath = $vmGenerator->getArchivePath();
 
         if (file_exists($vmArchivePath)) {
             $response = new Response();
@@ -69,7 +75,10 @@ class DefaultController extends Controller
             ;
 
             $response->headers->set('Content-Type', 'application/force-download');
-            $response->headers->set('Content-Disposition', 'attachment; filename="'.$vm->getArchiveFilename().'"');
+            $response->headers->set(
+                'Content-Disposition',
+                'attachment; filename="'.$vmGenerator->getArchiveFilename().'"'
+            );
             
             $response->send();
         } else {

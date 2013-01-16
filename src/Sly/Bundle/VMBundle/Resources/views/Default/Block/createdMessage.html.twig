@@ -1,5 +1,14 @@
 <p class="pagination-centered">
-    <a href="#" class="btn btn-large">
+    <a href="{{ path('vm_download', { uKey: vm.uKey }) }}" class="btn btn-large">
         Download TAR archive
     </a>
 </p>
+
+<hr />
+
+<ul>
+    <li>Then untar the archive into your web project directory (into a <code>vagrant/</code> folder)</li>
+    <li>Go to <code>vagrant/</code> folder</li>
+    <li>Execute <code>git submodule update --init</code> command</li>
+    <li>Run the VM with <code>vagrant up</code> command</li>
+</ul>

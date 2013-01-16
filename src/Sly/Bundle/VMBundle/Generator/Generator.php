@@ -76,17 +76,15 @@ class Generator
 
     /**
      * Get archive path.
-     *
-     * @param string $uKey VM uKey
      * 
      * @return string
      */
-    public function getArchivePath($uKey = null)
+    public function getArchivePath()
     {
         return sprintf(
             '%s/%s.tar',
             $this->getCachePath(false),
-            $uKey ? $uKey : $this->vm->getUKey()
+            $this->vm->getUKey()
         );
     }
 
@@ -99,7 +97,7 @@ class Generator
     {
         return sprintf(
             '%s-VagrantConfig.tar',
-            Inflector::classify($this->vmConfig['name'])
+            Inflector::classify($this->vm->getName())
         );
     }
 
@@ -114,11 +112,25 @@ class Generator
     }
 
     /**
+     * Set Vm value.
+     *
+     * @param \Sly\Bundle\VMBundle\Entity\VM $vm Vm value to set
+     *
+     * @return \Sly\Bundle\VMBundle\Entity\VM
+     */
+    public function setVM($vm)
+    {
+        $this->vm = $vm;
+
+        return $this->vm;
+    }
+
+    /**
      * Generate.
      *
      * @param \Sly\Bundle\VMBundle\Entity\VM $vm Virtual Machine
      * 
-     * @return array
+     * @return \Sly\Bundle\VMBundle\Entity\VM
      */
     public function generate(VM $vm)
     {
@@ -150,6 +162,8 @@ class Generator
         );
 
         $vmArchive->add($this->getCachePath());
+
+        return $this->vm;
     }
 
     /**
@@ -168,28 +182,5 @@ class Generator
         }
 
         return $this->gitSubmodules->getFileContent();
-    }
-
-    /**
-     * convertEntityToArray.
-     * 
-     * @param \Sly\Bundle\VMBundle\Entity\VM $entity Entity
-     * 
-     * @return array
-     */
-    private static function convertEntityToArray(VM $entity)
-    {
-        $reflectionClass = new \ReflectionClass($entity);
-        $arrayResult     = array();
-
-        foreach ($reflectionClass->getProperties() as $p) {
-            $getter = 'get'.ucfirst($p->name);
-
-            if (method_exists($entity, $getter)) {
-                $arrayResult[$p->name] = $entity->$getter();
-            }
-        }
-
-        return $arrayResult;
     }
 }

@@ -6,9 +6,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h3 id="vm-creation-response">Your VM has been created</h3>
         </div>
-        <div class="modal-body">
-            {% include 'SlyVMBundle:Default/Block:createdMessage.html.twig' %}
-        </div>
+        <div class="modal-body"></div>
         <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
         </div>
@@ -112,15 +110,6 @@
                 <input type="submit" class="btn btn-primary btn-large" value="Generate your Vagrant Web VM" />
             </p>
         </div>
-
-        <hr />
-
-        <ul>
-            <li>Then untar the archive into your web project directory (into a <code>vagrant/</code> folder)</li>
-            <li>Go to <code>vagrant/</code> folder</li>
-            <li>Execute <code>git submodule update --init</code> command</li>
-            <li>Run the VM with <code>vagrant up</code> command</li>
-        </ul>
 
         {{ form_rest(form) }}
     </form>

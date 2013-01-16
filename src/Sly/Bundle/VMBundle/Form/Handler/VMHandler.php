@@ -72,10 +72,8 @@ class VMHandler
                 $this->em->persist($vmData);
                 $this->em->flush();
 
-                $vm = $this->generator->generate($vmData);
+                return $this->generator->generate($vmData);
             }
-
-            return true;
         }
 
         return false;
