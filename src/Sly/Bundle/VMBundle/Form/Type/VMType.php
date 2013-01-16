@@ -2,9 +2,7 @@
 
 namespace Sly\Bundle\VMBundle\Form\Type;
 
-use Sly\Bundle\VMBundle\Config\Config,
-    Sly\Bundle\VMBundle\Config\VMCollection
-;
+use Sly\Bundle\VMBundle\Entity\VM;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,6 +16,21 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class VMType extends AbstractType
 {
+    /**
+     * @var \Sly\Bundle\VMBundle\Entity\VM
+     */
+    private $defaultVM;
+
+    /**
+     * Constructor.
+     *
+     * @param \Sly\Bundle\VMBundle\Entity\VM $defaultVM Default VM entity
+     */
+    public function __construct(VM $defaultVM)
+    {
+        $this->defaultVM = $defaultVM;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -57,6 +70,7 @@ class VMType extends AbstractType
     {
         $defaultOptions = array(
             'data_class' => 'Sly\Bundle\VMBundle\Entity\VM',
+            'data' => $this->defaultVM,
         );
 
         $resolver->setDefaults($defaultOptions);

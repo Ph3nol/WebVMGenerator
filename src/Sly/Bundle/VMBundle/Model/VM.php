@@ -2,6 +2,8 @@
 
 namespace Sly\Bundle\VMBundle\Model;
 
+use Sly\Bundle\VMBundle\Config\Config;
+
 /**
  * VM model.
  *
@@ -94,6 +96,15 @@ class VM
      */
     public function __construct()
     {
+        $vmDefaultConfig = Config::getVMDefaultConfig();
+
+        foreach ($vmDefaultConfig as $key => $value) {
+            $setter = 'set'.$key;
+
+            if (method_exists($this, $setter)) {
+                $this->$setter($value);
+            }
+        }
     }
 
     /**
@@ -294,6 +305,26 @@ class VM
     public function setVarnish($varnish)
     {
         $this->varnish = $varnish;
+    }
+
+    /**
+     * Get PhpModules value.
+     *
+     * @return array PhpModules value to get
+     */
+    public function getPhpModules()
+    {
+        return $this->phpModules;
+    }
+    
+    /**
+     * Set PhpModules value.
+     *
+     * @param array $phpModules PhpModules value to set
+     */
+    public function setPhpModules($phpModules)
+    {
+        $this->phpModules = $phpModules;
     }
 
     /**
