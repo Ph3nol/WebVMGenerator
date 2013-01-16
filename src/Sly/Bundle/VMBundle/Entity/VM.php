@@ -71,7 +71,7 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
-     * @ORM\Column(name="php_modules", type="string", length=4000)
+     * @ORM\Column(name="php_modules", type="array")
      */
     protected $phpModules;
 

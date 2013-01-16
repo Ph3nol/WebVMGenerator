@@ -2,7 +2,9 @@
 
 namespace Sly\Bundle\VMBundle\Form\Handler;
 
-use Sly\Bundle\VMBundle\Generator\Generator;
+use Sly\Bundle\VMBundle\Generator\Generator,
+    Sly\Bundle\VMBundle\Entity\VM
+;
 
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\Form\Form,
@@ -56,6 +58,8 @@ class VMHandler
 
     /**
      * Process.
+     *
+     * @return boolean
      */
     public function process()
     {
@@ -63,49 +67,17 @@ class VMHandler
             $this->form->bindRequest($this->request);
 
             if ($this->form->isValid()) {
-                $dataBag = $this->getDataBag($this->form->getData());
+                $vmData = $this->form->getData();
 
-                var_dump($this->em);
-                exit();
-
-                /**
-                 * @todo To be continued.
-                 */
-                $this->em->persist($model);
+                $this->em->persist($vmData);
                 $this->em->flush();
 
-                $this->generator->updateVMConfig($dataBag);
-
-                $vm = $this->generator->generate();
+                $vm = $this->generator->generate($vmData);
             }
 
             return true;
         }
 
         return false;
-    }
-
-    /**
-     * Get data bag from form data.
-     * 
-     * @param array $formData Form data
-     * 
-     * @return array
-     */
-    private function getDataBag(array $formData = array())
-    {
-        $dataBag = array();
-
-        foreach ($formData as $key => $value) {
-            $data = explode('_', $key);
-
-            if (2 == count($data)) {
-                $dataBag[$data[0]][$data[1]] = $value;
-            } else {
-                $dataBag[$data[0]] = $value;
-            }
-        }
-
-        return $dataBag;
     }
 }

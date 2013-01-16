@@ -13,7 +13,7 @@
         <service id="sly_vm.generator" class="%sly_vm.generator.class%">
             <argument type="service" id="session" />
             <argument type="service" id="knp_gaufrette.filesystem_map" />
-            <argument type="service" id="sly_vm.config_vm_collection" />
+            <argument type="service" id="sly_vm.config" />
             <argument type="service" id="sly_vm.git_submodule_collection" />
             <argument>%kernel.root_dir%</argument>
         </service>

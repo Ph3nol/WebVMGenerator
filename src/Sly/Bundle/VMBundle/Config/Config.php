@@ -38,8 +38,9 @@ class Config
      */
     public function __constuct(array $config, VMCollection $vmConfigs)
     {
-        $this->config    = $config;
-        $this->vmConfigs = $vmConfigs;
+        $this->config       = $config;
+        $this->vmConfigs    = $vmConfigs;
+        $this->vmConfigName = self::DEFAULT_CONFIG_NAME;
 
         if (array_key_exists(self::DEFAULT_CONFIG_NAME, $this->config['configurations'])) {
             throw new RuntimeException('No VM "default" configuration name allowed into your configuration');
@@ -53,12 +54,16 @@ class Config
     }
 
     /**
-     * Get VmConfig value.
+     * Get VMConfig value.
      *
-     * @return array VmConfig value to get
+     * @return array VMConfig value to get
      */
-    public function getVmConfig()
+    public function getVMConfig()
     {
+        if (false === $this->vmConfigs instanceof VMCollection) {
+            return array();
+        }
+
         return array_merge(
             $this->vmConfigs->get(self::DEFAULT_CONFIG_NAME),
             $this->vmConfigs->get($this->vmConfigName)

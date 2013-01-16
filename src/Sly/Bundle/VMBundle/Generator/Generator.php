@@ -8,7 +8,7 @@ use Lootils\Archiver\TarArchive;
 use Doctrine\Common\Util\Inflector;
 
 use Sly\Bundle\VMBundle\Config\Config,
-    Sly\Bundle\VMBundle\Config\VMCollection
+    Sly\Bundle\VMBundle\Entity\VM
 ;
 
 /**
@@ -29,9 +29,9 @@ class Generator
     private $vmFileSystem;
 
     /**
-     * @var \Sly\Bundle\VMBundle\Config\VMCollection
+     * @var \Sly\Bundle\VMBundle\Config\Config
      */
-    private $vmCollection;
+    private $config;
 
     /**
      * @var array
@@ -53,16 +53,16 @@ class Generator
      *
      * @param \Symfony\Component\HttpFoundation\SessionInterface    $session       Session
      * @param \Knp\Bundle\GaufretteBundle\FilesystemMap             $vmFileSystem  Gaufrette VM file system
-     * @param \Sly\Bundle\VMBundle\Config\VMCollection              $vmCollection  VM collection
+     * @param \Sly\Bundle\VMBundle\Config\Config                    $config        Config
      * @param \Sly\Bundle\VMBundle\Generator\GitSubmoduleCollection $gitSubmodules Git submodules collection
      * @param string                                                $kernelRootDir Kernel root directory
      */
-    public function __construct(SessionInterface $session, FilesystemMap $vmFileSystem, VMCollection $vmCollection, GitSubmoduleCollection $gitSubmodules, $kernelRootDir)
+    public function __construct(SessionInterface $session, FilesystemMap $vmFileSystem, Config $config, GitSubmoduleCollection $gitSubmodules, $kernelRootDir)
     {
         $this->session         = $session;
         $this->vmFileSystem    = $vmFileSystem->get('vm');
-        $this->vmCollection    = $vmCollection;
-        $this->vmConfig        = $this->vmCollection->get('default');
+        $this->config          = $config;
+        $this->vmConfig        = $config->getVMConfig();
         $this->gitSubmodules   = $gitSubmodules;
         $this->kernelRootDir   = $kernelRootDir;
 
@@ -112,41 +112,28 @@ class Generator
     {
         return sprintf(
             '%s-VagrantConfig.tar',
-            Inflector::classify($this->vmConfig['configuration']['name'])
+            Inflector::classify($this->vmConfig['name'])
         );
     }
 
     /**
-     * Update vmConfig.
-     *
-     * @param array $config Confguration
-     *
-     * @return array
-     */
-    public function updateVMConfig(array $config)
-    {
-        $this->vmConfig = array_merge($this->vmConfig, $config);
-
-        return $this->vmConfig;
-    }
-
-    /**
-     * Get VMConfig.
-     * 
-     * @return array
-     */
-    public function getVMConfig()
-    {
-        return $this->vmConfig;
-    }
-
-    /**
      * Generate.
+     *
+     * @param \Sly\Bundle\VMBundle\Entity\VM|array $customConfig Custom configuration
      * 
      * @return array
      */
-    public function generate()
+    public function generate($customConfig = array())
     {
+        if ($customConfig instanceof VM) {
+            $customConfig = self::convertEntityToArray($customConfig);
+        }
+
+        $this->vmConfig = array_merge($this->vmConfig, $customConfig);
+
+        /**
+         * README file generation.
+         */
         $this->vmFileSystem->write(
             $this->session->get('generatorSessionID').'/README',
             'README',
@@ -170,9 +157,6 @@ class Generator
         );
 
         $vmArchive->add($this->getCachePath());
-        
-
-        return $this->vmConfig;
     }
 
     /**
@@ -182,7 +166,7 @@ class Generator
      */
     private function getGitSubmodulesFileContent()
     {
-        if ($this->vmConfig['web']['apache'] || $this->vmConfig['web']['apacheSSL']) {
+        if ($this->vmConfig['apache'] || $this->vmConfig['apacheSSL']) {
             $this->gitSubmodules->add('apache');
         }
 
@@ -191,5 +175,28 @@ class Generator
         }
 
         return $this->gitSubmodules->getFileContent();
+    }
+
+    /**
+     * convertEntityToArray.
+     * 
+     * @param \Sly\Bundle\VMBundle\Entity\VM $entity Entity
+     * 
+     * @return array
+     */
+    private static function convertEntityToArray(VM $entity)
+    {
+        $reflectionClass = new \ReflectionClass($entity);
+        $arrayResult     = array();
+
+        foreach ($reflectionClass->getProperties() as $p) {
+            $getter = 'get'.ucfirst($p->name);
+
+            if (method_exists($entity, $getter)) {
+                $arrayResult[$p->name] = $entity->$getter();
+            }
+        }
+
+        return $arrayResult;
     }
 }

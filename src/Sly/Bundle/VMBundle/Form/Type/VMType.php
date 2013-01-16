@@ -39,16 +39,16 @@ class VMType extends AbstractType
         $phpModules = array('cli', 'gd', 'posix', 'intl');
 
         $builder
-            ->add('name', 'text')
-            ->add('ip', 'text')
-            ->add('hostname', 'text')
-            ->add('timezone', 'timezone')
-            ->add('apache', 'checkbox')
-            ->add('apacheSSL', 'checkbox')
-            ->add('nginx', 'checkbox')
-            ->add('varnish', 'checkbox')
-            ->add('mysql', 'checkbox')
-            ->add('mysqlRootPassword', 'text')
+            ->add('name', 'text', array('required' => true))
+            ->add('ip', 'text', array('required' => true))
+            ->add('hostname', 'text', array('required' => true))
+            ->add('timezone', 'timezone', array('required' => true))
+            ->add('apache', 'checkbox', array('required' => false))
+            ->add('apacheSSL', 'checkbox', array('required' => false))
+            ->add('nginx', 'checkbox', array('required' => false))
+            ->add('varnish', 'checkbox', array('required' => false))
+            ->add('mysql', 'checkbox', array('required' => false))
+            ->add('mysqlRootPassword', 'text', array('required' => false))
             ->add('phpModules', 'choice', array(
                 'choices'  => array_combine($phpModules, $phpModules),
                 'data'     => $phpModules,
@@ -56,10 +56,10 @@ class VMType extends AbstractType
                 'expanded' => true,
                 'required' => false,
             ))
-            ->add('vim', 'checkbox')
-            ->add('vimConfig', 'checkbox')
-            ->add('git', 'checkbox')
-            ->add('composer', 'checkbox')
+            ->add('vim', 'checkbox', array('required' => false))
+            ->add('vimConfig', 'checkbox', array('required' => false))
+            ->add('git', 'checkbox', array('required' => false))
+            ->add('composer', 'checkbox', array('required' => false))
         ;
     }
 
