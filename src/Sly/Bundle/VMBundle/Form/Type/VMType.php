@@ -4,9 +4,11 @@ namespace Sly\Bundle\VMBundle\Form\Type;
 
 use Sly\Bundle\VMBundle\Entity\VM;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\AbstractType,
+    Symfony\Component\Form\FormBuilderInterface,
+    Symfony\Component\OptionsResolver\OptionsResolverInterface,
+    Symfony\Component\HttpFoundation\Request
+;
 
 /**
  * VM form type.
@@ -75,6 +77,18 @@ class VMType extends AbstractType
 
         $resolver->setDefaults($defaultOptions);
         $resolver->addAllowedValues(array());
+    }
+
+    /**
+     * Set default options data from Request.
+     * 
+     * @param \Symfony\Component\HttpFoundation\Request $request Request
+     */
+    public function setDefaultOptionsDataFromRequest(Request $request)
+    {
+        /**
+         * @todo $this->defaultVM = ...
+         */
     }
 
     /**
