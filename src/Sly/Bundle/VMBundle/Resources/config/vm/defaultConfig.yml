@@ -1,0 +1,15 @@
+name:               My pretty VM
+ip:                 11.11.11.11
+hostname:           dev.local
+timezone:           Europe/Paris
+phpModules:         ['mysql', 'intl', 'xdebug', 'curl', 'sqlite', 'imagick', 'suhosin']
+apache:             true
+apacheSSL:          false
+nginx:              false
+varnish:            false
+mysql:              true
+mysqlRootPassword:  root
+git:                true
+vim:                true
+vimConfig:          false
+composer:           false

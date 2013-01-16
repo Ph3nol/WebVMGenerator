@@ -19,28 +19,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class VMType extends AbstractType
 {
     /**
-     * @var \Sly\Bundle\VMBundle\Config\VMCollection
-     */
-    private $vmCollection;
-
-    /**
-     * Constructor.
-     *
-     * @param \Sly\Bundle\VMBundle\Config\VMCollection $vmCollection VM collection
-     */
-    public function __construct(VMCollection $vmCollection)
-    {
-        $this->vmCollection = $vmCollection;
-        $this->vmDefaults   = Config::getVMDefaults();
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $vmConfig = $this->vmCollection->get('default');
-
         $phpModules = array('cli', 'gd', 'posix', 'intl');
 
         $builder

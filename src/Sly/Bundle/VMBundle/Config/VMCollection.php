@@ -17,16 +17,10 @@ class VMCollection implements \IteratorAggregate
 
     /**
      * Constructor.
-     * 
-     * @param array $configuration Configuration
      */
-    public function __construct(array $configuration)
+    public function __construct()
     {
         $this->coll = new \ArrayIterator();
-
-        foreach ($configuration['configurations'] as $vmName => $vmConfig) {
-            $this->add($vmName, $vmConfig);
-        }
     }
 
     /**
@@ -60,6 +54,28 @@ class VMCollection implements \IteratorAggregate
     public function get($name)
     {
         return isset($this->coll[$name]) ? $this->coll[$name] : null;
+    }
+
+    /**
+     * Has.
+     * 
+     * @param string $name Configuration name
+     *
+     * @return array
+     */
+    public function has($name)
+    {
+        return (bool) isset($this->coll[$name]);
+    }
+
+    /**
+     * Count.
+     * 
+     * @return integer
+     */
+    public function count()
+    {
+        return count($this->coll);
     }
 
     /**

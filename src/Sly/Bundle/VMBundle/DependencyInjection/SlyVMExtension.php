@@ -29,15 +29,6 @@ class SlyVMExtension extends Extension
         $loader->load('form.xml');
         $loader->load('generator.xml');
 
-        /**
-         * Set default configuration.
-         */
-        if (false === array_key_exists('default', $config['configurations'])) {
-            $configFirstKey = array_keys($config['configurations']);
-
-            $config['configurations']['default'] = $config['configurations'][$configFirstKey[0]];
-        }
-
         $container->setParameter('sly_vm.configuration', $config);
     }
 }
