@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Response;
 
+use Sly\Bundle\VMBundle\Entity\VM;
+
 class DefaultController extends Controller
 {
     /**
@@ -16,11 +18,14 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $request     = $this->get('request');
-        $form        = $this->get('sly_vm.form_vm');
-        $formHandler = $this->get('sly_vm.form_handler_vm');
+        $request            = $this->get('request');
+        $form               = $this->get('sly_vm.form_vm');
+        $formHandler        = $this->get('sly_vm.form_handler_vm');
+        $formHandlerProcess = $formHandler->process();
  
-        if ($formHandler->process()) {
+        if ($formHandlerProcess && $request->isXmlHttpRequest()) {
+            return new Response($this->get('session')->get('generatorSessionID'), 200);
+        } elseif ($formHandlerProcess) {
             return $this->redirect($this->generateUrl('vm_informations'));
         }
 
@@ -48,8 +53,10 @@ class DefaultController extends Controller
      * @Route("/download/my-vagrant-vm.tar")
      * @Route("/download/{key}-vm.tar", name="vm_download", requirements={ "key" = "\w+" })
      */
-    public function downloadAction()
+    public function downloadAction(VM $vm)
     {
+        var_dump($vm);
+        exit();
         $request       = $this->get('request');
         $session       = $this->get('session');
         $vm            = $this->get('sly_vm.generator');
