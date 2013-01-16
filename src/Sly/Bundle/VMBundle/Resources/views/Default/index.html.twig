@@ -129,27 +129,7 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script type="text/javascript">
-        $(function() {
-            $('#vm-creation').on('submit', function() {
-                var el            = $(this);
-                var submitInput   = $('input[type=submit]', el);
-                var responseModal = $('#vm-creation-response');
-
-                submitInput.attr('disabled', 'disabled');
-
-                $.ajax({
-                    url:    el.attr('action'),
-                    type:   el.attr('method'),
-                    data:   el.serialize(),
-                    success: function(generatorSessionID) {
-                        $('#vm-creation-modal').modal('show');
-                        submitInput.removeAttr('disabled');
-                    }
-                });
-
-                return false;
-            });
-        });
-    </script>
+    {% javascripts '@SlyVMBundle/Resources/public/js/*' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}
