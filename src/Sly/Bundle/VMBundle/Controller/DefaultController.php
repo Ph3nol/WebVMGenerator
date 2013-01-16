@@ -50,15 +50,14 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/download/my-vagrant-vm.tar")
      * @Route("/download/{key}-vm.tar", name="vm_download", requirements={ "key" = "\w+" })
      */
     public function downloadAction(VM $vm)
     {
         var_dump($vm);
         exit();
+
         $request       = $this->get('request');
-        $session       = $this->get('session');
         $vm            = $this->get('sly_vm.generator');
         $vmArchivePath = $vm->getArchivePath($request->attributes->get('key'));
 

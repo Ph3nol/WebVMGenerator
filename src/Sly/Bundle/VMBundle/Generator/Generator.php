@@ -2,7 +2,6 @@
 
 namespace Sly\Bundle\VMBundle\Generator;
 
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Knp\Bundle\GaufretteBundle\FilesystemMap;
 use Lootils\Archiver\TarArchive;
 use Doctrine\Common\Util\Inflector;
@@ -19,11 +18,6 @@ use Sly\Bundle\VMBundle\Config\Config,
 class Generator
 {
     /**
-     * @var \Symfony\Component\HttpFoundation\SessionInterface
-     */
-    private $session;
-
-    /**
      * @var \Knp\Bundle\GaufretteBundle\FilesystemMap
      */
     private $vmFileSystem;
@@ -34,9 +28,9 @@ class Generator
     private $config;
 
     /**
-     * @var array
+     * @var \Sly\Bundle\VMBundle\Entity\VM
      */
-    private $vmConfig;
+    private $vm;
 
     /**
      * @var \Sly\Bundle\VMBundle\Generator\GitSubmoduleCollection
@@ -51,30 +45,23 @@ class Generator
     /**
      * Constructor.
      *
-     * @param \Symfony\Component\HttpFoundation\SessionInterface    $session       Session
      * @param \Knp\Bundle\GaufretteBundle\FilesystemMap             $vmFileSystem  Gaufrette VM file system
      * @param \Sly\Bundle\VMBundle\Config\Config                    $config        Config
      * @param \Sly\Bundle\VMBundle\Generator\GitSubmoduleCollection $gitSubmodules Git submodules collection
      * @param string                                                $kernelRootDir Kernel root directory
      */
-    public function __construct(SessionInterface $session, FilesystemMap $vmFileSystem, Config $config, GitSubmoduleCollection $gitSubmodules, $kernelRootDir)
+    public function __construct(FilesystemMap $vmFileSystem, Config $config, GitSubmoduleCollection $gitSubmodules, $kernelRootDir)
     {
-        $this->session         = $session;
-        $this->vmFileSystem    = $vmFileSystem->get('vm');
-        $this->config          = $config;
-        $this->vmConfig        = $config->getVMConfig();
-        $this->gitSubmodules   = $gitSubmodules;
-        $this->kernelRootDir   = $kernelRootDir;
-
-        if (false === $this->session->has('generatorSessionID')) {
-            $this->session->set('generatorSessionID', md5(uniqid()));
-        }
+        $this->vmFileSystem  = $vmFileSystem->get('vm');
+        $this->config        = $config;
+        $this->gitSubmodules = $gitSubmodules;
+        $this->kernelRootDir = $kernelRootDir;
     }
 
     /**
-     * Get cache path from filesystem and session.
+     * Get cache path from filesystem and VM uKey.
      *
-     * @param boolean $complete Complete path (with session id last directory)
+     * @param boolean $complete Complete path (with VM uKey last directory)
      * 
      * @return string
      */
@@ -83,23 +70,23 @@ class Generator
         return sprintf(
             '%s/cache/vm%s',
             $this->kernelRootDir,
-            $complete ? '/'.$this->session->get('generatorSessionID') : null
+            $complete ? '/'.$this->vm->getUKey() : null
         );
     }
 
     /**
      * Get archive path.
      *
-     * @param string $sessionID Specific session ID
+     * @param string $uKey VM uKey
      * 
      * @return string
      */
-    public function getArchivePath($sessionID = null)
+    public function getArchivePath($uKey = null)
     {
         return sprintf(
             '%s/%s.tar',
             $this->getCachePath(false),
-            $sessionID ? $sessionID : $this->session->get('generatorSessionID')
+            $uKey ? $uKey : $this->vm->getUKey()
         );
     }
 
@@ -117,25 +104,31 @@ class Generator
     }
 
     /**
+     * Get VM.
+     * 
+     * @return \Sly\Bundle\VMBundle\Entity\VM
+     */
+    public function getVM()
+    {
+        return $this->vm;
+    }
+
+    /**
      * Generate.
      *
-     * @param \Sly\Bundle\VMBundle\Entity\VM|array $customConfig Custom configuration
+     * @param \Sly\Bundle\VMBundle\Entity\VM $vm Virtual Machine
      * 
      * @return array
      */
-    public function generate($customConfig = array())
+    public function generate(VM $vm)
     {
-        if ($customConfig instanceof VM) {
-            $customConfig = self::convertEntityToArray($customConfig);
-        }
-
-        $this->vmConfig = array_merge($this->vmConfig, $customConfig);
+        $this->vm = $vm;
 
         /**
          * README file generation.
          */
         $this->vmFileSystem->write(
-            $this->session->get('generatorSessionID').'/README',
+            $this->vm->getUKey().'/README',
             'README',
             true
         );
@@ -144,7 +137,7 @@ class Generator
          * Generate .gitmodules file.
          */
         $this->vmFileSystem->write(
-            $this->session->get('generatorSessionID').'/'.'.gitmodules',
+            $this->vm->getUKey().'/'.'.gitmodules',
             $this->getGitSubmodulesFileContent(),
             true
         );
@@ -153,7 +146,7 @@ class Generator
          * Generate TAR archive.
          */
         $vmArchive = new TarArchive(
-            sprintf('%s/%s.tar', $this->getCachePath(false), $this->session->get('generatorSessionID'))
+            sprintf('%s/%s.tar', $this->getCachePath(false), $this->vm->getUKey())
         );
 
         $vmArchive->add($this->getCachePath());
@@ -166,11 +159,11 @@ class Generator
      */
     private function getGitSubmodulesFileContent()
     {
-        if ($this->vmConfig['apache'] || $this->vmConfig['apacheSSL']) {
+        if ($this->vm->getApache() || $this->vm->getApacheSSL()) {
             $this->gitSubmodules->add('apache');
         }
 
-        if ((bool) count($this->vmConfig['phpModules'])) {
+        if ((bool) count($this->vm->getPhpModules())) {
             $this->gitSubmodules->add('php');
         }
 

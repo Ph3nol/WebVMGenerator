@@ -19,6 +19,11 @@ class VM
     /**
      * @var string
      */
+    protected $uKey;
+
+    /**
+     * @var string
+     */
     protected $name;
 
     /**
@@ -96,6 +101,8 @@ class VM
      */
     public function __construct()
     {
+        $this->uKey = md5(uniqid().time());
+
         $vmDefaultConfig = Config::getVMDefaultConfig();
 
         foreach ($vmDefaultConfig as $key => $value) {
@@ -105,6 +112,36 @@ class VM
                 $this->$setter($value);
             }
         }
+    }
+
+    /**
+     * Get Id value.
+     *
+     * @return integer Id value to get
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get UKey value.
+     *
+     * @return string UKey value to get
+     */
+    public function getUKey()
+    {
+        return $this->uKey;
+    }
+    
+    /**
+     * Set UKey value.
+     *
+     * @param string $uKey UKey value to set
+     */
+    public function setUKey($uKey)
+    {
+        $this->uKey = $uKey;
     }
 
     /**

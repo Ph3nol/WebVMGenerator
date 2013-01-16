@@ -29,6 +29,13 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
+     * @ORM\Column(name="u_key", type="string", length=32)
+     */
+    protected $uKey;
+
+    /**
+     * {@inheritDoc}
+     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     protected $name;
