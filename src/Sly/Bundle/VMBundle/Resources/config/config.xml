@@ -10,11 +10,11 @@
     </parameters>
 
     <services>
+        <service id="sly_vm.config_vm_collection" class="%sly_vm.config_vm_collection.class%" />
+
         <service id="sly_vm.config" class="%sly_vm.config.class%">
             <argument>%sly_vm.configuration%</argument>
             <argument type="service" id="sly_vm.config_vm_collection" />
         </service>
-
-        <service id="sly_vm.config_vm_collection" class="%sly_vm.config_vm_collection.class%" />
     </services>
 </container>

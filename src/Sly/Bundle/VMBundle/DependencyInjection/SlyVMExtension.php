@@ -22,13 +22,13 @@ class SlyVMExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $container->setParameter('sly_vm.configuration', $config);
+
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('config.xml');
         $loader->load('model.xml');
         $loader->load('orm.xml');
         $loader->load('form.xml');
         $loader->load('generator.xml');
-
-        $container->setParameter('sly_vm.configuration', $config);
     }
 }

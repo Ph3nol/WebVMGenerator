@@ -118,6 +118,8 @@
 {% block javascripts %}
     {{ parent() }}
 
+    {% render url('vm_configs_component') %}
+
     {% javascripts '@SlyVMBundle/Resources/public/js/*' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}

@@ -85,4 +85,13 @@ class DefaultController extends Controller
             throw new NotFoundHttpException('No VM found for this key or user');
         }
     }
+
+    /**
+     * @Route("", name="vm_configs_component")
+     * @Template("Block/vmConfigsComponent.html.twig")
+     */
+    public function vmConfigsComponentAction()
+    {
+        $config = $this->get('config');
+    }
 }
