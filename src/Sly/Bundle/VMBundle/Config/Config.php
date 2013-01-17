@@ -77,9 +77,11 @@ class Config
      *
      * @return \Sly\Bundle\VMBundle\Config\Config
      */
-    public function setVmConfigName($vmConfigName)
+    public function setVMConfigName($vmConfigName)
     {
-        $this->vmConfigName = $vmConfigName;
+        if ($this->vmConfigs->has($vmConfigName)) {
+            $this->vmConfigName = $vmConfigName;
+        }
 
         return $this;
     }
