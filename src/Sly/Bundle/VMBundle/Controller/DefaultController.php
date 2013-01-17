@@ -8,7 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Response;
 
-use Sly\Bundle\VMBundle\Entity\VM;
+use Sly\Bundle\VMBundle\Config\Config,
+    Sly\Bundle\VMBundle\Entity\VM
+;
 
 class DefaultController extends Controller
 {
@@ -87,11 +89,19 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("", name="vm_configs_component")
-     * @Template("Block/vmConfigsComponent.html.twig")
+     * @Route("/vm-configs-components", name="vm_configs_component")
+     * @Template("SlyVMBundle:Default/Block:vmConfigsComponent.html.twig")
      */
     public function vmConfigsComponentAction()
     {
-        $config = $this->get('config');
+        $config         = $this->container->getParameter('sly_vm.configuration');
+        $configurations = $config['configurations'];
+        $vmConfigs      = array();
+
+        foreach ($configurations as $k => $c) {
+            $vmConfigs[$k] = array_merge(Config::getVMDefaultConfig(), $c);
+        }
+
+        return array('configs' => json_encode($vmConfigs));
     }
 }

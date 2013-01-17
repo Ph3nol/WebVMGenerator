@@ -27,7 +27,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('configurations')
                     ->isRequired()
                     ->requiresAtLeastOneElement()
-                    ->useAttributeAsKey('name')
+                    ->useAttributeAsKey('configName')
                     ->prototype('array')
                         ->children()
                             ->scalarNode('name')->end()

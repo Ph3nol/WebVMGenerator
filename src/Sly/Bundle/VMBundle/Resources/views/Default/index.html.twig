@@ -109,6 +109,16 @@
             <p class="pagination-centered" style="padding: 10px 0;">
                 <input type="submit" class="btn btn-primary btn-large" value="Generate your Vagrant Web VM" />
             </p>
+
+            <p class="pagination-centered">
+                <small>
+                    Or Apply a defined config:<br />
+                    <button class="btn btn-small apply-config" data-config="php53">PHP 5.3</button>
+                    <button class="btn btn-small apply-config" data-config="php54">PHP 5.4</button>
+                    <button class="btn btn-small apply-config" data-config="symfony1">Symfony 1.4</button>
+                    <button class="btn btn-small apply-config" data-config="symfony2">Symfony 2</button>
+                </small>
+            </p>
         </div>
 
         {{ form_rest(form) }}
@@ -120,7 +130,9 @@
 
     {% render url('vm_configs_component') %}
 
-    {% javascripts '@SlyVMBundle/Resources/public/js/*' %}
+    {% javascripts
+        '@SlyVMBundle/Resources/public/js/*'
+    %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}

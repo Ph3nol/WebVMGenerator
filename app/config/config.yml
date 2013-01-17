@@ -90,8 +90,12 @@ knp_gaufrette:
 # SlyVMBundle configuration
 sly_vm:
     configurations:
-        php53: ~
-        php54: ~
-        symfony1: ~
+        php53:
+            name: Default PHP 5.3 VM
+        php54:
+            name: Default PHP 5.4 VM
+        symfony1:
+            name: Default Symfony 1.4 VM
         symfony2:
-            composer: true
+            name:       Default Symfony 2 VM
+            composer:   true
