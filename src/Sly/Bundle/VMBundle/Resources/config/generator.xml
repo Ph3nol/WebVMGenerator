@@ -6,17 +6,27 @@
 
     <parameters>
         <parameter key="sly_vm.generator.class">Sly\Bundle\VMBundle\Generator\Generator</parameter>
-        <parameter key="sly_vm.git_submodule_collection.class">Sly\Bundle\VMBundle\Generator\GitSubmoduleCollection</parameter>
+        <parameter key="sly_vm.generator.puppet_element_collection.class">Sly\Bundle\VMBundle\Generator\PuppetElement\PuppetElementCollection</parameter>
     </parameters>
 
     <services>
         <service id="sly_vm.generator" class="%sly_vm.generator.class%">
             <argument type="service" id="knp_gaufrette.filesystem_map" />
             <argument type="service" id="sly_vm.config" />
-            <argument type="service" id="sly_vm.git_submodule_collection" />
+            <argument type="service" id="sly_vm.generator.puppet_element_collection" />
             <argument>%kernel.root_dir%</argument>
         </service>
 
-        <service id="sly_vm.git_submodule_collection" class="%sly_vm.git_submodule_collection.class%" />
+        <service id="sly_vm.generator.puppet_element_collection" class="%sly_vm.generator.puppet_element_collection.class%" />
+
+        <!-- <<<<< Puppet Elements >>>>> -->
+
+        <service id="sly_vm.puppet_element.apache" class="Sly\Bundle\VMBundle\Generator\PuppetElement\ApacheElement">
+            <tag name="sly_vm.puppet_element" />
+        </service>
+
+        <service id="sly_vm.puppet_element.php" class="Sly\Bundle\VMBundle\Generator\PuppetElement\PhpElement">
+            <tag name="sly_vm.puppet_element" />
+        </service>
     </services>
 </container>

@@ -7,6 +7,7 @@ use Lootils\Archiver\TarArchive;
 use Doctrine\Common\Util\Inflector;
 
 use Sly\Bundle\VMBundle\Config\Config,
+    Sly\Bundle\VMBundle\Generator\PuppetElement\PuppetElementCollection,
     Sly\Bundle\VMBundle\Entity\VM
 ;
 
@@ -28,14 +29,14 @@ class Generator
     private $config;
 
     /**
+     * @var \Sly\Bundle\VMBundle\Generator\PuppetElement\PuppetElementCollection
+     */
+    private $puppetElements;
+
+    /**
      * @var \Sly\Bundle\VMBundle\Entity\VM
      */
     private $vm;
-
-    /**
-     * @var \Sly\Bundle\VMBundle\Generator\GitSubmoduleCollection
-     */
-    private $gitSubmodules;
 
     /**
      * @var string
@@ -45,17 +46,17 @@ class Generator
     /**
      * Constructor.
      *
-     * @param \Knp\Bundle\GaufretteBundle\FilesystemMap             $vmFileSystem  Gaufrette VM file system
-     * @param \Sly\Bundle\VMBundle\Config\Config                    $config        Config
-     * @param \Sly\Bundle\VMBundle\Generator\GitSubmoduleCollection $gitSubmodules Git submodules collection
-     * @param string                                                $kernelRootDir Kernel root directory
+     * @param \Knp\Bundle\GaufretteBundle\FilesystemMap                            $vmFileSystem   Gaufrette VM file system
+     * @param \Sly\Bundle\VMBundle\Config\Config                                   $config         Config
+     * @param \Sly\Bundle\VMBundle\Generator\PuppetElement\PuppetElementCollection $puppetElements Puppet elements collection
+     * @param string                                                               $kernelRootDir  Kernel root directory
      */
-    public function __construct(FilesystemMap $vmFileSystem, Config $config, GitSubmoduleCollection $gitSubmodules, $kernelRootDir)
+    public function __construct(FilesystemMap $vmFileSystem, Config $config, PuppetElementCollection $puppetElements, $kernelRootDir)
     {
-        $this->vmFileSystem  = $vmFileSystem->get('vm');
-        $this->config        = $config;
-        $this->gitSubmodules = $gitSubmodules;
-        $this->kernelRootDir = $kernelRootDir;
+        $this->vmFileSystem   = $vmFileSystem->get('vm');
+        $this->config         = $config;
+        $this->puppetElements = $puppetElements;
+        $this->kernelRootDir  = $kernelRootDir;
     }
 
     /**
@@ -145,12 +146,22 @@ class Generator
             true
         );
 
+        $gitSubmodulesContent = array();
+
+        foreach ($this->puppetElements as $puppetElement) {
+            $puppetElement->setVM($vm);
+
+            if ($puppetElement->getCondition()) {
+                $gitSubmodulesContent[] = $puppetElement->getGitSubmodulesContent();
+            }
+        }
+
         /**
          * Generate .gitmodules file.
          */
         $this->vmFileSystem->write(
             $this->vm->getUKey().'/'.'.gitmodules',
-            $this->getGitSubmodulesFileContent(),
+            $gitSubmodulesContent,
             true
         );
 

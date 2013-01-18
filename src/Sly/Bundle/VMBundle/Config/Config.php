@@ -99,18 +99,4 @@ class Config
             )
         );
     }
-
-    /**
-     * Get Git submodules repositories.
-     * 
-     * @return array
-     */
-    public static function getGitSubmodulesRepositories()
-    {
-        return Yaml::parse(
-            file_get_contents(
-                __DIR__.'/../Resources/config/vm/gitSubmodules.yml'
-            )
-        );
-    }
 }
