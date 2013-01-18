@@ -137,61 +137,60 @@ class Generator
     {
         $this->vm = $vm;
 
-        /**
-         * README file generation.
-         */
+        $this->generateGitSubmodulesFile();
+        $this->generateOtherFiles();
+        $this->generateArchiveFromFiles();
+
+        return $this->vm;
+    }
+
+    /**
+     * Generate other files.
+     */
+    private function generateOtherFiles()
+    {
         $this->vmFileSystem->write(
             $this->vm->getUKey().'/README',
             'README',
             true
         );
+    }
 
+    /**
+     * Generate Git submodules file.
+     */
+    private function generateGitSubmodulesFile()
+    {
         $gitSubmodulesContent = array();
 
         foreach ($this->puppetElements as $puppetElement) {
-            $puppetElement->setVM($vm);
+            $puppetElement->setVM($this->vm);
 
             if ($puppetElement->getCondition()) {
                 $gitSubmodulesContent[] = $puppetElement->getGitSubmodulesContent();
             }
         }
 
-        /**
-         * Generate .gitmodules file.
-         */
-        $this->vmFileSystem->write(
-            $this->vm->getUKey().'/'.'.gitmodules',
-            $gitSubmodulesContent,
-            true
-        );
+        if ((bool) count($gitSubmodulesContent)) {
+            $gitSubmodulesContent = implode('', $gitSubmodulesContent);
 
-        /**
-         * Generate TAR archive.
-         */
+            $this->vmFileSystem->write(
+                $this->vm->getUKey().'/'.'.gitmodules',
+                $gitSubmodulesContent,
+                true
+            );
+        }
+    }
+
+    /**
+     * Generate archive from files.
+     */
+    private function generateArchiveFromFiles()
+    {
         $vmArchive = new TarArchive(
             sprintf('%s/%s.tar', $this->getCachePath(false), $this->vm->getUKey())
         );
 
         $vmArchive->add($this->getCachePath());
-
-        return $this->vm;
-    }
-
-    /**
-     * Get Git submodules file content.
-     * 
-     * @return string
-     */
-    private function getGitSubmodulesFileContent()
-    {
-        if ($this->vm->getApache() || $this->vm->getApacheSSL()) {
-            $this->gitSubmodules->add('apache');
-        }
-
-        if ((bool) count($this->vm->getPhpModules())) {
-            $this->gitSubmodules->add('php');
-        }
-
-        return $this->gitSubmodules->getFileContent();
     }
 }
