@@ -115,6 +115,16 @@ class VM
     }
 
     /**
+     * __toString.
+     * 
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+    /**
      * Get Id value.
      *
      * @return integer Id value to get

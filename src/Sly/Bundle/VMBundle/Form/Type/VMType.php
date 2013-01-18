@@ -41,16 +41,16 @@ class VMType extends AbstractType
         $phpModules = array('cli', 'gd', 'posix', 'intl');
 
         $builder
-            ->add('name', 'text', array('required' => true))
-            ->add('ip', 'text', array('required' => true))
-            ->add('hostname', 'text', array('required' => true))
-            ->add('timezone', 'timezone', array('required' => true))
-            ->add('apache', 'checkbox', array('required' => false))
-            ->add('apacheSSL', 'checkbox', array('required' => false))
-            ->add('nginx', 'checkbox', array('required' => false))
-            ->add('varnish', 'checkbox', array('required' => false))
-            ->add('mysql', 'checkbox', array('required' => false))
-            ->add('mysqlRootPassword', 'text', array('required' => false))
+            ->add('name', 'text', array('required' => true, 'attr' => array('placeholder' => (string) $this->defaultVM)))
+            ->add('ip', 'text', array('required' => true, 'attr' => array('placeholder' => $this->defaultVM->getIp())))
+            ->add('hostname', 'text', array('required' => true, 'attr' => array('placeholder' => $this->defaultVM->getHostname())))
+            ->add('timezone', 'timezone', array('required' => true, 'data' => $this->defaultVM->getTimezone()))
+            ->add('apache', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getApache()))
+            ->add('apacheSSL', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getApacheSSL()))
+            ->add('nginx', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getNginx()))
+            ->add('varnish', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getVarnish()))
+            ->add('mysql', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getMysql()))
+            ->add('mysqlRootPassword', 'text', array('required' => false, 'data' => $this->defaultVM->getMysqlRootPassword()))
             ->add('phpModules', 'choice', array(
                 'choices'  => array_combine($phpModules, $phpModules),
                 'data'     => $phpModules,
@@ -58,10 +58,10 @@ class VMType extends AbstractType
                 'expanded' => true,
                 'required' => false,
             ))
-            ->add('vim', 'checkbox', array('required' => false))
-            ->add('vimConfig', 'checkbox', array('required' => false))
-            ->add('git', 'checkbox', array('required' => false))
-            ->add('composer', 'checkbox', array('required' => false))
+            ->add('vim', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getVim()))
+            ->add('vimConfig', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getVimConfig()))
+            ->add('git', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getGit()))
+            ->add('composer', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getComposer()))
         ;
     }
 
@@ -72,7 +72,6 @@ class VMType extends AbstractType
     {
         $defaultOptions = array(
             'data_class' => 'Sly\Bundle\VMBundle\Entity\VM',
-            'data' => $this->defaultVM,
         );
 
         $resolver->setDefaults($defaultOptions);
