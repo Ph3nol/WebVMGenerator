@@ -36,11 +36,4 @@ class PhpElement extends BasePuppetElement implements PuppetElementInterface
             array('modules/php', 'https://github.com/example42/puppet-php.git'),
         );
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getManifestLines()
-    {
-    }
 }

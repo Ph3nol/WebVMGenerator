@@ -34,10 +34,10 @@ class SystemElement extends BasePuppetElement implements PuppetElementInterface
     {
         $lines = array();
 
-        $lines[] = 'class { "system": }'."\n";
+        $lines[] = "class { 'system': }'\n";
 
         foreach ($this->getVM()->getSystemPackages() as $package) {
-            $lines[] = sprintf('system::package { "%s": }', $package);
+            $lines[] = sprintf("system::package { '%s': }", $package);
         }
 
         return implode("\n", $lines)."\n";

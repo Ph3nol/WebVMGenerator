@@ -42,5 +42,18 @@ class ApacheElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getManifestLines()
     {
+        $lines = <<< EOF
+class { 'apache':
+    require          => Exec['apt-update'],
+    source_dir       => '/vagrant/files/apache',
+    source_dir_purge => false,
+}
+
+apache::module { 'rewrite':
+    ensure => present,
+}
+EOF;
+
+        return $lines;
     }
 }
