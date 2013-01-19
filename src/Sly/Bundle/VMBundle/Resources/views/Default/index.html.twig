@@ -65,7 +65,13 @@
                     </div>
 
                     <div class="span3">
-                        <h3>PHP Modules</h3>
+                        <h3>PHP</h3>
+
+                        <ul class="unstyled">
+                            <li>{{ form_row(form.php, { label: 'PHP' }) }}</li>
+                        </ul>
+
+                        <h4>Modules</h4>
                         
                         {{ form_widget(form.phpModules) }}
                     </div>

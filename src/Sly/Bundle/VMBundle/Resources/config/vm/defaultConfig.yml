@@ -2,6 +2,7 @@ name:               My pretty VM
 ip:                 11.11.11.11
 hostname:           dev.local
 timezone:           Europe/Paris
+php:                true
 phpModules:         ['mysql', 'intl', 'xdebug', 'curl', 'sqlite', 'imagick', 'suhosin']
 apache:             true
 apacheSSL:          false

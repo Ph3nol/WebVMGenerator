@@ -52,6 +52,11 @@ class VM
     protected $apacheSSL;
 
     /**
+     * @var boolean
+     */
+    protected $php;
+
+    /**
      * @var array
      */
     protected $phpModules;
@@ -352,6 +357,26 @@ class VM
     public function setVarnish($varnish)
     {
         $this->varnish = $varnish;
+    }
+
+    /**
+     * Get Php value.
+     *
+     * @return boolean Php value to get
+     */
+    public function getPhp()
+    {
+        return $this->php;
+    }
+    
+    /**
+     * Set Php value.
+     *
+     * @param boolean $php Php value to set
+     */
+    public function setPhp($php)
+    {
+        $this->php = $php;
     }
 
     /**

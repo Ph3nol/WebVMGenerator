@@ -51,6 +51,7 @@ class VMType extends AbstractType
             ->add('varnish', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getVarnish()))
             ->add('mysql', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getMysql()))
             ->add('mysqlRootPassword', 'text', array('required' => false, 'data' => $this->defaultVM->getMysqlRootPassword()))
+            ->add('php', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getPhp()))
             ->add('phpModules', 'choice', array(
                 'choices'  => array_combine($phpModules, $phpModules),
                 'data'     => $phpModules,

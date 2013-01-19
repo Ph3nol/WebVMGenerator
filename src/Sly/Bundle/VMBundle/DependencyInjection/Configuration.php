@@ -40,6 +40,7 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('varnish')->end()
                             ->booleanNode('mysql')->end()
                             ->scalarNode('mysqlRootPassword')->end()
+                            ->booleanNode('php')->end()
                             ->arrayNode('phpModules')->end()
                             ->booleanNode('git')->end()
                             ->booleanNode('vim')->end()
