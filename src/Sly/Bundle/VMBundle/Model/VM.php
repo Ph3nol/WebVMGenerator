@@ -30,6 +30,11 @@ class VM
     /**
      * @var string
      */
+    protected $vagrantBox;
+
+    /**
+     * @var string
+     */
     protected $name;
 
     /**
@@ -214,6 +219,26 @@ class VM
     public function setUKey($uKey)
     {
         $this->uKey = $uKey;
+    }
+
+    /**
+     * Get VagrantBox value.
+     *
+     * @return string VagrantBox value to get
+     */
+    public function getVagrantBox()
+    {
+        return $this->vagrantBox;
+    }
+    
+    /**
+     * Set VagrantBox value.
+     *
+     * @param string $vagrantBox VagrantBox value to set
+     */
+    public function setVagrantBox($vagrantBox)
+    {
+        $this->vagrantBox = $vagrantBox;
     }
 
     /**

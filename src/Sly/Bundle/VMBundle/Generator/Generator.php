@@ -18,8 +18,9 @@ use Sly\Bundle\VMBundle\Config\Config,
 class Generator
 {
     const VAGRANT_SKELETON_PATH     = '/Resources/skeleton/vagrant';
-    const PUPPET_BASE_MANIFEST_FILE = '/manifests/app.pp';
     const GIT_MODULES_FILE          = '/.gitmodules';
+    const VAGRANT_FILE              = '/Vagrantfile';
+    const PUPPET_BASE_MANIFEST_FILE = '/manifests/base.pp';
 
     /**
      * @var \Symfony\Component\Filesystem\Filesystem
@@ -112,6 +113,7 @@ class Generator
             array('override' => true)
         );
 
+        $this->generateVagrantFile();
         $this->generateGitSubmodulesFile();
         $this->generatePuppetBaseFile();
         $this->generateArchiveFromFiles();
@@ -119,6 +121,53 @@ class Generator
         $this->filesystem->remove($this->getVM()->getCachePath($this->kernelRootDir));
 
         return $this->getVM();
+    }
+
+    /**
+     * Generate Vagrant file.
+     */
+    private function generateVagrantFile()
+    {
+        $vagrantBoxes   = Config::getVagrantBoxes();
+        $vbName         = $this->getVM()->getVagrantBox();
+        $vbUrl          = $vagrantBoxes[$this->getVM()->getVagrantBox()]['url'];
+        $puppetBaseFile = explode('/', self::PUPPET_BASE_MANIFEST_FILE);
+        $puppetBaseFile = end($puppetBaseFile);
+        $vbHostname     = $this->getVM()->getHostname();
+        $vbIpAddress    = $this->getVM()->getIp();
+        $vbTimezone     = $this->getVM()->getTimezone();
+
+        $vagrantFileContent = <<< EOF
+Vagrant::Config.run do |config|
+    config.vm.box     = "$vbName"
+    config.vm.box_url = "$vbUrl"
+    
+    config.vm.customize [
+        "modifyvm", :id,
+        "--name", $vbHostname
+    ]
+
+    config.vm.network :hostonly, $vbIpAddress
+    config.vm.host_name = $vbHostname
+
+    config.vm.share_folder "vagrant", "/vagrant", "."
+    config.vm.share_folder "project", "/project", ".."
+
+    config.vm.provision :shell, :inline => "echo \"$vbTimezone\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
+
+    config.vm.provision :puppet do |puppet|
+        puppet.manifests_path = "manifests"
+        puppet.module_path    = "modules"
+        puppet.manifest_file  = "$puppetBaseFile"
+    end
+end
+
+EOF;
+
+        file_put_contents(
+            $this->getVM()->getCachePath($this->kernelRootDir).self::VAGRANT_FILE,
+            $vagrantFileContent
+        );
     }
 
     /**

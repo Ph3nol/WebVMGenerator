@@ -36,6 +36,13 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
+     * @ORM\Column(name="vagrant_box", type="string", length=30)
+     */
+    protected $vagrantBox;
+
+    /**
+     * {@inheritDoc}
+     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     protected $name;

@@ -119,6 +119,10 @@
         </div>
 
         <div class="form-actions">
+            <p class="pagination-centered">
+                {{ form_row(form.vagrantBox, { label: 'Linux distribution', attr: { class: 'span4' } }) }}
+            </p>
+
             <p class="pagination-centered" style="padding: 10px 0;">
                 <input type="submit" class="btn btn-primary btn-large" value="Generate your Vagrant Web VM" />
             </p>

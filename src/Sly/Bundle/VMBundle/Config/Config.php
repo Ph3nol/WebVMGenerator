@@ -99,4 +99,19 @@ class Config
             )
         );
     }
+
+    /**
+     * Get Vagrant boxes.
+     * 
+     * @return array
+     */
+    public static function getVagrantBoxes()
+    {
+        return array(
+            'precise64' => array(
+                'name' => 'Ubuntu 12.04 LTS (Precise) - 64 bits',
+                'url'  => 'http://files.vagrantup.com/precise64.box',
+            ),
+        );
+    }
 }

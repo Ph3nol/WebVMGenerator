@@ -1,3 +1,4 @@
+vagrantBox:         precise64
 name:               My pretty VM
 ip:                 11.11.11.11
 hostname:           dev.local

@@ -2,7 +2,9 @@
 
 namespace Sly\Bundle\VMBundle\Form\Type;
 
-use Sly\Bundle\VMBundle\Entity\VM;
+use Sly\Bundle\VMBundle\Config\Config,
+    Sly\Bundle\VMBundle\Entity\VM
+;
 
 use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
@@ -38,6 +40,13 @@ class VMType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $vagrantBoxes        = Config::getVagrantBoxes();
+        $vagrantBoxesChoices = array();
+
+        foreach ($vagrantBoxes as $vagrantKey => $vagrantBox) {
+            $vagrantBoxesChoices[$vagrantKey] = $vagrantBox['name'];
+        }
+
         $phpModules = array(
             'mysql', 'intl', 'xdebug', 'curl', 'sqlite',
             'imagick', 'suhosin', 'apc'
@@ -56,6 +65,12 @@ class VMType extends AbstractType
         );
 
         $builder
+            ->add('vagrantBox', 'choice', array(
+                'choices'  => $vagrantBoxesChoices,
+                'data'     => $this->defaultVM->getVagrantBox(),
+                'multiple' => false,
+                'required' => true,
+            ))
             ->add('name', 'text', array(
                 'required' => true,
                 'attr'     => array('placeholder' => (string) $this->defaultVM)
