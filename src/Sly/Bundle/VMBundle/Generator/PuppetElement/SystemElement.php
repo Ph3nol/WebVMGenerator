@@ -40,6 +40,21 @@ class SystemElement extends BasePuppetElement implements PuppetElementInterface
             $lines[] = sprintf("system::package { '%s': }", $package);
         }
 
-        return implode("\n", $lines);
+        $lines = implode("\n", $lines);
+
+        $lines .= <<< EOF
+\n
+system::config { 'bash_aliases':
+    name   => '.bash_aliases',
+    source => '/vagrant/files/system/bash_aliases',
+}
+
+system::config { 'bashrc':
+    name   => '.bashrc',
+    source => '/vagrant/files/system/bashrc',
+}
+EOF;
+
+        return $lines;
     }
 }
