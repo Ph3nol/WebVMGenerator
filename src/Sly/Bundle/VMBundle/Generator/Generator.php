@@ -68,6 +68,16 @@ class Generator
     }
 
     /**
+     * Get KernelRootDir value.
+     *
+     * @return string KernelRootDir value to get
+     */
+    public function getKernelRootDir()
+    {
+        return $this->kernelRootDir;
+    }
+
+    /**
      * Get VM.
      * 
      * @return \Sly\Bundle\VMBundle\Entity\VM
@@ -89,6 +99,16 @@ class Generator
         $this->vm = $vm;
 
         return $this;
+    }
+
+    /**
+     * Get Filesystem value.
+     *
+     * @return \Symfony\Component\Filesystem\Filesystem Filesystem value to get
+     */
+    public function getFilesystem()
+    {
+        return $this->filesystem;
     }
 
     /**
