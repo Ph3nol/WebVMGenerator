@@ -71,7 +71,7 @@ class Generator
         return sprintf(
             '%s/cache/vm%s',
             $this->kernelRootDir,
-            $complete ? '/'.$this->vm->getUKey() : null
+            $complete ? '/'.$this->getVM()->getUKey() : null
         );
     }
 
@@ -85,7 +85,7 @@ class Generator
         return sprintf(
             '%s/%s.tar',
             $this->getCachePath(false),
-            $this->vm->getUKey()
+            $this->getVM()->getUKey()
         );
     }
 
@@ -98,7 +98,7 @@ class Generator
     {
         return sprintf(
             '%s-VagrantConfig.tar',
-            Inflector::classify($this->vm->getName())
+            Inflector::classify($this->getVM()->getName())
         );
     }
 
@@ -117,13 +117,13 @@ class Generator
      *
      * @param \Sly\Bundle\VMBundle\Entity\VM $vm Vm value to set
      *
-     * @return \Sly\Bundle\VMBundle\Entity\VM
+     * @return \Sly\Bundle\VMBundle\Generator\Generator
      */
     public function setVM($vm)
     {
         $this->vm = $vm;
 
-        return $this->vm;
+        return $this;
     }
 
     /**
@@ -135,13 +135,13 @@ class Generator
      */
     public function generate(VM $vm)
     {
-        $this->vm = $vm;
+        $this->setVM($vm);
 
         $this->generateGitSubmodulesFile();
         $this->generateOtherFiles();
         $this->generateArchiveFromFiles();
 
-        return $this->vm;
+        return $this->getVM();
     }
 
     /**
@@ -150,7 +150,7 @@ class Generator
     private function generateOtherFiles()
     {
         $this->vmFileSystem->write(
-            $this->vm->getUKey().'/README',
+            $this->getVM()->getUKey().'/README',
             'README',
             true
         );
@@ -164,7 +164,7 @@ class Generator
         $gitSubmodulesContent = array();
 
         foreach ($this->puppetElements as $puppetElement) {
-            $puppetElement->setVM($this->vm);
+            $puppetElement->setVM($this->getVM());
 
             if ($puppetElement->getCondition()) {
                 $gitSubmodulesContent[] = $puppetElement->getGitSubmodulesContent();
@@ -175,7 +175,7 @@ class Generator
             $gitSubmodulesContent = implode('', $gitSubmodulesContent);
 
             $this->vmFileSystem->write(
-                $this->vm->getUKey().'/'.'.gitmodules',
+                $this->getVM()->getUKey().'/'.'.gitmodules',
                 $gitSubmodulesContent,
                 true
             );
@@ -188,7 +188,7 @@ class Generator
     private function generateArchiveFromFiles()
     {
         $vmArchive = new TarArchive(
-            sprintf('%s/%s.tar', $this->getCachePath(false), $this->vm->getUKey())
+            sprintf('%s/%s.tar', $this->getCachePath(false), $this->getVM()->getUKey())
         );
 
         $vmArchive->add($this->getCachePath());
