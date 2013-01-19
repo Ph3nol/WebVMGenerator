@@ -124,4 +124,11 @@ abstract class BasePuppetElement
 
         return null;
     }
+
+    /**
+     * Post process event.
+     */
+    public function postProcess()
+    {
+    }
 }

@@ -114,8 +114,7 @@ class Generator
         );
 
         $this->generateVagrantFile();
-        $this->generateGitSubmodulesFile();
-        $this->generatePuppetBaseFile();
+        $this->generatePuppetElements();
         $this->generateArchiveFromFiles();
 
         $this->filesystem->remove($this->getVM()->getCachePath($this->kernelRootDir));
@@ -171,11 +170,12 @@ EOF;
     }
 
     /**
-     * Generate Git submodules file.
+     * Generate Puppet elements.
      */
-    private function generateGitSubmodulesFile()
+    private function generatePuppetElements()
     {
-        $gitSubmodulesContent = array();
+        $gitSubmodulesContent  = array();
+        $puppetBaseFileContent = array();
 
         foreach ($this->puppetElements as $puppetElement) {
             $puppetElement->setGenerator($this);
@@ -183,6 +183,12 @@ EOF;
             if ($puppetElement->getCondition() && $puppetElement->getGitSubmodulesContent()) {
                 $gitSubmodulesContent[] = $puppetElement->getGitSubmodulesContent();
             }
+
+            if ($puppetElement->getCondition() && $puppetElement->getManifestContent()) {
+                $puppetBaseFileContent[] = $puppetElement->getManifestContent();
+            }
+
+            $puppetElement->postProcess();
         }
 
         if ((bool) count($gitSubmodulesContent)) {
@@ -192,22 +198,6 @@ EOF;
                 $this->getVM()->getCachePath($this->kernelRootDir).self::GIT_MODULES_FILE,
                 $gitSubmodulesContent
             );
-        }
-    }
-
-    /**
-     * Generate Puppet base file.
-     */
-    private function generatePuppetBaseFile()
-    {
-        $puppetBaseFileContent = array();
-
-        foreach ($this->puppetElements as $puppetElement) {
-            $puppetElement->setGenerator($this);
-
-            if ($puppetElement->getCondition() && $puppetElement->getManifestContent()) {
-                $puppetBaseFileContent[] = $puppetElement->getManifestContent();
-            }
         }
 
         if ((bool) count($puppetBaseFileContent)) {
