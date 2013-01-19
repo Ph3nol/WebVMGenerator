@@ -60,6 +60,10 @@ class Generator
         $this->config         = $config;
         $this->puppetElements = $puppetElements;
         $this->kernelRootDir  = $kernelRootDir;
+
+        if (false === is_dir($this->kernelRootDir.'/cache/vm')) {
+            $this->filesystem->mkdir($this->kernelRootDir.'/cache/vm', 0777);
+        }
     }
 
     /**
