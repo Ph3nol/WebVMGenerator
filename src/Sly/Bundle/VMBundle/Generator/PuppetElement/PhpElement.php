@@ -43,6 +43,12 @@ class PhpElement extends BasePuppetElement implements PuppetElementInterface
     public function getManifestLines()
     {
         $phpModules = $this->getVM()->getPhpModules();
+        $withAPC    = false;
+
+        if (in_array('apc', $phpModules)) {
+            $withAPC = true;
+            unset($phpModules['apc']);
+        }
 
         array_walk_recursive($phpModules, function(&$input) {
             $input = sprintf("'%s'", $input);
@@ -69,6 +75,18 @@ php::module {
         notify  => Service['apache'],
 }
 EOF;
+
+        if ($withAPC) {
+            $lines .= <<< EOF
+\n
+php::module {
+  'apc':
+        module_prefix => 'php-',
+        require       => Exec['apt-update'],
+        notify        => Service['apache'],
+}
+EOF;
+        }
 
         return $lines;
     }

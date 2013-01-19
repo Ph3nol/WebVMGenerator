@@ -38,7 +38,7 @@ class VMType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $phpModules = array('mysql', 'intl', 'xdebug', 'curl', 'sqlite', 'imagick', 'suhosin');
+        $phpModules = array('mysql', 'intl', 'xdebug', 'curl', 'sqlite', 'imagick', 'suhosin', 'apc');
 
         $systemPackages = array(
             'git-core' => 'Git',
