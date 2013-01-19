@@ -23,7 +23,20 @@
                 <a class="brand" href="{{ path('homepage') }}">{{ project.name }}</a>
                 <div class="nav-collapse collapse">
                   <ul class="nav">
-                    <li class="active"><a href="{{ path('homepage') }}">Home</a></li>
+                        <li class="active"><a href="{{ path('homepage') }}">Home</a></li>
+                  </ul>
+
+                  <ul class="nav pull-right">
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Created by {{ author.name }} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="{{ author.url.github }}">GitHub account</a></li>
+                          <li><a href="{{ author.url.viadeo }}">Viadeo profile</a></li>
+                          <li><a href="{{ author.url.linkedin }}">Linkedin profile</a></li>
+                          <li><a href="{{ author.url.twitter }}">Twitter profile</a></li>
+                          <li><a href="mailto:{{ author.email }}">Contact me by e-mail</a></li>
+                        </ul>
+                      </li>
                   </ul>
                 </div>
               </div>
@@ -45,7 +58,7 @@
             <footer>
               <p class="pagination-centered">
                 <small>
-                    &copy; 2013 <a href="{{ author.url }}">{{ author.name }}</a> -
+                    &copy; 2013 <a href="{{ author.url.github }}">{{ author.name }}</a> -
                     <a href="http://symfony.com">Symfony2</a> powered -
                     <a href="{{ project.githubUrl }}">Fork {{ project.name }} on Github</a>
                 </small>

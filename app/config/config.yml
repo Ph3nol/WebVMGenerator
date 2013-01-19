@@ -24,12 +24,17 @@ twig:
     globals:
         project:
             name:       Web VM Generator
-            url:        http://webvmgen.local
-            githubUrl:  http://github.com/Ph3nol/WebVMGen
+            url:        http://vmg.slynett.com
+            githubUrl:  http://github.com/Ph3nol/WebVMGenerator
         author:
-            name:       Cédric Dugat
-            url:        http://cedric.dugat.me
-            githubUrl:  http://github.com/Ph3nol
+            name:   Cédric Dugat
+            email:  cedric@dugat.me
+            url:
+                main:       http://cedric.dugat.me
+                github:     http://github.com/Ph3nol
+                twitter:    http://twitter.com/Ph3nol
+                linkedin:   http://www.linkedin.com/profile/view?id=61286705
+                viadeo:     http://www.viadeo.com/profile/002uhwy242sstac
     form:
         resources:
             - "SlyMainBundle:Form:form_div_layout.html.twig"

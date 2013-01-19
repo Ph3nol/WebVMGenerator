@@ -1,8 +1,12 @@
 # WebVMGenerator Project
 
-## Requirements
+**Work in progress.**
 
-* PHP 5.3+
+## To do
+
+* Write tests and finish the project
+* Documentation
+* README improvements
 
 ## Implement a Puppet Element
 
