@@ -161,10 +161,7 @@ Vagrant::Config.run do |config|
     config.vm.box     = "$vbName"
     config.vm.box_url = "$vbUrl"
     
-    config.vm.customize [
-        "modifyvm", :id,
-        "--name", "$vbHostname"
-    ]
+    config.vm.customize [ "modifyvm", :id, "--name", "$vbHostname" ]
 
     config.vm.network :hostonly, "$vbIpAddress"
     config.vm.host_name = "$vbHostname"
