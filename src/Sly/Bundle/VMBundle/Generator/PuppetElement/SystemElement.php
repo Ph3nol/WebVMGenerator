@@ -40,6 +40,6 @@ class SystemElement extends BasePuppetElement implements PuppetElementInterface
             $lines[] = sprintf("system::package { '%s': }", $package);
         }
 
-        return implode("\n", $lines)."\n";
+        return implode("\n", $lines);
     }
 }

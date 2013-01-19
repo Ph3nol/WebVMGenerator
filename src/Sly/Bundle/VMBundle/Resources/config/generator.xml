@@ -29,6 +29,10 @@
             <tag name="sly_vm.puppet_element" />
         </service>
 
+        <service id="sly_vm.puppet_element.mysql" class="Sly\Bundle\VMBundle\Generator\PuppetElement\MysqlElement">
+            <tag name="sly_vm.puppet_element" />
+        </service>
+
         <service id="sly_vm.puppet_element.php" class="Sly\Bundle\VMBundle\Generator\PuppetElement\PhpElement">
             <tag name="sly_vm.puppet_element" />
         </service>
