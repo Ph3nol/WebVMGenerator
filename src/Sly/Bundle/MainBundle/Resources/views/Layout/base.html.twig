@@ -20,7 +20,9 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </a>
-                <a class="brand" href="{{ path('homepage') }}">{{ project.name }}</a>
+                <a class="brand" href="{{ path('homepage') }}">
+                  {{ project.name }}
+                </a>
                 <div class="nav-collapse collapse">
                   <ul class="nav">
                         <li class="active"><a href="{{ path('homepage') }}">Home</a></li>
@@ -44,6 +46,12 @@
         </div>
 
         <div class="container">
+            <p class="pagination-centered">
+                <span class="label label-important">
+                    Alpha version - Work in progress
+                </span>
+            </p>
+
             <div class="hero-unit">
                 <p class="pagination-centered">
                     Some seconds to <strong>generate your Web Virtual Machine</strong>,
