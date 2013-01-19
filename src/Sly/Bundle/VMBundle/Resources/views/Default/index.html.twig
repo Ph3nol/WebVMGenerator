@@ -1,5 +1,16 @@
 {% extends 'SlyMainBundle:Layout:base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='yui_css'
+        '@SlyVMBundle/Resources/public/css/*'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+
 {% block body %}
     <div id="vm-creation-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="vm-creation-response" aria-hidden="true">
         <div class="modal-header">
@@ -148,7 +159,7 @@
 
     {% render url('vm_configs_component') %}
 
-    {% javascripts
+    {% javascripts filter='yui_js'
         '@SlyVMBundle/Resources/public/js/*'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
