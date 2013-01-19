@@ -84,6 +84,15 @@ php::module { 'apc':
 EOF;
         }
 
+        if ($this->getVM()->getPhpMyAdmin()) {
+            $lines .= <<< EOF
+\n
+system::package { 'phpmyadmin':
+    require => Package['php']
+}
+EOF;
+        }
+
         return $lines;
     }
 }

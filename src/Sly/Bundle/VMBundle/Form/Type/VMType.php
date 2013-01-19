@@ -95,6 +95,10 @@ class VMType extends AbstractType
                 'required' => false,
                 'data'     => $this->defaultVM->getPhp()
             ))
+            ->add('phpMyAdmin', 'checkbox', array(
+                'required' => false,
+                'data'     => $this->defaultVM->getPhpMyAdmin()
+            ))
             ->add('phpModules', 'choice', array(
 
                 'choices'  => array_combine($phpModules, $phpModules),

@@ -63,6 +63,11 @@ class VM
     protected $php;
 
     /**
+     * @var boolean
+     */
+    protected $phpMyAdmin;
+
+    /**
      * @var array
      */
     protected $phpModules;
@@ -424,6 +429,26 @@ class VM
     public function setPhp($php)
     {
         $this->php = $php;
+    }
+
+    /**
+     * Get PhpMyAdmin value.
+     *
+     * @return boolean PhpMyAdmin value to get
+     */
+    public function getPhpMyAdmin()
+    {
+        return $this->phpMyAdmin;
+    }
+    
+    /**
+     * Set PhpMyAdmin value.
+     *
+     * @param boolean $phpMyAdmin PhpMyAdmin value to set
+     */
+    public function setPhpMyAdmin($phpMyAdmin)
+    {
+        $this->phpMyAdmin = $phpMyAdmin;
     }
 
     /**
