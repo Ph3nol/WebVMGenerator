@@ -78,6 +78,13 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
+     * @ORM\Column(name="apache_port", type="integer", length=5)
+     */
+    protected $apache_port;
+
+    /**
+     * {@inheritDoc}
+     *
      * @ORM\Column(name="apache_root_dir", type="string", length=150)
      */
     protected $apacheRootDir;

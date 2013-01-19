@@ -60,6 +60,11 @@ class VM
     /**
      * @var string
      */
+    protected $apachePort;
+
+    /**
+     * @var string
+     */
     protected $apacheRootDir;
 
     /**
@@ -356,6 +361,26 @@ class VM
     public function setApache($apache)
     {
         $this->apache = $apache;
+    }
+
+    /**
+     * Get ApachePort value.
+     *
+     * @return integer ApachePort value to get
+     */
+    public function getApachePort()
+    {
+        return $this->apachePort;
+    }
+    
+    /**
+     * Set ApachePort value.
+     *
+     * @param integer $apachePort ApachePort value to set
+     */
+    public function setApachePort($apachePort)
+    {
+        $this->apachePort = $apachePort;
     }
 
     /**

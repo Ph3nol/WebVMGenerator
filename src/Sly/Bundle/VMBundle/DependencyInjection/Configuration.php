@@ -37,6 +37,7 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('timezone')->end()
                             ->arrayNode('systemPackages')->end()
                             ->scalarNode('apache')->end()
+                            ->scalarNode('apachePort')->end()
                             ->scalarNode('apacheRootDir')->end()
                             ->scalarNode('apacheSSL')->end()
                             ->scalarNode('nginx')->end()
