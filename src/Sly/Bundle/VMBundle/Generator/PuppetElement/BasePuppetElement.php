@@ -3,7 +3,8 @@
 namespace Sly\Bundle\VMBundle\Generator\PuppetElement;
 
 use Sly\Bundle\VMBundle\Config\Config,
-    Sly\Bundle\VMBundle\Entity\VM
+    Sly\Bundle\VMBundle\Entity\VM,
+    Sly\Bundle\VMBundle\Generator\Generator
 ;
 
 /**
@@ -19,9 +20,9 @@ abstract class BasePuppetElement
     protected $config;
 
     /**
-     * @var \Sly\Bundle\VMBundle\Entity\VM
+     * @var \Sly\Bundle\VMBundle\Generator\Generator
      */
-    protected $vm;
+    protected $generator;
 
     /**
      * Set configuration.
@@ -38,27 +39,33 @@ abstract class BasePuppetElement
     }
 
     /**
+     * Get Generator value.
+     *
+     * @return \Sly\Bundle\VMBundle\Generator\Generator Generator value to get
+     */
+    public function getGenerator()
+    {
+        return $this->generator;
+    }
+    
+    /**
+     * Set Generator value.
+     *
+     * @param \Sly\Bundle\VMBundle\Generator\Generator $generator Generator value to set
+     */
+    public function setGenerator(Generator $generator)
+    {
+        $this->generator = $generator;
+    }
+
+    /**
      * Get virtual machine.
      *
      * @return \Sly\Bundle\VMBundle\Entity\VM
      */
     public function getVM()
     {
-        return $this->vm;
-    }
-
-    /**
-     * Set virtual machine.
-     * 
-     * @param \Sly\Bundle\VMBundle\Entity\VM $vm Virtual Machine
-     *
-     * @return \Sly\Bundle\VMBundle\Generator\PuppetElement\BasePuppetElement
-     */
-    public function setVM(VM $vm)
-    {
-        $this->vm = $vm;
-
-        return $this;
+        return $this->generator->getVM();
     }
 
     /**

@@ -178,7 +178,7 @@ EOF;
         $gitSubmodulesContent = array();
 
         foreach ($this->puppetElements as $puppetElement) {
-            $puppetElement->setVM($this->getVM());
+            $puppetElement->setGenerator($this);
 
             if ($puppetElement->getCondition() && $puppetElement->getGitSubmodulesContent()) {
                 $gitSubmodulesContent[] = $puppetElement->getGitSubmodulesContent();
@@ -203,7 +203,7 @@ EOF;
         $puppetBaseFileContent = array();
 
         foreach ($this->puppetElements as $puppetElement) {
-            $puppetElement->setVM($this->getVM());
+            $puppetElement->setGenerator($this);
 
             if ($puppetElement->getCondition() && $puppetElement->getManifestContent()) {
                 $puppetBaseFileContent[] = $puppetElement->getManifestContent();
