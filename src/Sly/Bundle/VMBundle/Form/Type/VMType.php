@@ -38,7 +38,10 @@ class VMType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $phpModules = array('mysql', 'intl', 'xdebug', 'curl', 'sqlite', 'imagick', 'suhosin', 'apc');
+        $phpModules = array(
+            'mysql', 'intl', 'xdebug', 'curl', 'sqlite',
+            'imagick', 'suhosin', 'apc'
+        );
 
         $systemPackages = array(
             'git-core' => 'Git',
@@ -48,18 +51,52 @@ class VMType extends AbstractType
         );
 
         $builder
-            ->add('name', 'text', array('required' => true, 'attr' => array('placeholder' => (string) $this->defaultVM)))
-            ->add('ip', 'text', array('required' => true, 'attr' => array('placeholder' => $this->defaultVM->getIp())))
-            ->add('hostname', 'text', array('required' => true, 'attr' => array('placeholder' => $this->defaultVM->getHostname())))
-            ->add('timezone', 'timezone', array('required' => true, 'data' => $this->defaultVM->getTimezone()))
-            ->add('apache', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getApache()))
-            ->add('apacheSSL', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getApacheSSL()))
-            ->add('nginx', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getNginx()))
-            ->add('varnish', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getVarnish()))
-            ->add('mysql', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getMysql()))
-            ->add('mysqlRootPassword', 'text', array('required' => false, 'data' => $this->defaultVM->getMysqlRootPassword()))
-            ->add('php', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getPhp()))
+            ->add('name', 'text', array(
+                'required' => true,
+                'attr'     => array('placeholder' => (string) $this->defaultVM)
+            ))
+            ->add('ip', 'text', array(
+                'required' => true,
+                'attr'     => array('placeholder' => $this->defaultVM->getIp())
+            ))
+            ->add('hostname', 'text', array(
+                'required' => true,
+                'attr'     => array('placeholder' => $this->defaultVM->getHostname())
+            ))
+            ->add('timezone', 'timezone', array(
+                'required' => true,
+                'data'     => $this->defaultVM->getTimezone()
+            ))
+            ->add('apache', 'checkbox', array(
+                'required' => false,
+                'data'     => $this->defaultVM->getApache()
+            ))
+            ->add('apacheSSL', 'checkbox', array(
+                'required' => false,
+                'data'     => $this->defaultVM->getApacheSSL()
+            ))
+            ->add('nginx', 'checkbox', array(
+                'required' => false,
+                'data'     => $this->defaultVM->getNginx()
+            ))
+            ->add('varnish', 'checkbox', array(
+                'required' => false,
+                'data'     => $this->defaultVM->getVarnish()
+            ))
+            ->add('mysql', 'checkbox', array(
+                'required' => false,
+                'data'     => $this->defaultVM->getMysql()
+            ))
+            ->add('mysqlRootPassword', 'text', array(
+                'required' => false,
+                'data'     => $this->defaultVM->getMysqlRootPassword()
+            ))
+            ->add('php', 'checkbox', array(
+                'required' => false,
+                'data'     => $this->defaultVM->getPhp()
+            ))
             ->add('phpModules', 'choice', array(
+
                 'choices'  => array_combine($phpModules, $phpModules),
                 'data'     => $this->defaultVM->getPhpModules(),
                 'multiple' => true,
@@ -67,14 +104,21 @@ class VMType extends AbstractType
                 'required' => false,
             ))
             ->add('systemPackages', 'choice', array(
+
                 'choices'  => $systemPackages,
                 'data'     => $this->defaultVM->getSystemPackages(),
                 'multiple' => true,
                 'expanded' => true,
                 'required' => false,
             ))
-            ->add('vimConfig', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getVimConfig()))
-            ->add('composer', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getComposer()))
+            ->add('vimConfig', 'checkbox', array(
+                'required' => false,
+                'data' => $this->defaultVM->getVimConfig()
+            ))
+            ->add('composer', 'checkbox', array(
+                'required' => false,
+                'data' => $this->defaultVM->getComposer()
+            ))
         ;
     }
 
