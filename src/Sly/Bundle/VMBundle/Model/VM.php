@@ -68,6 +68,11 @@ class VM
     protected $php;
 
     /**
+     * @var string
+     */
+    protected $phpVersion;
+
+    /**
      * @var array
      */
     protected $phpPearComponents;
@@ -459,6 +464,26 @@ class VM
     public function setPhp($php)
     {
         $this->php = $php;
+    }
+
+    /**
+     * Get PhpVersion value.
+     *
+     * @return string PhpVersion value to get
+     */
+    public function getPhpVersion()
+    {
+        return $this->phpVersion;
+    }
+    
+    /**
+     * Set PhpVersion value.
+     *
+     * @param string $phpVersion PhpVersion value to set
+     */
+    public function setPhpVersion($phpVersion)
+    {
+        $this->phpVersion = $phpVersion;
     }
 
     /**

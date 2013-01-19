@@ -92,6 +92,13 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
+     * @ORM\Column(name="php_version", type="string", length=10)
+     */
+    protected $phpVersion;
+
+    /**
+     * {@inheritDoc}
+     *
      * @ORM\Column(name="php_pear_components", type="array")
      */
     protected $phpPearComponents;

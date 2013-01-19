@@ -47,6 +47,8 @@ class VMType extends AbstractType
             $vagrantBoxesChoices[$vagrantKey] = $vagrantBox['name'];
         }
 
+        $phpVersions = array('5.3', '5.4');
+
         $phpModules = array(
             'mysql', 'intl', 'xdebug', 'curl', 'sqlite',
             'imagick', 'suhosin', 'apc'
@@ -114,6 +116,12 @@ class VMType extends AbstractType
             ->add('php', 'checkbox', array(
                 'required' => false,
                 'data'     => $this->defaultVM->getPhp()
+            ))
+            ->add('phpVersion', 'choice', array(
+                'choices'  => array_combine($phpVersions, $phpVersions),
+                'data'     => $this->defaultVM->getPhpVersion(),
+                'multiple' => false,
+                'required' => true,
             ))
             ->add('phpPearComponents', 'choice', array(
                 'choices'  => $phpPearComponents,
