@@ -78,6 +78,13 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
+     * @ORM\Column(name="apache_root_dir", type="string", length=150)
+     */
+    protected $apacheRootDir;
+
+    /**
+     * {@inheritDoc}
+     *
      * @ORM\Column(name="apache_ssl", type="boolean")
      */
     protected $apacheSSL;

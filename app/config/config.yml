@@ -85,13 +85,15 @@ swiftmailer:
 sly_vm:
     configurations:
         php53:
-            name: Default PHP 5.3 VM
-            phpVersion: 5.3
+            name:           Default PHP 5.3 VM
+            phpVersion:     5.3
         php54:
-            name: Default PHP 5.4 VM
-            phpVersion: 5.4
+            name:           Default PHP 5.4 VM
+            phpVersion:     5.4
         symfony1:
-            name: Default Symfony 1.4 VM
+            name:           Default Symfony 1.4 VM
+            apacheRootDir:  /web
         symfony2:
-            name:       Default Symfony 2 VM
-            composer:   true
+            name:           Default Symfony 2 VM
+            apacheRootDir:  /web
+            composer:       true

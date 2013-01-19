@@ -6,14 +6,12 @@
 
 <hr />
 
-<h4>Step by step installation</h4>
-
 <ul>
     <li><a href="{{ path('vm_download', { uKey: vm.uKey }) }}">Download</a> the generated archive</li>
-    <li>Untar it into your web project directory (into a <code>vagrant/</code> folder)</li>
-    <li>Go to <code>vagrant/</code> folder</li>
-    <li>Run <code>git submodule update --init</code> command to download Git dependencies</li>
+    <li>Untar it into your web project directory (into a <code>vagrant/</code> folder) and go to <code>vagrant/</code> folder</li>
+    <li>Run <code>git init && git submodule update --init</code> command to download Git dependencies</li>
     <li>Start the VM with <code>vagrant up</code> command</li>
+    <li>Remove the now-useless archive</li>
 </ul>
 
 <hr />
@@ -23,5 +21,5 @@
 
     <p>Copy and paste this line which will install, configure and run your generated VM.</p>
 
-    <textarea id="vm-one-line-installation" readonly="readonly" onclick="this.select()">curl -O {{ url('vm_download', { uKey: vm.uKey }) }} && tar zxvf {{ vm.archiveFilename }} vagrant/ && cd vagrant/ && git submodule update --init && vagrant up</textarea>
+    <textarea id="vm-one-line-installation" readonly="readonly" onclick="this.select()">curl -O {{ url('vm_download', { uKey: vm.uKey }) }} && tar zxvf {{ vm.tempArchiveFilename }} && rm {{ vm.tempArchiveFilename }} && mv {{ vm.uKey }}/ vagrant/ && cd vagrant/ && git init && git submodule update --init && vagrant up</textarea>
 </p>

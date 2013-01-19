@@ -9,6 +9,7 @@ phpMyAdmin:         false
 phpModules:         [ 'mysql', 'intl', 'curl', 'suhosin' ]
 systemPackages:     [ 'git-core', 'vim' ]
 apache:             true
+apacheRootDir:      /
 apacheSSL:          false
 nginx:              false
 varnish:            false

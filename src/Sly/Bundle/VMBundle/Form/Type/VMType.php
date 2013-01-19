@@ -93,6 +93,10 @@ class VMType extends AbstractType
                 'required' => false,
                 'data'     => $this->defaultVM->getApache()
             ))
+            ->add('apacheRootDir', 'text', array(
+                'required' => true,
+                'data'     => $this->defaultVM->getApacheRootDir()
+            ))
             ->add('apacheSSL', 'checkbox', array(
                 'required' => false,
                 'data'     => $this->defaultVM->getApacheSSL()

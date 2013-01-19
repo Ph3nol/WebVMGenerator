@@ -58,6 +58,11 @@ class VM
     protected $apache;
 
     /**
+     * @var string
+     */
+    protected $apacheRootDir;
+
+    /**
      * @var boolean
      */
     protected $apacheSSL;
@@ -167,16 +172,23 @@ class VM
     }
 
     /**
-     * Get cache path.
+     * Get file name.
      * 
      * @return string
      */
     public function getArchiveFilename()
     {
-        return sprintf(
-            '%s.tar',
-            Inflector::classify((string) $this)
-        );
+        return sprintf('%s.tar', Inflector::classify((string) $this));
+    }
+
+    /**
+     * Get temp file name.
+     * 
+     * @return string
+     */
+    public function getTempArchiveFilename($withExtension = true)
+    {
+        return sprintf('%s.tar', $this->getUKey());
     }
 
     /**
@@ -344,6 +356,26 @@ class VM
     public function setApache($apache)
     {
         $this->apache = $apache;
+    }
+
+    /**
+     * Get ApacheRootDir value.
+     *
+     * @return string ApacheRootDir value to get
+     */
+    public function getApacheRootDir()
+    {
+        return $this->apacheRootDir;
+    }
+    
+    /**
+     * Set ApacheRootDir value.
+     *
+     * @param string $apacheRootDir ApacheRootDir value to set
+     */
+    public function setApacheRootDir($apacheRootDir)
+    {
+        $this->apacheRootDir = $apacheRootDir;
     }
 
     /**

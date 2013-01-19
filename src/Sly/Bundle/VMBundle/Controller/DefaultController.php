@@ -43,7 +43,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/download/{uKey}-vm.tar", name="vm_download", requirements={ "key" = "\w+" })
+     * @Route("/download/{uKey}.tar", name="vm_download", requirements={ "key" = "\w+" })
      */
     public function downloadAction(VM $vm)
     {
