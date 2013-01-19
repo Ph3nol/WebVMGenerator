@@ -120,9 +120,9 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
-     * @ORM\Column(name="vim", type="boolean")
+     * @ORM\Column(name="system_packages", type="array")
      */
-    protected $vim;
+    protected $systemPackages;
 
     /**
      * {@inheritDoc}
@@ -130,13 +130,6 @@ class VM extends BaseVM
      * @ORM\Column(name="vim_config", type="boolean")
      */
     protected $vimConfig;
-
-    /**
-     * {@inheritDoc}
-     *
-     * @ORM\Column(name="git", type="boolean")
-     */
-    protected $git;
 
     /**
      * {@inheritDoc}

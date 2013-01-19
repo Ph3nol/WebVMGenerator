@@ -77,11 +77,13 @@
                     </div>
 
                     <div class="span3">
-                        <h3>Tools</h3>
+                        <h3>System Packages</h3>
+
+                        {{ form_widget(form.systemPackages) }}
+
+                        <h4>Options and Others</h4>
 
                         <ul class="unstyled">
-                            <li>{{ form_row(form.git, { label: 'Git' }) }}</li>
-                            <li>{{ form_row(form.vim, { label: 'Vim' }) }}</li>
                             <li>{{ form_row(form.vimConfig, { label: 'Vim config' }) }}</li>
                             <li>{{ form_row(form.composer, { label: 'Composer' }) }}</li>
                         </ul>

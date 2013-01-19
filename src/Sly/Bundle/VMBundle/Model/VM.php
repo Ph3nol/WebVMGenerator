@@ -88,19 +88,14 @@ class VM
     protected $mysqlRootPassword;
 
     /**
-     * @var boolean
+     * @var array
      */
-    protected $vim;
+    protected $systemPackages;
 
     /**
      * @var boolean
      */
     protected $vimConfig;
-
-    /**
-     * @var boolean
-     */
-    protected $git;
 
     /**
      * @var boolean
@@ -452,23 +447,23 @@ class VM
     }
 
     /**
-     * Get Vim value.
+     * Get SystemPackages value.
      *
-     * @return boolean Vim value to get
+     * @return array SystemPackages value to get
      */
-    public function getVim()
+    public function getSystemPackages()
     {
-        return $this->vim;
+        return $this->systemPackages;
     }
     
     /**
-     * Set Vim value.
+     * Set SystemPackages value.
      *
-     * @param boolean $vim Vim value to set
+     * @param array $systemPackages SystemPackages value to set
      */
-    public function setVim($vim)
+    public function setSystemPackages($systemPackages)
     {
-        $this->vim = $vim;
+        $this->systemPackages = $systemPackages;
     }
 
     /**
@@ -489,26 +484,6 @@ class VM
     public function setVimConfig($vimConfig)
     {
         $this->vimConfig = $vimConfig;
-    }
-
-    /**
-     * Get Git value.
-     *
-     * @return boolean Git value to get
-     */
-    public function getGit()
-    {
-        return $this->git;
-    }
-    
-    /**
-     * Set Git value.
-     *
-     * @param boolean $git Git value to set
-     */
-    public function setGit($git)
-    {
-        $this->git = $git;
     }
 
     /**

@@ -3,14 +3,13 @@ ip:                 11.11.11.11
 hostname:           dev.local
 timezone:           Europe/Paris
 php:                true
-phpModules:         ['mysql', 'intl', 'xdebug', 'curl', 'sqlite', 'imagick', 'suhosin']
+phpModules:         [ 'mysql', 'intl', 'curl', 'suhosin' ]
+systemPackages:     [ 'git-core', 'vim' ]
 apache:             true
 apacheSSL:          false
 nginx:              false
 varnish:            false
 mysql:              true
 mysqlRootPassword:  root
-git:                true
-vim:                true
 vimConfig:          false
 composer:           false

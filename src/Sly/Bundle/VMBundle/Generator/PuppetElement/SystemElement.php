@@ -3,20 +3,20 @@
 namespace Sly\Bundle\VMBundle\Generator\PuppetElement;
 
 /**
- * Vim Puppet element.
+ * System Puppet element.
  *
  * @uses \Sly\Bundle\VMBundle\Generator\PuppetElement\BasePuppetElement
  * @uses \Sly\Bundle\VMBundle\Generator\PuppetElement\PuppetElementInterface
  * @author Cédric Dugat <cedric@dugat.me>
  */
-class VimElement extends BasePuppetElement implements PuppetElementInterface
+class SystemElement extends BasePuppetElement implements PuppetElementInterface
 {
     /**
      * {@inheritDoc}
      */
     public function getName()
     {
-        return 'vim';
+        return 'system';
     }
 
     /**
@@ -24,7 +24,7 @@ class VimElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getCondition()
     {
-        return (bool) $this->getVM()->getVim();
+        return true;
     }
 
     /**
@@ -32,6 +32,14 @@ class VimElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getManifestLines()
     {
-        return 'system::package { "vim": }';
+        $lines = array();
+
+        $lines[] = 'class { "system": }'."\n";
+
+        foreach ($this->getVM()->getSystemPackages() as $package) {
+            $lines[] = sprintf('system::package { "%s": }', $package);
+        }
+
+        return implode("\n", $lines)."\n";
     }
 }

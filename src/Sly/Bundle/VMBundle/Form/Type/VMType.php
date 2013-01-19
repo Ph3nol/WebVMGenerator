@@ -38,7 +38,14 @@ class VMType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $phpModules = array('cli', 'gd', 'posix', 'intl');
+        $phpModules = array('mysql', 'intl', 'xdebug', 'curl', 'sqlite', 'imagick', 'suhosin');
+
+        $systemPackages = array(
+            'git-core' => 'Git',
+            'vim'      => 'Vim',
+            'sendmail' => 'Sendmail',
+            'lynx'     => 'Lynx'
+        );
 
         $builder
             ->add('name', 'text', array('required' => true, 'attr' => array('placeholder' => (string) $this->defaultVM)))
@@ -54,14 +61,19 @@ class VMType extends AbstractType
             ->add('php', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getPhp()))
             ->add('phpModules', 'choice', array(
                 'choices'  => array_combine($phpModules, $phpModules),
-                'data'     => $phpModules,
+                'data'     => $this->defaultVM->getPhpModules(),
                 'multiple' => true,
                 'expanded' => true,
                 'required' => false,
             ))
-            ->add('vim', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getVim()))
+            ->add('systemPackages', 'choice', array(
+                'choices'  => $systemPackages,
+                'data'     => $this->defaultVM->getSystemPackages(),
+                'multiple' => true,
+                'expanded' => true,
+                'required' => false,
+            ))
             ->add('vimConfig', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getVimConfig()))
-            ->add('git', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getGit()))
             ->add('composer', 'checkbox', array('required' => false, 'data' => $this->defaultVM->getComposer()))
         ;
     }
