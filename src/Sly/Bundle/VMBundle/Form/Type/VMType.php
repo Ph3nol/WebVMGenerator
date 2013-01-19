@@ -95,6 +95,10 @@ class VMType extends AbstractType
                 'required' => false,
                 'data'     => $this->defaultVM->getPhp()
             ))
+            ->add('phpPear', 'checkbox', array(
+                'required' => false,
+                'data'     => $this->defaultVM->getPhpPear()
+            ))
             ->add('phpMyAdmin', 'checkbox', array(
                 'required' => false,
                 'data'     => $this->defaultVM->getPhpMyAdmin()

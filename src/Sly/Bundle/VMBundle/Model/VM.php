@@ -65,6 +65,11 @@ class VM
     /**
      * @var boolean
      */
+    protected $phpPear;
+
+    /**
+     * @var boolean
+     */
     protected $phpMyAdmin;
 
     /**
@@ -429,6 +434,26 @@ class VM
     public function setPhp($php)
     {
         $this->php = $php;
+    }
+
+    /**
+     * Get PhpPear value.
+     *
+     * @return boolean PhpPear value to get
+     */
+    public function getPhpPear()
+    {
+        return $this->phpPear;
+    }
+    
+    /**
+     * Set PhpPear value.
+     *
+     * @param boolean $phpPear PhpPear value to set
+     */
+    public function setPhpPear($phpPear)
+    {
+        $this->phpPear = $phpPear;
     }
 
     /**

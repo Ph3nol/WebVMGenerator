@@ -85,6 +85,13 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
+     * @ORM\Column(name="php_pear", type="boolean")
+     */
+    protected $phpPear;
+
+    /**
+     * {@inheritDoc}
+     *
      * @ORM\Column(name="php_my_admin", type="boolean")
      */
     protected $phpMyAdmin;
