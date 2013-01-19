@@ -48,9 +48,9 @@ class MysqlElement extends BasePuppetElement implements PuppetElementInterface
         ;
 
         $lines = <<< EOF
-class { 'mysql':
-    root_password => '$mysqlPassword',
-    require       => Exec['apt-update'],
+class { "mysql":
+    root_password => "$mysqlPassword",
+    require       => Exec["apt-update"],
 }
 EOF;
 

@@ -43,9 +43,9 @@ class ComposerElement extends BasePuppetElement implements PuppetElementInterfac
     public function getManifestLines()
     {
         $lines = <<< EOF
-class { 'composer':
-    command_name => 'composer',
-    target_dir   => '/usr/local/bin',
+class { "composer":
+    command_name => "composer",
+    target_dir   => "/usr/local/bin",
     auto_update  => true
 }
 EOF;

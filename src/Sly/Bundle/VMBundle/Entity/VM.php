@@ -80,7 +80,7 @@ class VM extends BaseVM
      *
      * @ORM\Column(name="apache_port", type="integer", length=5)
      */
-    protected $apache_port;
+    protected $apachePort;
 
     /**
      * {@inheritDoc}

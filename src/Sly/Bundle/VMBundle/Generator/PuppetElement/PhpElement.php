@@ -51,35 +51,35 @@ class PhpElement extends BasePuppetElement implements PuppetElementInterface
         }
 
         array_walk_recursive($phpModules, function(&$input) {
-            $input = sprintf("'%s'", $input);
+            $input = sprintf('"%s"', $input);
         });
 
         $phpModules = sprintf('[ %s ]', implode(', ', $phpModules));
 
         $lines = <<< EOF
-class { 'php':
-    source => '/vagrant/files/php/php.ini',
+class { "php":
+    source => "/vagrant/files/php/php.ini",
 }
 
-file { 'php5cli.config':
-    path    => '/etc/php5/cli/php.ini',
-    ensure  => '/vagrant/files/php/php-cli.ini',
-    require => Package['php'],
+file { "php5cli.config":
+    path    => "/etc/php5/cli/php.ini",
+    ensure  => "/vagrant/files/php/php-cli.ini",
+    require => Package["php"],
 }
 
 php::module { $phpModules:
-    require => Exec['apt-update'],
-    notify  => Service['apache'],
+    require => Exec["apt-update"],
+    notify  => Service["apache"],
 }
 EOF;
 
         if ($withAPC) {
             $lines .= <<< EOF
 \n
-php::module { 'apc':
-    module_prefix => 'php-',
-    require       => Exec['apt-update'],
-    notify        => Service['apache'],
+php::module { "apc":
+    module_prefix => "php-",
+    require       => Exec["apt-update"],
+    notify        => Service["apache"],
 }
 EOF;
         }
@@ -87,8 +87,8 @@ EOF;
         if ($this->getVM()->getPhpMyAdmin()) {
             $lines .= <<< EOF
 \n
-system::package { 'phpmyadmin':
-    require => Package['php']
+system::package { "phpmyadmin":
+    require => Package["php"]
 }
 EOF;
         }

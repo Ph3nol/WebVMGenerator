@@ -34,24 +34,24 @@ class SystemElement extends BasePuppetElement implements PuppetElementInterface
     {
         $lines = array();
 
-        $lines[] = "class { 'system': }'\n";
+        $lines[] = "class { \"system\": }\n";
 
         foreach ($this->getVM()->getSystemPackages() as $package) {
-            $lines[] = sprintf("system::package { '%s': }", $package);
+            $lines[] = sprintf("system::package { \"%s\": }", $package);
         }
 
         $lines = implode("\n", $lines);
 
         $lines .= <<< EOF
 \n
-system::config { 'bash_aliases':
-    name   => '.bash_aliases',
-    source => '/vagrant/files/system/bash_aliases',
+system::config { "bash_aliases":
+    name   => ".bash_aliases",
+    source => "/vagrant/files/system/bash_aliases",
 }
 
-system::config { 'bashrc':
-    name   => '.bashrc',
-    source => '/vagrant/files/system/bashrc',
+system::config { "bashrc":
+    name   => ".bashrc",
+    source => "/vagrant/files/system/bashrc",
 }
 EOF;
 

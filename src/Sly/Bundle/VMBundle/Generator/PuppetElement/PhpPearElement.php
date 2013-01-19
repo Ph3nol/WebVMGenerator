@@ -33,36 +33,36 @@ class PhpPearElement extends BasePuppetElement implements PuppetElementInterface
     public function getManifestLines()
     {
         $lines = <<< EOF
-class { 'pear': }
+class { "pear": }
 
-pear::channel { 'phpunit':
-    url => 'pear.phpunit.de',
+pear::channel { "phpunit":
+    url => "pear.phpunit.de",
 }
 
-pear::channel { 'symfony2':
-    url     => 'pear.symfony.com',
-    require => Exec['pear-channel-phpunit'],
+pear::channel { "symfony2":
+    url     => "pear.symfony.com",
+    require => Exec["pear-channel-phpunit"],
 }
 
-pear::channel { 'symfony1':
-    url     => 'pear.symfony-project.com',
-    require => Exec['pear-channel-symfony2'],
+pear::channel { "symfony1":
+    url     => "pear.symfony-project.com",
+    require => Exec["pear-channel-symfony2"],
 }
 
-pear::channel { 'components':
-    url     => 'components.ez.no',
-    require => Exec['pear-channel-symfony1'],
+pear::channel { "components":
+    url     => "components.ez.no",
+    require => Exec["pear-channel-symfony1"],
 }
 EOF;
 
         if (in_array('phpunit', $this->getVM()->getPhpPearComponents())) {
             $lines .= <<< EOF
 \n
-pear::module { 'phpunit':
-    channel_name => 'phpunit',
-    package_name => 'PHPUnit',
-    dir_source   => 'PHPUnit',
-    require      => Exec['pear-channel-components'],
+pear::module { "phpunit":
+    channel_name => "phpunit",
+    package_name => "PHPUnit",
+    dir_source   => "PHPUnit",
+    require      => Exec["pear-channel-components"],
 }
 EOF;
         }
@@ -70,10 +70,10 @@ EOF;
         if (in_array('phpcodesniffer', $this->getVM()->getPhpPearComponents())) {
             $lines .= <<< EOF
 \n
-pear::module { 'php_code_sniffer':
-    package_name => 'PHP_CodeSniffer',
-    dir_source   => 'PHP/CodeSniffer',
-    require      => Class['pear'],
+pear::module { "php_code_sniffer":
+    package_name => "PHP_CodeSniffer",
+    dir_source   => "PHP/CodeSniffer",
+    require      => Class["pear"],
 }
 EOF;
         }
