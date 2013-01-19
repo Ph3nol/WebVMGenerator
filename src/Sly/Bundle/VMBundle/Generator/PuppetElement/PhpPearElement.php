@@ -24,7 +24,7 @@ class PhpPearElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getCondition()
     {
-        return (bool) ($this->getVM()->getPhp() && $this->getVM()->getPhpPear());
+        return (bool) ($this->getVM()->getPhp() && count($this->getVM()->getPhpPearComponents()));
     }
 
     /**
@@ -54,6 +54,29 @@ pear::channel { 'components':
     require => Exec['pear-channel-symfony1'],
 }
 EOF;
+
+        if (in_array('phpunit', $this->getVM()->getPhpPearComponents())) {
+            $lines .= <<< EOF
+\n
+pear::module { 'phpunit':
+    channel_name => 'phpunit',
+    package_name => 'PHPUnit',
+    dir_source   => 'PHPUnit',
+    require      => Exec['pear-channel-components'],
+}
+EOF;
+        }
+
+        if (in_array('phpcodesniffer', $this->getVM()->getPhpPearComponents())) {
+            $lines .= <<< EOF
+\n
+pear::module { 'php_code_sniffer':
+    package_name => 'PHP_CodeSniffer',
+    dir_source   => 'PHP/CodeSniffer',
+    require      => Class['pear'],
+}
+EOF;
+        }
 
         return $lines;
     }

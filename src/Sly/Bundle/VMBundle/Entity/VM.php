@@ -85,9 +85,9 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
-     * @ORM\Column(name="php_pear", type="boolean")
+     * @ORM\Column(name="php_pear_components", type="array")
      */
-    protected $phpPear;
+    protected $phpPearComponents;
 
     /**
      * {@inheritDoc}

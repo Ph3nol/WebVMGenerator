@@ -63,9 +63,9 @@ class VM
     protected $php;
 
     /**
-     * @var boolean
+     * @var array
      */
-    protected $phpPear;
+    protected $phpPearComponents;
 
     /**
      * @var boolean
@@ -437,23 +437,23 @@ class VM
     }
 
     /**
-     * Get PhpPear value.
+     * Get PhpPearComponents value.
      *
-     * @return boolean PhpPear value to get
+     * @return array PhpPearComponents value to get
      */
-    public function getPhpPear()
+    public function getPhpPearComponents()
     {
-        return $this->phpPear;
+        return $this->phpPearComponents;
     }
     
     /**
-     * Set PhpPear value.
+     * Set PhpPearComponents value.
      *
-     * @param boolean $phpPear PhpPear value to set
+     * @param array $phpPearComponents PhpPearComponents value to set
      */
-    public function setPhpPear($phpPear)
+    public function setPhpPearComponents($phpPearComponents)
     {
-        $this->phpPear = $phpPear;
+        $this->phpPearComponents = $phpPearComponents;
     }
 
     /**

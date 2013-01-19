@@ -3,7 +3,7 @@ ip:                 11.11.11.11
 hostname:           dev.local
 timezone:           Europe/Paris
 php:                true
-phpPear:            false
+phpPearComponents:  []
 phpMyAdmin:         false
 phpModules:         [ 'mysql', 'intl', 'curl', 'suhosin' ]
 systemPackages:     [ 'git-core', 'vim' ]

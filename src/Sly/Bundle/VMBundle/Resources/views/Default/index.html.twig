@@ -69,13 +69,16 @@
 
                         <ul class="unstyled">
                             <li>{{ form_row(form.php, { label: 'PHP' }) }}</li>
-                            <li>{{ form_row(form.phpPear, { label: 'PEAR' }) }}</li>
                             <li>{{ form_row(form.phpMyAdmin, { label: 'PHPMyAdmin' }) }}</li>
                         </ul>
 
                         <h4>Modules</h4>
                         
                         {{ form_widget(form.phpModules) }}
+
+                        <h4>PEAR components</h4>
+                        
+                        {{ form_widget(form.phpPearComponents) }}
                     </div>
 
                     <div class="span3">

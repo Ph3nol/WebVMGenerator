@@ -43,6 +43,11 @@ class VMType extends AbstractType
             'imagick', 'suhosin', 'apc'
         );
 
+        $phpPearComponents = array(
+            'phpunit'        => 'PHPUnit',
+            'phpcodesniffer' => 'PHPCodeSniffer',
+        );
+
         $systemPackages = array(
             'git-core' => 'Git',
             'vim'      => 'Vim',
@@ -95,16 +100,18 @@ class VMType extends AbstractType
                 'required' => false,
                 'data'     => $this->defaultVM->getPhp()
             ))
-            ->add('phpPear', 'checkbox', array(
+            ->add('phpPearComponents', 'choice', array(
+                'choices'  => $phpPearComponents,
+                'data'     => $this->defaultVM->getPhpPearComponents(),
+                'multiple' => true,
+                'expanded' => true,
                 'required' => false,
-                'data'     => $this->defaultVM->getPhpPear()
             ))
             ->add('phpMyAdmin', 'checkbox', array(
                 'required' => false,
                 'data'     => $this->defaultVM->getPhpMyAdmin()
             ))
             ->add('phpModules', 'choice', array(
-
                 'choices'  => array_combine($phpModules, $phpModules),
                 'data'     => $this->defaultVM->getPhpModules(),
                 'multiple' => true,
@@ -112,7 +119,6 @@ class VMType extends AbstractType
                 'required' => false,
             ))
             ->add('systemPackages', 'choice', array(
-
                 'choices'  => $systemPackages,
                 'data'     => $this->defaultVM->getSystemPackages(),
                 'multiple' => true,
