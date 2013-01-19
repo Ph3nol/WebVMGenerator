@@ -2,6 +2,11 @@
 
 **Work in progress.**
 
+## Requirements
+
+* PHP 5.3+
+* Java environment (for YUI compressor) - you also can commend assetic filters into main `config.yml` file
+
 ## To do
 
 * Write tests and finish the project
