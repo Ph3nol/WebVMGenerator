@@ -153,16 +153,14 @@ class VM
 
     /**
      * Get cache path.
-     *
-     * @param boolean $internalFileName Internal filename
      * 
      * @return string
      */
-    public function getArchiveFilename($internalFileName = false)
+    public function getArchiveFilename()
     {
         return sprintf(
             '%s.tar',
-            $internalFileName ? $this->getUKey() : Inflector::classify((string) $this)
+            Inflector::classify((string) $this)
         );
     }
 
@@ -174,13 +172,12 @@ class VM
      * 
      * @return string
      */
-    public function getArchivePath($prefixPath = null, $internal = false)
+    public function getArchivePath($prefixPath = null)
     {
         return sprintf(
-            '%scache/vm/%s/%s',
+            '%scache/vm/%s',
             $prefixPath ? $prefixPath.'/' : '',
-            $this->getUKey(),
-            $internal ? '/../'.$this->getArchiveFilename(true) : $this->getArchiveFilename()
+            $this->getUKey().'.tar'
         );
     }
 

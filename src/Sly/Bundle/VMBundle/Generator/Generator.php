@@ -101,6 +101,10 @@ class Generator
     {
         $this->setVM($vm);
 
+        if (file_exists($vm->getArchivePath($this->kernelRootDir))) {
+            $this->filesystem->remove($vm->getArchivePath($this->kernelRootDir));
+        }
+
         $this->filesystem->mirror(
             __DIR__.'/..'.self::VAGRANT_SKELETON_PATH,
             $this->getVM()->getCachePath($this->kernelRootDir),
@@ -172,7 +176,7 @@ class Generator
      */
     private function generateArchiveFromFiles()
     {
-        $vmArchive = new TarArchive($this->getVM()->getArchivePath($this->kernelRootDir, true));
+        $vmArchive = new TarArchive($this->getVM()->getArchivePath($this->kernelRootDir));
 
         $vmArchive->add($this->getVM()->getCachePath($this->kernelRootDir));
     }

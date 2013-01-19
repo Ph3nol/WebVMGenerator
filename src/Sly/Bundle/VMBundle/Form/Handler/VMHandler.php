@@ -59,7 +59,7 @@ class VMHandler
     /**
      * Process.
      *
-     * @return boolean
+     * @return \Sly\Bundle\VMBundle\Entity\VM|boolean
      */
     public function process()
     {
@@ -67,12 +67,12 @@ class VMHandler
             $this->form->bindRequest($this->request);
 
             if ($this->form->isValid()) {
-                $vmData = $this->form->getData();
+                $vm = $this->form->getData();
 
-                $this->em->persist($vmData);
+                $this->em->persist($vm);
                 $this->em->flush();
 
-                return $this->generator->generate($vmData);
+                return $vm;
             }
         }
 

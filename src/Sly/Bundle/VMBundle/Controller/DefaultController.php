@@ -43,49 +43,29 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/vm-created.html", name="vm_informations")
-     * @Template()
-     */
-    public function vmInformationsAction()
-    {
-        $session = $this->get('session');
-
-        if ($session->has('generatorSessionID')) {
-            return array();
-        } else {
-            throw new NotFoundHttpException('There is no VM recently created');
-        }
-    }
-
-    /**
      * @Route("/download/{uKey}-vm.tar", name="vm_download", requirements={ "key" = "\w+" })
      */
     public function downloadAction(VM $vm)
     {
-        $request = $this->get('request');
+        $kernelRootDir = $this->container->getParameter('kernel.root_dir');
+        $request       = $this->get('request');
+        $vmGenerator   = $this->get('sly_vm.generator');
         
-        $vmGenerator = $this->get('sly_vm.generator');
-        $vmGenerator->setVM($vm);
+        $vmGenerator->generate($vm);
 
-        $vmArchivePath = $vmGenerator->getArchivePath();
+        $response = new Response();
+        $response
+            ->setContent(file_get_contents($vm->getArchivePath($kernelRootDir)))
+            ->setStatusCode(200)
+        ;
 
-        if (file_exists($vmArchivePath)) {
-            $response = new Response();
-            $response
-                ->setContent(file_get_contents($vmArchivePath))
-                ->setStatusCode(200)
-            ;
-
-            $response->headers->set('Content-Type', 'application/force-download');
-            $response->headers->set(
-                'Content-Disposition',
-                'attachment; filename="'.$vmGenerator->getArchiveFilename().'"'
-            );
-            
-            $response->send();
-        } else {
-            throw new NotFoundHttpException('No VM found for this key or user');
-        }
+        $response->headers->set('Content-Type', 'application/force-download');
+        $response->headers->set(
+            'Content-Disposition',
+            'attachment; filename="'.$vm->getArchiveFilename().'"'
+        );
+        
+        $response->send();
     }
 
     /**
