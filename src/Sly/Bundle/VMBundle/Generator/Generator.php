@@ -138,6 +138,7 @@ class Generator
         $this->setVM($vm);
 
         $this->generateGitSubmodulesFile();
+        $this->generatePuppetBaseFile();
         $this->generateOtherFiles();
         $this->generateArchiveFromFiles();
 
@@ -166,7 +167,7 @@ class Generator
         foreach ($this->puppetElements as $puppetElement) {
             $puppetElement->setVM($this->getVM());
 
-            if ($puppetElement->getCondition()) {
+            if ($puppetElement->getCondition() && $puppetElement->getGitSubmodulesContent()) {
                 $gitSubmodulesContent[] = $puppetElement->getGitSubmodulesContent();
             }
         }
@@ -177,6 +178,32 @@ class Generator
             $this->vmFileSystem->write(
                 $this->getVM()->getUKey().'/'.'.gitmodules',
                 $gitSubmodulesContent,
+                true
+            );
+        }
+    }
+
+    /**
+     * Generate Puppet base file.
+     */
+    private function generatePuppetBaseFile()
+    {
+        $puppetBaseFileContent = array();
+
+        foreach ($this->puppetElements as $puppetElement) {
+            $puppetElement->setVM($this->getVM());
+
+            if ($puppetElement->getCondition() && $puppetElement->getManifestContent()) {
+                $puppetBaseFileContent[] = $puppetElement->getManifestContent();
+            }
+        }
+
+        if ((bool) count($puppetBaseFileContent)) {
+            $puppetBaseFileContent = implode('', $puppetBaseFileContent);
+
+            $this->vmFileSystem->write(
+                $this->getVM()->getUKey().'/manifests/app.pp',
+                $puppetBaseFileContent,
                 true
             );
         }

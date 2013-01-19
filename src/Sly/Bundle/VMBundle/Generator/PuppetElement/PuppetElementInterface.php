@@ -37,6 +37,8 @@ interface PuppetElementInterface
      *     array('path/to/modules/package1', 'https://github.com/example/puppet-package1.git'),
      *     array('path/to/modules/package2', 'https://github.com/example/puppet-package2.git'),
      * );
+     *
+     * If no Git submodules are needed, just return an empty array.
      * 
      * @return array
      */
@@ -45,7 +47,7 @@ interface PuppetElementInterface
     /**
      * Get manifest line(s).
      * 
-     * @return string
+     * @return string|null
      */
-    public function getManifestLine();
+    public function getManifestLines();
 }

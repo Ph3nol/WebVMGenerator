@@ -3,20 +3,20 @@
 namespace Sly\Bundle\VMBundle\Generator\PuppetElement;
 
 /**
- * Apache Puppet element.
+ * Vim Puppet element.
  *
  * @uses \Sly\Bundle\VMBundle\Generator\PuppetElement\BasePuppetElement
  * @uses \Sly\Bundle\VMBundle\Generator\PuppetElement\PuppetElementInterface
  * @author Cédric Dugat <cedric@dugat.me>
  */
-class ApacheElement extends BasePuppetElement implements PuppetElementInterface
+class VimElement extends BasePuppetElement implements PuppetElementInterface
 {
     /**
      * {@inheritDoc}
      */
     public function getName()
     {
-        return 'apache';
+        return 'vim';
     }
 
     /**
@@ -24,17 +24,7 @@ class ApacheElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getCondition()
     {
-        return (bool) $this->getVM()->getApache();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getGitSubmodules()
-    {
-        return array(
-            array('modules/apache', 'https://github.com/example42/puppet-apache.git'),
-        );
+        return (bool) $this->getVM()->getVim();
     }
 
     /**
@@ -42,5 +32,6 @@ class ApacheElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getManifestLines()
     {
+        return 'system::package { "vim": }';
     }
 }

@@ -40,7 +40,7 @@ class ExampleElement extends BasePuppetElement implements PuppetElementInterface
     /**
      * {@inheritDoc}
      */
-    public function getManifestLine()
+    public function getManifestLines()
     {
     }
 }

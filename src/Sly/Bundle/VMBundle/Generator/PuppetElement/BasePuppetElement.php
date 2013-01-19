@@ -62,25 +62,59 @@ abstract class BasePuppetElement
     }
 
     /**
+     * @see \Sly\Bundle\VMBundle\Generator\PuppetElement\PuppetElementInterface
+     */
+    public function getGitSubmodules()
+    {
+        return array();
+    }
+
+    /**
+     * @see \Sly\Bundle\VMBundle\Generator\PuppetElement\PuppetElementInterface
+     */
+    public function getManifestLines()
+    {
+        return null;
+    }
+
+    /**
      * Get Git submodules content.
      * 
-     * @return string
+     * @return null|string
      */
     public function getGitSubmodulesContent()
     {
-        $lines = array();
+        if ($this->getGitSubmodules() && is_array($this->getGitSubmodules()) && (bool) count($this->getGitSubmodules())) {
+            $lines = array();
 
-        foreach ($this->getGitSubmodules() as $submodule) {
-            list($path, $url) = $submodule;
+            foreach ($this->getGitSubmodules() as $submodule) {
+                list($path, $url) = $submodule;
 
-            $lines[] = sprintf(
-                "[submodule \"%s\"]\n    path = %s\n    url = %s\n\n",
-                $path,
-                $path,
-                $url
-            );
+                $lines[] = sprintf(
+                    "[submodule \"%s\"]\n    path = %s\n    url = %s\n",
+                    $path,
+                    $path,
+                    $url
+                );
+            }
+
+            return implode("\n", $lines);
         }
 
-        return implode('', $lines);
+        return null;
+    }
+
+    /**
+     * Get manifest lines.
+     * 
+     * @return null|string
+     */
+    public function getManifestContent()
+    {
+        if ($this->getManifestLines()) {
+            return $this->getManifestLines()."\n\n"; 
+        }
+
+        return null;
     }
 }

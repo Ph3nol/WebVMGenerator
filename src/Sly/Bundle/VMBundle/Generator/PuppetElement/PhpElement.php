@@ -24,7 +24,7 @@ class PhpElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getCondition()
     {
-        return (bool) count($this->getVM()->getPhpModules());
+        return (bool) count($this->getVM()->getPhp());
     }
 
     /**
@@ -40,7 +40,7 @@ class PhpElement extends BasePuppetElement implements PuppetElementInterface
     /**
      * {@inheritDoc}
      */
-    public function getManifestLine()
+    public function getManifestLines()
     {
     }
 }
