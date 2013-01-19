@@ -106,7 +106,5 @@ EOF;
             $this->getGenerator()->getFilesystem()->touch($vhostFilepath);
             file_put_contents($vhostFilepath, $vhostContent);
         }
-
-        exit();
     }
 }
