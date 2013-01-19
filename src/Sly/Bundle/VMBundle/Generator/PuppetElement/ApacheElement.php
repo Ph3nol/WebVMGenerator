@@ -24,7 +24,7 @@ class ApacheElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getCondition()
     {
-        return (bool) $this->vm->getApache();
+        return (bool) $this->getVM()->getApache();
     }
 
     /**

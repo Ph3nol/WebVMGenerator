@@ -3,20 +3,20 @@
 namespace Sly\Bundle\VMBundle\Generator\PuppetElement;
 
 /**
- * PHP Puppet element.
+ * Example Puppet element.
  *
  * @uses \Sly\Bundle\VMBundle\Generator\PuppetElement\BasePuppetElement
  * @uses \Sly\Bundle\VMBundle\Generator\PuppetElement\PuppetElementInterface
  * @author Cédric Dugat <cedric@dugat.me>
  */
-class PhpElement extends BasePuppetElement implements PuppetElementInterface
+class ExampleElement extends BasePuppetElement implements PuppetElementInterface
 {
     /**
      * {@inheritDoc}
      */
     public function getName()
     {
-        return 'php';
+        return 'example';
     }
 
     /**
@@ -24,7 +24,7 @@ class PhpElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getCondition()
     {
-        return (bool) count($this->getVM()->getPhpModules());
+        return false;
     }
 
     /**
@@ -33,7 +33,7 @@ class PhpElement extends BasePuppetElement implements PuppetElementInterface
     public function getGitSubmodules()
     {
         return array(
-            array('modules/php', 'https://github.com/example42/puppet-php.git'),
+            array('modules/example', 'https://github.com/example/puppet-example.git'),
         );
     }
 

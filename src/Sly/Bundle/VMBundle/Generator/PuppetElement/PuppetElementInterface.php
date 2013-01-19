@@ -21,7 +21,8 @@ interface PuppetElementInterface
     /**
      * Get VM condition to apply Puppet Element.
      *
-     * To use VM entity: $this->vm.
+     * Your logic (depending or not on VM), making condition to be applied from Generator.
+     * You can access the VM entity by using $this->getVM() accessor.
      * 
      * @return boolean
      */
