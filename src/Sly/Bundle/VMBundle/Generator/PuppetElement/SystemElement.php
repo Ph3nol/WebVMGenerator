@@ -30,6 +30,16 @@ class SystemElement extends BasePuppetElement implements PuppetElementInterface
     /**
      * {@inheritDoc}
      */
+    public function getGitSubmodules()
+    {
+        return array(
+            array('modules/puppi', 'https://github.com/example42/puppi.git'),
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getManifestLines()
     {
         $lines = array();
