@@ -2,9 +2,8 @@
 
 namespace Sly\Bundle\VMBundle\Generator;
 
-use Knp\Bundle\GaufretteBundle\FilesystemMap;
+use Symfony\Component\Filesystem\Filesystem;
 use Lootils\Archiver\TarArchive;
-use Doctrine\Common\Util\Inflector;
 
 use Sly\Bundle\VMBundle\Config\Config,
     Sly\Bundle\VMBundle\Generator\PuppetElement\PuppetElementCollection,
@@ -18,10 +17,14 @@ use Sly\Bundle\VMBundle\Config\Config,
  */
 class Generator
 {
+    const VAGRANT_SKELETON_PATH     = '/Resources/skeleton/vagrant';
+    const PUPPET_BASE_MANIFEST_FILE = '/manifests/app.pp';
+    const GIT_MODULES_FILE          = '/.gitmodules';
+
     /**
-     * @var \Knp\Bundle\GaufretteBundle\FilesystemMap
+     * @var \Symfony\Component\Filesystem\Filesystem
      */
-    private $vmFileSystem;
+    private $filesystem;
 
     /**
      * @var \Sly\Bundle\VMBundle\Config\Config
@@ -46,60 +49,17 @@ class Generator
     /**
      * Constructor.
      *
-     * @param \Knp\Bundle\GaufretteBundle\FilesystemMap                            $vmFileSystem   Gaufrette VM file system
+     * @param \Symfony\Component\Filesystem\Filesystem                             $filesystem     Filesystem
      * @param \Sly\Bundle\VMBundle\Config\Config                                   $config         Config
      * @param \Sly\Bundle\VMBundle\Generator\PuppetElement\PuppetElementCollection $puppetElements Puppet elements collection
      * @param string                                                               $kernelRootDir  Kernel root directory
      */
-    public function __construct(FilesystemMap $vmFileSystem, Config $config, PuppetElementCollection $puppetElements, $kernelRootDir)
+    public function __construct(Filesystem $filesystem, Config $config, PuppetElementCollection $puppetElements, $kernelRootDir)
     {
-        $this->vmFileSystem   = $vmFileSystem->get('vm');
+        $this->filesystem     = $filesystem;
         $this->config         = $config;
         $this->puppetElements = $puppetElements;
         $this->kernelRootDir  = $kernelRootDir;
-    }
-
-    /**
-     * Get cache path from filesystem and VM uKey.
-     *
-     * @param boolean $complete Complete path (with VM uKey last directory)
-     * 
-     * @return string
-     */
-    public function getCachePath($complete = true)
-    {
-        return sprintf(
-            '%s/cache/vm%s',
-            $this->kernelRootDir,
-            $complete ? '/'.$this->getVM()->getUKey() : null
-        );
-    }
-
-    /**
-     * Get archive path.
-     * 
-     * @return string
-     */
-    public function getArchivePath()
-    {
-        return sprintf(
-            '%s/%s.tar',
-            $this->getCachePath(false),
-            $this->getVM()->getUKey()
-        );
-    }
-
-    /**
-     * Get archive filename.
-     *
-     * @return string
-     */
-    public function getArchiveFilename()
-    {
-        return sprintf(
-            '%s-VagrantConfig.tar',
-            Inflector::classify($this->getVM()->getName())
-        );
     }
 
     /**
@@ -137,24 +97,20 @@ class Generator
     {
         $this->setVM($vm);
 
+        $this->filesystem->mirror(
+            __DIR__.'/..'.self::VAGRANT_SKELETON_PATH,
+            $this->getVM()->getCachePath($this->kernelRootDir),
+            null,
+            array('override' => true)
+        );
+
         $this->generateGitSubmodulesFile();
         $this->generatePuppetBaseFile();
-        $this->generateOtherFiles();
         $this->generateArchiveFromFiles();
 
-        return $this->getVM();
-    }
+        $this->filesystem->remove($this->getVM()->getCachePath($this->kernelRootDir));
 
-    /**
-     * Generate other files.
-     */
-    private function generateOtherFiles()
-    {
-        $this->vmFileSystem->write(
-            $this->getVM()->getUKey().'/README',
-            'README',
-            true
-        );
+        return $this->getVM();
     }
 
     /**
@@ -175,10 +131,9 @@ class Generator
         if ((bool) count($gitSubmodulesContent)) {
             $gitSubmodulesContent = implode('', $gitSubmodulesContent);
 
-            $this->vmFileSystem->write(
-                $this->getVM()->getUKey().'/'.'.gitmodules',
-                $gitSubmodulesContent,
-                true
+            file_put_contents(
+                $this->getVM()->getCachePath($this->kernelRootDir).self::GIT_MODULES_FILE,
+                $gitSubmodulesContent
             );
         }
     }
@@ -201,10 +156,9 @@ class Generator
         if ((bool) count($puppetBaseFileContent)) {
             $puppetBaseFileContent = implode('', $puppetBaseFileContent);
 
-            $this->vmFileSystem->write(
-                $this->getVM()->getUKey().'/manifests/app.pp',
-                $puppetBaseFileContent,
-                true
+            file_put_contents(
+                $this->getVM()->getCachePath($this->kernelRootDir).self::PUPPET_BASE_MANIFEST_FILE,
+                $puppetBaseFileContent
             );
         }
     }
@@ -214,10 +168,8 @@ class Generator
      */
     private function generateArchiveFromFiles()
     {
-        $vmArchive = new TarArchive(
-            sprintf('%s/%s.tar', $this->getCachePath(false), $this->getVM()->getUKey())
-        );
+        $vmArchive = new TarArchive($this->getVM()->getArchivePath($this->kernelRootDir, true));
 
-        $vmArchive->add($this->getCachePath());
+        $vmArchive->add($this->getVM()->getCachePath($this->kernelRootDir));
     }
 }

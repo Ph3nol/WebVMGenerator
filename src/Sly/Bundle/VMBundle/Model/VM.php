@@ -3,6 +3,7 @@
 namespace Sly\Bundle\VMBundle\Model;
 
 use Sly\Bundle\VMBundle\Config\Config;
+use Doctrine\Common\Util\Inflector;
 
 /**
  * VM model.
@@ -11,6 +12,11 @@ use Sly\Bundle\VMBundle\Config\Config;
  */
 class VM
 {
+    /**
+     * @var string
+     */
+    private $kernelRootDir;
+
     /**
      * @var integer
      */
@@ -106,8 +112,7 @@ class VM
      */
     public function __construct()
     {
-        $this->uKey = md5(uniqid().time());
-
+        $this->uKey      = md5(uniqid().time());
         $vmDefaultConfig = Config::getVMDefaultConfig();
 
         foreach ($vmDefaultConfig as $key => $value) {
@@ -127,6 +132,56 @@ class VM
     public function __toString()
     {
         return $this->getName();
+
+    }
+
+    /**
+     * Get cache path.
+     *
+     * @param null|string $prefixPath Prefix path
+     * 
+     * @return string
+     */
+    public function getCachePath($prefixPath = null)
+    {
+        return sprintf(
+            '%scache/vm/%s',
+            $prefixPath ? $prefixPath.'/' : '',
+            $this->getUKey()
+        );
+    }
+
+    /**
+     * Get cache path.
+     *
+     * @param boolean $internalFileName Internal filename
+     * 
+     * @return string
+     */
+    public function getArchiveFilename($internalFileName = false)
+    {
+        return sprintf(
+            '%s.tar',
+            $internalFileName ? $this->getUKey() : Inflector::classify((string) $this)
+        );
+    }
+
+    /**
+     * Get archive path.
+     *
+     * @param null|string $prefixPath Prefix path
+     * @param boolean     $internal   Internal filename
+     * 
+     * @return string
+     */
+    public function getArchivePath($prefixPath = null, $internal = false)
+    {
+        return sprintf(
+            '%scache/vm/%s/%s',
+            $prefixPath ? $prefixPath.'/' : '',
+            $this->getUKey(),
+            $internal ? '/../'.$this->getArchiveFilename(true) : $this->getArchiveFilename()
+        );
     }
 
     /**
