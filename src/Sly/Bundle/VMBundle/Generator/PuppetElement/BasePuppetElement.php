@@ -91,14 +91,14 @@ abstract class BasePuppetElement
                 list($path, $url) = $submodule;
 
                 $lines[] = sprintf(
-                    "[submodule \"%s\"]\n    path = %s\n    url = %s\n",
+                    "[submodule \"%s\"]\n    path = %s\n    url = %s\n\n",
                     $path,
                     $path,
                     $url
                 );
             }
 
-            return implode("\n", $lines);
+            return implode('', $lines);
         }
 
         return null;
