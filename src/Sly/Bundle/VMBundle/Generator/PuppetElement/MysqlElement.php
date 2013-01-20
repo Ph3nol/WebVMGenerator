@@ -33,7 +33,7 @@ class MysqlElement extends BasePuppetElement implements PuppetElementInterface
     public function getGitSubmodules()
     {
         return array(
-            array('modules/mysql', 'https://github.com/example/puppet-mysql.git'),
+            array('modules/mysql', 'https://github.com/example42/puppet-mysql.git'),
         );
     }
 
