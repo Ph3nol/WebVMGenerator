@@ -21,6 +21,7 @@ class Generator
     const GIT_MODULES_FILE          = '/.gitmodules';
     const VAGRANT_FILE              = '/Vagrantfile';
     const PUPPET_BASE_MANIFEST_FILE = '/manifests/base.pp';
+    const VAGRANT_CONFIG_INSTALL    = '/install.sh';
 
     /**
      * @var \Symfony\Component\Filesystem\Filesystem
@@ -41,6 +42,11 @@ class Generator
      * @var \Sly\Bundle\VMBundle\Entity\VM
      */
     private $vm;
+
+    /**
+     * @var array
+     */
+    private $vmInstallScriptElements = array();
 
     /**
      * @var string
@@ -135,6 +141,7 @@ class Generator
 
         $this->generateVagrantFile();
         $this->generatePuppetElements();
+        $this->generateInstallScript();
         $this->generateArchiveFromFiles();
 
         $this->filesystem->remove($this->getVM()->getCachePath($this->kernelRootDir));
@@ -188,17 +195,24 @@ EOF;
 
     /**
      * Generate Puppet elements.
+     *
+     * @return array
      */
     private function generatePuppetElements()
     {
-        $gitSubmodulesContent  = array();
-        $puppetBaseFileContent = array();
+        $gitSubmodulesContent                        = array();
+        $puppetBaseFileContent                       = array();
+        $this->vmInstallScriptElements['gitCloning'] = array();
 
         foreach ($this->puppetElements as $puppetElement) {
             $puppetElement->setGenerator($this);
 
             if ($puppetElement->getCondition() && $puppetElement->getGitSubmodulesContent()) {
                 $gitSubmodulesContent[] = $puppetElement->getGitSubmodulesContent();
+            }
+
+            if ($puppetElement->getCondition() && $puppetElement->getGitCloningContent()) {
+                $this->vmInstallScriptElements['gitCloning'][] = $puppetElement->getGitCloningContent();
             }
 
             if ($puppetElement->getCondition() && $puppetElement->getManifestContent()) {
@@ -225,6 +239,36 @@ EOF;
                 $puppetBaseFileContent
             );
         }
+    }
+
+    /**
+     * Generate install script.
+     */
+    private function generateInstallScript()
+    {
+        $vmKey                = $this->getVM()->getUKey();
+        $installScriptContent = array();
+
+        $installScriptContent[] = file_get_contents(
+            $this->getVM()->getCachePath($this->kernelRootDir).self::VAGRANT_CONFIG_INSTALL
+        );
+
+        $installScriptContent[] = <<< EOF
+\nmv $vmKey/ vagrant/\n
+cd vagrant/\n
+git init\n\n
+EOF;
+
+        foreach ($this->vmInstallScriptElements['gitCloning'] as $gitCloning) {
+            $installScriptContent[] = $gitCloning."\n";
+        }
+
+        $installScriptContent[] = "\nvagrant up\n";
+
+        file_put_contents(
+            $this->getVM()->getCachePath($this->kernelRootDir).self::VAGRANT_CONFIG_INSTALL,
+            implode('', $installScriptContent)
+        );
     }
 
     /**

@@ -112,6 +112,28 @@ abstract class BasePuppetElement
     }
 
     /**
+     * Get Git cloning content.
+     * 
+     * @return null|string
+     */
+    public function getGitCloningContent()
+    {
+        if ($this->getGitSubmodules() && is_array($this->getGitSubmodules()) && (bool) count($this->getGitSubmodules())) {
+            $lines = array();
+
+            foreach ($this->getGitSubmodules() as $submodule) {
+                list($path, $url) = $submodule;
+
+                $lines[] = sprintf("git clone %s %s", $url, $path);
+            }
+
+            return implode('', $lines);
+        }
+
+        return null;
+    }
+
+    /**
      * Get manifest lines.
      * 
      * @return null|string
