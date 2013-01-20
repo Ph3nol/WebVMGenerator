@@ -247,6 +247,7 @@ EOF;
     private function generateInstallScript()
     {
         $vmKey                = $this->getVM()->getUKey();
+        $vmArchiveName        = $this->getVM()->getTempArchiveFilename();
         $installScriptContent = array();
 
         $installScriptContent[] = file_get_contents(
@@ -254,7 +255,8 @@ EOF;
         );
 
         $installScriptContent[] = <<< EOF
-\nmv $vmKey/ vagrant/\n
+\nrm $vmArchiveName
+mv $vmKey/ vagrant/\n
 cd vagrant/\n
 git init\n\n
 EOF;
