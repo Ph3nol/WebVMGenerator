@@ -6,7 +6,7 @@ timezone:           Europe/Paris
 php:                true
 phpPearComponents:  []
 phpMyAdmin:         false
-phpModules:         [ 'mysql', 'intl', 'curl', 'suhosin' ]
+phpModules:         [ 'suhosin', 'mysql', 'intl', 'curl', 'xdebug', 'xml', 'standard', 'sockets', 'session', 'posix', 'mbstring' ]
 systemPackages:     [ 'git-core', 'vim' ]
 apache:             true
 apachePort:         80

@@ -1,3 +1,9 @@
+div.php-modules-checkboxes label.checkbox,
+div.pear-components-checkboxes label.checkbox {
+    display: inline-block;
+    width: 40%;
+}
+
 #vm-one-line-installation {
     width: 94%;
     height: 60px;

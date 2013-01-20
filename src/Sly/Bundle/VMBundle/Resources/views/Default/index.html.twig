@@ -86,7 +86,7 @@
                                     {{ form_widget(form.apacheRootDir, { attr: { class: 'span2' } }) }}
                                 </div>
                             </li>   
-                            <li>{{ form_row(form.apacheSSL, { label: 'Apache SSL support' }) }}</li>
+                            <li>{{ form_row(form.apacheSSL, { label: 'Apache SSL support', attr: { 'disabled': 'disabled' } }) }}</li>
                             <li>{{ form_row(form.nginx, { label: 'Nginx' }) }}</li>
                             <li>{{ form_row(form.varnish, { label: 'Varnish' }) }}</li>
                         </ul>
@@ -112,11 +112,11 @@
 
                         <h4>Modules</h4>
                         
-                        {{ form_widget(form.phpModules) }}
+                        <div class="php-modules-checkboxes">{{ form_widget(form.phpModules) }}</div>
 
                         <h4>PEAR components</h4>
                         
-                        {{ form_widget(form.phpPearComponents) }}
+                        <div class="pear-components-checkboxes">{{ form_widget(form.phpPearComponents) }}</div>
                     </div>
 
                     <div class="span3">
@@ -127,7 +127,7 @@
                         <h4>Options and Others</h4>
 
                         <ul class="unstyled">
-                            <li>{{ form_row(form.vimConfig, { label: 'Vim config' }) }}</li>
+                            <li>{{ form_row(form.vimConfig, { label: 'Vim config', attr: { 'disabled': 'disabled' } }) }}</li>
                             <li>{{ form_row(form.composer, { label: 'Composer' }) }}</li>
                         </ul>
                     </div>
