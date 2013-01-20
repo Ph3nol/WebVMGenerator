@@ -159,24 +159,26 @@ class Generator
         $vbUrl          = $vagrantBoxes[$this->getVM()->getVagrantBox()]['url'];
         $puppetBaseFile = explode('/', self::PUPPET_BASE_MANIFEST_FILE);
         $puppetBaseFile = end($puppetBaseFile);
-        $vbHostname     = $this->getVM()->getHostname();
-        $vbIpAddress    = $this->getVM()->getIp();
-        $vbTimezone     = $this->getVM()->getTimezone();
+        $vmHostname     = $this->getVM()->getHostname();
+        $vmIpAddress    = $this->getVM()->getIp();
+        $vmTimezone     = $this->getVM()->getTimezone();
+        $vmUKey         = $this->getVM()->getUKey();
+        $vmName         = (string) $this->getVM();
 
         $vagrantFileContent = <<< EOF
 Vagrant::Config.run do |config|
     config.vm.box     = "$vbName"
     config.vm.box_url = "$vbUrl"
     
-    config.vm.customize [ "modifyvm", :id, "--name", "$vbHostname" ]
+    config.vm.customize [ "modifyvm", :id, "--name", "$vmName $vmUKey" ]
 
-    config.vm.network :hostonly, "$vbIpAddress"
-    config.vm.host_name = "$vbHostname"
+    config.vm.network :hostonly, "$vmIpAddress"
+    config.vm.host_name = "$vmHostname"
 
     config.vm.share_folder "vagrant", "/vagrant", "."
     config.vm.share_folder "project", "/project", ".."
 
-    config.vm.provision :shell, :inline => "echo \"$vbTimezone\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
+    config.vm.provision :shell, :inline => "echo \"$vmTimezone\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
 
     config.vm.provision :puppet do |puppet|
         puppet.manifests_path = "manifests"
