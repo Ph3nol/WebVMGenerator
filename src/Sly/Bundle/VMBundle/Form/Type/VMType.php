@@ -50,7 +50,7 @@ class VMType extends AbstractType
         $phpVersions = array('5.3', '5.4');
 
         $phpModules = array(
-            'suhosin', 'mysql', 'intl', 'cli', 'imagick', 'gd', 'xsl', 'mcrypt', 'curl', 'xdebug', 'imap', 'zip', 'sqlite', 'mongo',
+            'suhosin', 'mysql', 'sqlite', 'intl', 'cli', 'imagick', 'gd', 'xsl', 'mcrypt', 'curl', 'xdebug', 'imap',
         );
 
         $phpPearComponents = array(
