@@ -254,18 +254,11 @@ EOF;
             $this->getVM()->getCachePath($this->kernelRootDir).self::VAGRANT_CONFIG_INSTALL
         );
 
-        $installScriptContent[] = <<< EOF
-\nrm $vmArchiveName
-mv $vmKey/ vagrant/\n
-cd vagrant/\n
-git init\n\n
-EOF;
+        $installScriptContent[] = "\ngit init\n\n";
 
         foreach ($this->vmInstallScriptElements['gitCloning'] as $gitCloning) {
             $installScriptContent[] = $gitCloning."\n";
         }
-
-        $installScriptContent[] = "\nvagrant up\n";
 
         file_put_contents(
             $this->getVM()->getCachePath($this->kernelRootDir).self::VAGRANT_CONFIG_INSTALL,
