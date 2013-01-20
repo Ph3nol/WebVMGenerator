@@ -6,4 +6,6 @@ app/logs/*
 build/
 vendor
 bin
+Capfile
+app/config/deploy.rb
 composer.phar

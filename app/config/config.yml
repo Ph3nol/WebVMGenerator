@@ -23,9 +23,10 @@ twig:
     strict_variables: %kernel.debug%
     globals:
         project:
-            name:       Web VM Generator
-            url:        http://vmg.slynett.com
-            githubUrl:  http://github.com/Ph3nol/WebVMGenerator
+            name:              Web VM Generator
+            url:               http://vmg.slynett.com
+            githubUrl:         http://github.com/Ph3nol/WebVMGenerator
+            googleAnalyticsID: UA-21571876-4
         author:
             name:   Cédric Dugat
             email:  cedric@dugat.me
