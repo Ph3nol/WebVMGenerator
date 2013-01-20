@@ -77,8 +77,15 @@
 
                         <ul class="unstyled">
                             <li>{{ form_row(form.apache, { label: 'Apache' }) }}</li>
-                            <li>{{ form_row(form.apachePort, { label: 'Apache Port' }) }}</li>
-                            <li>{{ form_row(form.apacheRootDir, { label: 'Apache Root Directory' }) }}</li>
+                            <li>{{ form_row(form.apachePort, { label: 'Apache Port', attr: { class: 'span1' } }) }}</li>
+                            <li>
+                                <label for="sly_vm_form_type_vm_apacheRootDirectory">Apache Root directory</label>
+
+                                <div class="input-prepend">
+                                    <span class="add-on">/project</span>
+                                    {{ form_widget(form.apacheRootDir, { attr: { class: 'span2' } }) }}
+                                </div>
+                            </li>   
                             <li>{{ form_row(form.apacheSSL, { label: 'Apache SSL support' }) }}</li>
                             <li>{{ form_row(form.nginx, { label: 'Nginx' }) }}</li>
                             <li>{{ form_row(form.varnish, { label: 'Varnish' }) }}</li>
