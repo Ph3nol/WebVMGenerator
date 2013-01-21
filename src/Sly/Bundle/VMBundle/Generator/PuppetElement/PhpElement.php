@@ -24,7 +24,7 @@ class PhpElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getCondition()
     {
-        return (bool) count($this->getVM()->getPhp());
+        return (bool) $this->getVM()->getPhp();
     }
 
     /**
