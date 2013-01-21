@@ -7,7 +7,7 @@ php:                true
 phpPearComponents:  []
 phpMyAdmin:         false
 phpModules:         [ 'suhosin', 'mysql', 'intl', 'cli', 'imagick', 'gd', 'xsl', 'mcrypt', 'curl', 'xdebug', 'imap' ]
-systemPackages:     [ 'build-essential', 'git-core', 'vim' ]
+systemPackages:     [ 'build-essential', 'curl', 'git-core', 'vim' ]
 apache:             true
 apachePort:         80
 apacheRootDir:      /

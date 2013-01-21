@@ -60,6 +60,7 @@ class VMType extends AbstractType
 
         $systemPackages = array(
             'build-essential' => 'Build-Essential package',
+            'curl'            => 'Curl',
             'git-core'        => 'Git',
             'vim'             => 'Vim',
             'sendmail'        => 'Sendmail',
