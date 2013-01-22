@@ -3,7 +3,7 @@
 namespace Sly\Bundle\VMBundle\Generator;
 
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine;
+use Symfony\Bundle\TwigBundle\TwigEngine;
 use Lootils\Archiver\TarArchive;
 
 use Sly\Bundle\VMBundle\Config\Config,
@@ -30,7 +30,7 @@ class Generator
     private $filesystem;
 
     /**
-     * @var \Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine
+     * @var \Symfony\Bundle\TwigBundle\TwigEngine
      */
     private $templating;
 
@@ -63,12 +63,12 @@ class Generator
      * Constructor.
      *
      * @param \Symfony\Component\Filesystem\Filesystem                             $filesystem     Filesystem
-     * @param \Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine                     $templating     Templating service
+     * @param \Symfony\Bundle\TwigBundle\TwigEngine                                $templating     Templating service
      * @param \Sly\Bundle\VMBundle\Config\Config                                   $config         Config
      * @param \Sly\Bundle\VMBundle\Generator\PuppetElement\PuppetElementCollection $puppetElements Puppet elements collection
      * @param string                                                               $kernelRootDir  Kernel root directory
      */
-    public function __construct(Filesystem $filesystem, TimedTwigEngine $templating, Config $config, PuppetElementCollection $puppetElements, $kernelRootDir)
+    public function __construct(Filesystem $filesystem, TwigEngine $templating, Config $config, PuppetElementCollection $puppetElements, $kernelRootDir)
     {
         $this->filesystem     = $filesystem;
         $this->templating     = $templating;
@@ -94,7 +94,7 @@ class Generator
     /**
      * Get Templating service.
      *
-     * @return \Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine
+     * @return \Symfony\Bundle\TwigBundle\TwigEngine
      */
     public function getTemplating()
     {
