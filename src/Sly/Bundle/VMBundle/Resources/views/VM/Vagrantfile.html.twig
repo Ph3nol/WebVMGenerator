@@ -1,0 +1,20 @@
+Vagrant::Config.run do |config|
+    config.vm.box     = "{{ vm.name }}"
+    config.vm.box_url = "{{ vbUrl }}"
+    
+    config.vm.customize [ "modifyvm", :id, "--name", "{{ vm.name }} {{ vm.uKey }}" ]
+
+    config.vm.network :hostonly, "{{ vm.ip }}"
+    config.vm.host_name = "{{ vm.hostname }}"
+
+    config.vm.share_folder "vagrant", "/vagrant", "."
+    config.vm.share_folder "project", "/project", ".."
+
+    config.vm.provision :shell, :inline => "echo \"{{ vm.timezone }}\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
+
+    config.vm.provision :puppet do |puppet|
+        puppet.manifests_path = "manifests"
+        puppet.module_path    = "modules"
+        puppet.manifest_file  = "{{ puppetBaseFile }}"
+    end
+end

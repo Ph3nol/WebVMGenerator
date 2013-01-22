@@ -54,46 +54,12 @@ class PhpElement extends BasePuppetElement implements PuppetElementInterface
             $input = sprintf('"%s"', $input);
         });
 
-        $phpModules = sprintf('[ %s ]', implode(', ', $phpModules));
-
-        $lines = <<< EOF
-class { "php":
-    source => "/vagrant/files/php/php.ini",
-}
-
-file { "php5cli.config":
-    path    => "/etc/php5/cli/php.ini",
-    ensure  => "/vagrant/files/php/php-cli.ini",
-    require => Package["php"],
-}
-
-php::module { $phpModules:
-    require => Exec["apt-update"],
-    notify  => Service["apache"],
-}
-EOF;
-
-        if ($withAPC) {
-            $lines .= <<< EOF
-\n
-php::module { "apc":
-    module_prefix => "php-",
-    require       => Exec["apt-update"],
-    notify        => Service["apache"],
-}
-EOF;
-        }
-
-        if ($this->getVM()->getPhpMyAdmin()) {
-            $lines .= <<< EOF
-\n
-system::package { "phpmyadmin":
-    require => Package["php"]
-}
-EOF;
-        }
-
-        return $lines;
+        return $this->getGenerator()->getTemplating()
+            ->render('SlyVMBundle:VM/PuppetElement/Manifests:PhpElement.html.twig', array(
+                'vm'         => $this->getVM(),
+                'phpModules' => sprintf('[ %s ]', implode(', ', $phpModules)),
+                'apc'        => $withAPC,
+            ));
     }
 
     /**
@@ -107,20 +73,18 @@ EOF;
             $this->getVM()->getCachePath()
         );
 
-        $xdebugMaxNestingLevel = $this->getVM()->getPhpXDebugMaxNestingLevel();
+        $phpIniRenderOptions = array(
+            'vm'     => $this->getVM(),
+            'xDebug' => in_array('xdebug', $this->getVM()->getPhpModules()),
+        );
 
-        if (in_array('xdebug', $this->getVM()->getPhpModules())) {
-            $phpIniContent    = file_get_contents($phpFilesPath.'/php.ini');
-            $phpIniCliContent = file_get_contents($phpFilesPath.'/php-cli.ini');
+        $phpIniContent = $this->getGenerator()->getTemplating()
+            ->render('SlyVMBundle:VM/Files/PHP:php.ini.html.twig', $phpIniRenderOptions);
 
-            $xdebugLines = <<< EOF
-\n
-[xdebug]
-xdebug.max_nesting_level = $xdebugMaxNestingLevel
-\n
-EOF;
-            file_put_contents($phpFilesPath.'/php.ini', $phpIniContent.$xdebugLines);
-            file_put_contents($phpFilesPath.'/php-cli.ini', $phpIniCliContent.$xdebugLines);
-        }
+        $phpCliIniContent = $this->getGenerator()->getTemplating()
+            ->render('SlyVMBundle:VM/Files/PHP:phpCli.ini.html.twig', $phpIniRenderOptions);
+
+        file_put_contents($phpFilesPath.'/php.ini', $phpIniContent);
+        file_put_contents($phpFilesPath.'/php-cli.ini', $phpCliIniContent);
     }
 }

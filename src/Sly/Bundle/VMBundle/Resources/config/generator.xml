@@ -12,6 +12,7 @@
     <services>
         <service id="sly_vm.generator" class="%sly_vm.generator.class%">
             <argument type="service" id="filesystem" />
+            <argument type="service" id="templating" />
             <argument type="service" id="sly_vm.config" />
             <argument type="service" id="sly_vm.generator.puppet_element_collection" />
             <argument>%kernel.root_dir%</argument>
@@ -38,6 +39,10 @@
         </service>
 
         <service id="sly_vm.puppet_element.phpPear" class="Sly\Bundle\VMBundle\Generator\PuppetElement\PhpPearElement">
+            <tag name="sly_vm.puppet_element" />
+        </service>
+
+        <service id="sly_vm.puppet_element.phpPecl" class="Sly\Bundle\VMBundle\Generator\PuppetElement\PhpPeclElement">
             <tag name="sly_vm.puppet_element" />
         </service>
 

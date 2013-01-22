@@ -1,0 +1,15 @@
+class { "system": }
+
+{% for package in vm.systemPackages %}
+system::package { "{{ package }}": }
+{% endfor %}
+
+system::config { "bash_aliases":
+    name   => ".bash_aliases",
+    source => "/vagrant/files/system/bash_aliases",
+}
+
+system::config { "bashrc":
+    name   => ".bashrc",
+    source => "/vagrant/files/system/bashrc",
+}
