@@ -1,5 +1,5 @@
 Vagrant::Config.run do |config|
-    config.vm.box     = "{{ vm.name }}"
+    config.vm.box     = "{{ vm.vagrantBox }}"
     config.vm.box_url = "{{ vbUrl }}"
     
     config.vm.customize [ "modifyvm", :id, "--name", "{{ vm.name }} {{ vm.uKey }}" ]
