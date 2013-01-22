@@ -106,6 +106,13 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
+     * @ORM\Column(name="php_xdebug_max_nesting_level", type="integer", length=5)
+     */
+    protected $phpXDebugMaxNestingLevel;
+
+    /**
+     * {@inheritDoc}
+     *
      * @ORM\Column(name="php_version", type="string", length=10)
      */
     protected $phpVersion;

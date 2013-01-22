@@ -126,6 +126,10 @@ class VMType extends AbstractType
                 'required' => false,
                 'data'     => $this->defaultVM->getPhp()
             ))
+            ->add('phpXDebugMaxNestingLevel', 'text', array(
+                'required' => true,
+                'data'     => $this->defaultVM->getPhpXDebugMaxNestingLevel()
+            ))
             ->add('phpVersion', 'choice', array(
                 'choices'  => array_combine($phpVersions, $phpVersions),
                 'data'     => $this->defaultVM->getPhpVersion(),

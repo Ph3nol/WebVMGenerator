@@ -95,4 +95,32 @@ EOF;
 
         return $lines;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function postProcess()
+    {
+        $phpFilesPath = sprintf(
+            '%s/%s/files/php',
+            $this->getGenerator()->getKernelRootDir(),
+            $this->getVM()->getCachePath()
+        );
+
+        $xdebugMaxNestingLevel = $this->getVM()->getPhpXDebugMaxNestingLevel();
+
+        if (in_array('xdebug', $this->getVM()->getPhpModules())) {
+            $phpIniContent    = file_get_contents($phpFilesPath.'/php.ini');
+            $phpIniCliContent = file_get_contents($phpFilesPath.'/php-cli.ini');
+
+            $xdebugLines = <<< EOF
+\n
+[xdebug]
+xdebug.max_nesting_level = $xdebugMaxNestingLevel
+\n
+EOF;
+            file_put_contents($phpFilesPath.'/php.ini', $phpIniContent.$xdebugLines);
+            file_put_contents($phpFilesPath.'/php-cli.ini', $phpIniCliContent.$xdebugLines);
+        }
+    }
 }

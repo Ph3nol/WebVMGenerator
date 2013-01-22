@@ -114,6 +114,10 @@
                         
                         <div class="php-modules-checkboxes">{{ form_widget(form.phpModules) }}</div>
 
+                        <ul class="unstyled">
+                            <li>{{ form_row(form.phpXDebugMaxNestingLevel, { label: 'XDebug nesting level', attr: { class: 'span1' } }) }}</li>
+                        </ul>
+
                         <h4>PEAR components</h4>
                         
                         <div class="pear-components-checkboxes">{{ form_widget(form.phpPearComponents) }}</div>

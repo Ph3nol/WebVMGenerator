@@ -98,6 +98,11 @@ class VM
     protected $phpModules;
 
     /**
+     * @var integer
+     */
+    protected $phpXDebugMaxNestingLevel;
+
+    /**
      * @var boolean
      */
     protected $nginx;
@@ -521,6 +526,26 @@ class VM
     public function setPhp($php)
     {
         $this->php = $php;
+    }
+
+    /**
+     * Get PhpXDebugMaxNestingLevel value.
+     *
+     * @return integer PhpXDebugMaxNestingLevel value to get
+     */
+    public function getPhpXDebugMaxNestingLevel()
+    {
+        return $this->phpXDebugMaxNestingLevel;
+    }
+    
+    /**
+     * Set PhpXDebugMaxNestingLevel value.
+     *
+     * @param integer $phpXDebugMaxNestingLevel PhpXDebugMaxNestingLevel value to set
+     */
+    public function setPhpXDebugMaxNestingLevel($phpXDebugMaxNestingLevel)
+    {
+        $this->phpXDebugMaxNestingLevel = $phpXDebugMaxNestingLevel;
     }
 
     /**

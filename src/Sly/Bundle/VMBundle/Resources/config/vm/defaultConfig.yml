@@ -1,20 +1,21 @@
-vagrantBox:         precise64
-name:               My pretty VM
-ip:                 11.11.11.11
-hostname:           dev.local
-timezone:           Europe/Paris
-php:                true
-phpPearComponents:  []
-phpMyAdmin:         false
-phpModules:         [ 'suhosin', 'mysql', 'intl', 'cli', 'imagick', 'gd', 'xsl', 'mcrypt', 'curl', 'xdebug', 'imap' ]
-systemPackages:     [ 'build-essential', 'curl', 'git-core', 'vim' ]
-apache:             true
-apachePort:         80
-apacheRootDir:      /
-apacheSSL:          false
-nginx:              false
-varnish:            false
-mysql:              true
-mysqlRootPassword:  root
-vimConfig:          false
-composer:           false
+vagrantBox:               precise64
+name:                     My pretty VM
+ip:                       11.11.11.11
+hostname:                 dev.local
+timezone:                 Europe/Paris
+php:                      true
+phpPearComponents:        []
+phpMyAdmin:               false
+phpModules:               [ 'suhosin', 'mysql', 'intl', 'cli', 'imagick', 'gd', 'xsl', 'mcrypt', 'curl', 'xdebug', 'imap' ]
+phpXDebugMaxNestingLevel: 100
+systemPackages:           [ 'build-essential', 'curl', 'git-core', 'vim' ]
+apache:                   true
+apachePort:               80
+apacheRootDir:            /
+apacheSSL:                false
+nginx:                    false
+varnish:                  false
+mysql:                    true
+mysqlRootPassword:        root
+vimConfig:                false
+composer:                 false

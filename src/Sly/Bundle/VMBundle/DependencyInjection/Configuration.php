@@ -47,6 +47,7 @@ class Configuration implements ConfigurationInterface
                             ->booleanNode('php')->end()
                             ->scalarNode('phpVersion')->end()
                             ->arrayNode('phpModules')->end()
+                            ->scalarNode('phpXDebugMaxNestingLevel')->end()
                             ->arrayNode('phpPearComponents')->end()
                             ->booleanNode('vimConfig')->end()
                             ->booleanNode('composer')->end()
