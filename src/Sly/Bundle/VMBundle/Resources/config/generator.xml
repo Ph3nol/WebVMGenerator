@@ -42,6 +42,10 @@
             <tag name="sly_vm.puppet_element" />
         </service>
 
+        <service id="sly_vm.puppet_element.phpPecl" class="Sly\Bundle\VMBundle\Generator\PuppetElement\PhpPeclElement">
+            <tag name="sly_vm.puppet_element" />
+        </service>
+
         <service id="sly_vm.puppet_element.composer" class="Sly\Bundle\VMBundle\Generator\PuppetElement\ComposerElement">
             <tag name="sly_vm.puppet_element" />
         </service>

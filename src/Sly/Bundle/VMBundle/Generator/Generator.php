@@ -242,23 +242,13 @@ class Generator
      */
     private function generateInstallScript()
     {
-        $vmKey                = $this->getVM()->getUKey();
-        $vmArchiveName        = $this->getVM()->getTempArchiveFilename();
-        $installScriptContent = array();
-
-        $installScriptContent[] = file_get_contents(
-            $this->getVM()->getCachePath($this->kernelRootDir).self::VAGRANT_CONFIG_INSTALL
-        );
-
-        $installScriptContent[] = "\ngit init\n\n";
-
-        foreach ($this->vmInstallScriptElements['gitCloning'] as $gitCloning) {
-            $installScriptContent[] = $gitCloning."\n";
-        }
+        $installScriptContent = $this->getTemplating()->render('SlyVMBundle:VM:install.html.twig', array(
+            'gitCloningElements' => $this->vmInstallScriptElements['gitCloning'],
+        ));
 
         file_put_contents(
             $this->getVM()->getCachePath($this->kernelRootDir).self::VAGRANT_CONFIG_INSTALL,
-            implode('', $installScriptContent)
+            $installScriptContent
         );
     }
 
