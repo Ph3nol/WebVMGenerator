@@ -3,6 +3,7 @@
 namespace Sly\Bundle\VMBundle\Generator;
 
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine;
 use Lootils\Archiver\TarArchive;
 
 use Sly\Bundle\VMBundle\Config\Config,
@@ -27,6 +28,11 @@ class Generator
      * @var \Symfony\Component\Filesystem\Filesystem
      */
     private $filesystem;
+
+    /**
+     * @var \Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine
+     */
+    private $templating;
 
     /**
      * @var \Sly\Bundle\VMBundle\Config\Config
@@ -57,13 +63,15 @@ class Generator
      * Constructor.
      *
      * @param \Symfony\Component\Filesystem\Filesystem                             $filesystem     Filesystem
+     * @param \Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine                     $templating     Templating service
      * @param \Sly\Bundle\VMBundle\Config\Config                                   $config         Config
      * @param \Sly\Bundle\VMBundle\Generator\PuppetElement\PuppetElementCollection $puppetElements Puppet elements collection
      * @param string                                                               $kernelRootDir  Kernel root directory
      */
-    public function __construct(Filesystem $filesystem, Config $config, PuppetElementCollection $puppetElements, $kernelRootDir)
+    public function __construct(Filesystem $filesystem, TimedTwigEngine $templating, Config $config, PuppetElementCollection $puppetElements, $kernelRootDir)
     {
         $this->filesystem     = $filesystem;
+        $this->templating     = $templating;
         $this->config         = $config;
         $this->puppetElements = $puppetElements;
         $this->kernelRootDir  = $kernelRootDir;
@@ -81,6 +89,16 @@ class Generator
     public function getKernelRootDir()
     {
         return $this->kernelRootDir;
+    }
+
+    /**
+     * Get Templating service.
+     *
+     * @return \Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine
+     */
+    public function getTemplating()
+    {
+        return $this->templating;
     }
 
     /**
@@ -155,39 +173,15 @@ class Generator
     private function generateVagrantFile()
     {
         $vagrantBoxes   = Config::getVagrantBoxes();
-        $vbName         = $this->getVM()->getVagrantBox();
         $vbUrl          = $vagrantBoxes[$this->getVM()->getVagrantBox()]['url'];
         $puppetBaseFile = explode('/', self::PUPPET_BASE_MANIFEST_FILE);
         $puppetBaseFile = end($puppetBaseFile);
-        $vmHostname     = $this->getVM()->getHostname();
-        $vmIpAddress    = $this->getVM()->getIp();
-        $vmTimezone     = $this->getVM()->getTimezone();
-        $vmUKey         = $this->getVM()->getUKey();
-        $vmName         = (string) $this->getVM();
 
-        $vagrantFileContent = <<< EOF
-Vagrant::Config.run do |config|
-    config.vm.box     = "$vbName"
-    config.vm.box_url = "$vbUrl"
-    
-    config.vm.customize [ "modifyvm", :id, "--name", "$vmName $vmUKey" ]
-
-    config.vm.network :hostonly, "$vmIpAddress"
-    config.vm.host_name = "$vmHostname"
-
-    config.vm.share_folder "vagrant", "/vagrant", "."
-    config.vm.share_folder "project", "/project", ".."
-
-    config.vm.provision :shell, :inline => "echo \"$vmTimezone\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
-
-    config.vm.provision :puppet do |puppet|
-        puppet.manifests_path = "manifests"
-        puppet.module_path    = "modules"
-        puppet.manifest_file  = "$puppetBaseFile"
-    end
-end
-
-EOF;
+        $vagrantFileContent = $this->getTemplating()->render('SlyVMBundle:VM:Vagrantfile.html.twig', array(
+            'puppetBaseFile' => $puppetBaseFile,
+            'vm'             => $this->getVM(),
+            'vbUrl'          => $vagrantBoxes[$this->getVM()->getVagrantBox()]['url'],
+        ));
 
         file_put_contents(
             $this->getVM()->getCachePath($this->kernelRootDir).self::VAGRANT_FILE,
