@@ -1,0 +1,28 @@
+class { "php":
+    source => "/vagrant/files/php/php.ini",
+}
+
+file { "php5cli.config":
+    path    => "/etc/php5/cli/php.ini",
+    ensure  => "/vagrant/files/php/php-cli.ini",
+    require => Package["php"],
+}
+
+php::module { $phpModules:
+    require => Exec["apt-update"],
+    notify  => Service["apache"],
+}
+
+{% if apc %}
+php::module { "apc":
+    module_prefix => "php-",
+    require       => Exec["apt-update"],
+    notify        => Service["apache"],
+}
+{% endif %}
+
+{% if vm.phpMyAdmin %}
+system::package { "phpmyadmin":
+    require => Package["php"]
+}
+{% endif %}

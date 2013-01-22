@@ -42,14 +42,9 @@ class ComposerElement extends BasePuppetElement implements PuppetElementInterfac
      */
     public function getManifestLines()
     {
-        $lines = <<< EOF
-class { "composer":
-    command_name => "composer",
-    target_dir   => "/usr/local/bin",
-    auto_update  => true
-}
-EOF;
-
-        return $lines;
+        return $this->getGenerator()->getTemplating()
+            ->render('SlyVMBundle:VM/PuppetElement/Manifests:ComposerElement.html.twig', array(
+                'vm' => $this->getVM(),
+            ));
     }
 }

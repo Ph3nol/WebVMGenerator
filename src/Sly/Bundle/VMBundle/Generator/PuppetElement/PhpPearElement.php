@@ -24,7 +24,7 @@ class PhpPearElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getCondition()
     {
-        return (bool) ($this->getVM()->getPhp() && count($this->getVM()->getPhpPearComponents()));
+        return (bool) $this->getVM()->getPhp();
     }
 
     /**
@@ -32,52 +32,9 @@ class PhpPearElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getManifestLines()
     {
-        $lines = <<< EOF
-class { "pear": }
-
-pear::channel { "phpunit":
-    url => "pear.phpunit.de",
-}
-
-pear::channel { "symfony2":
-    url     => "pear.symfony.com",
-    require => Exec["pear-channel-phpunit"],
-}
-
-pear::channel { "symfony1":
-    url     => "pear.symfony-project.com",
-    require => Exec["pear-channel-symfony2"],
-}
-
-pear::channel { "components":
-    url     => "components.ez.no",
-    require => Exec["pear-channel-symfony1"],
-}
-EOF;
-
-        if (in_array('phpunit', $this->getVM()->getPhpPearComponents())) {
-            $lines .= <<< EOF
-\n
-pear::module { "phpunit":
-    channel_name => "phpunit",
-    package_name => "PHPUnit",
-    dir_source   => "PHPUnit",
-    require      => Exec["pear-channel-components"],
-}
-EOF;
-        }
-
-        if (in_array('phpcodesniffer', $this->getVM()->getPhpPearComponents())) {
-            $lines .= <<< EOF
-\n
-pear::module { "php_code_sniffer":
-    package_name => "PHP_CodeSniffer",
-    dir_source   => "PHP/CodeSniffer",
-    require      => Class["pear"],
-}
-EOF;
-        }
-
-        return $lines;
+        return $this->getGenerator()->getTemplating()
+            ->render('SlyVMBundle:VM/PuppetElement/Manifests:PhpPearElement.html.twig', array(
+                'vm' => $this->getVM(),
+            ));
     }
 }

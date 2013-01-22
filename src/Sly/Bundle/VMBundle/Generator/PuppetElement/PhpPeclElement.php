@@ -3,20 +3,20 @@
 namespace Sly\Bundle\VMBundle\Generator\PuppetElement;
 
 /**
- * System Puppet element.
+ * PHP Pecl Puppet element.
  *
  * @uses \Sly\Bundle\VMBundle\Generator\PuppetElement\BasePuppetElement
  * @uses \Sly\Bundle\VMBundle\Generator\PuppetElement\PuppetElementInterface
  * @author Cédric Dugat <cedric@dugat.me>
  */
-class SystemElement extends BasePuppetElement implements PuppetElementInterface
+class PhpPeclElement extends BasePuppetElement implements PuppetElementInterface
 {
     /**
      * {@inheritDoc}
      */
     public function getName()
     {
-        return 'system';
+        return 'phpPecl';
     }
 
     /**
@@ -24,17 +24,7 @@ class SystemElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getCondition()
     {
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getGitSubmodules()
-    {
-        return array(
-            array('modules/puppi', 'https://github.com/example42/puppi.git'),
-        );
+        return (bool) $this->getVM()->getPhp();
     }
 
     /**
@@ -43,7 +33,7 @@ class SystemElement extends BasePuppetElement implements PuppetElementInterface
     public function getManifestLines()
     {
         return $this->getGenerator()->getTemplating()
-            ->render('SlyVMBundle:VM/PuppetElement/Manifests:SystemElement.html.twig', array(
+            ->render('SlyVMBundle:VM/PuppetElement/Manifests:PhpPeclElement.html.twig', array(
                 'vm' => $this->getVM(),
             ));
     }

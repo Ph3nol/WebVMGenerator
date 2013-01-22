@@ -42,18 +42,9 @@ class MysqlElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getManifestLines()
     {
-        $mysqlPassword = $this->getVM()->getMysqlRootPassword()
-            ? $this->getVM()->getMysqlRootPassword()
-            : ''
-        ;
-
-        $lines = <<< EOF
-class { "mysql":
-    root_password => "$mysqlPassword",
-    require       => Exec["apt-update"],
-}
-EOF;
-
-        return $lines;
+        return $this->getGenerator()->getTemplating()
+            ->render('SlyVMBundle:VM/PuppetElement/Manifests:MysqlElement.html.twig', array(
+                'vm' => $this->getVM(),
+            ));
     }
 }

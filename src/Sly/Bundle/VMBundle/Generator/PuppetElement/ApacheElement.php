@@ -42,24 +42,10 @@ class ApacheElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getManifestLines()
     {
-        $lines = <<< EOF
-class { "apache":
-    require          => Exec["apt-update"],
-    source_dir       => "/vagrant/files/apache",
-    source_dir_purge => false,
-}
-
-apache::module { "rewrite":
-    ensure => present,
-}
-
-exec { "/usr/sbin/a2dissite default":
-    notify  => Service["apache"],
-    require => Package["apache"],
-}
-EOF;
-
-        return $lines;
+        return $this->getGenerator()->getTemplating()
+            ->render('SlyVMBundle:VM/PuppetElement/Manifests:ApacheElement.html.twig', array(
+                'vm' => $this->getVM(),
+            ));
     }
 
     /**
@@ -90,23 +76,14 @@ EOF;
             $vhostFilename = sprintf('%d-%s.conf', $vhostIndex * 10, $vhostHostname);
             $vhostFilepath = sprintf('%s/sites-enabled/%s', $apacheFilesPath, $vhostFilename);
 
-            $vhostContent = <<< EOF
-<VirtualHost *:80>
-    ServerName $vhostHostname
-    ServerAdmin chuck-norris@$vhostHostname
-    DocumentRoot /project$vhostRootDir
-
-    <Directory "/project$vhostRootDir">
-        AllowOverride all
-        Order allow,deny
-        Allow from all
-    </Directory>
-
-    ErrorLog  /var/log/apache2/$vhostHostname-error_log
-    CustomLog /var/log/apache2/$vhostHostname-access_log common
-</VirtualHost>
-
-EOF;
+            $vhostContent = $this->getGenerator()->getTemplating()
+                ->render('SlyVMBundle:VM/Files/Apache:defaultVhost.html.twig', array(
+                    'vm'    => $this->getVM(),
+                    'vHost' => array(
+                        'hostname' => $vhostHostname,
+                        'rootDir'  => $vhostRootDir,
+                    ),
+                ));
 
             $this->getGenerator()->getFilesystem()->touch($vhostFilepath);
             file_put_contents($vhostFilepath, $vhostContent);
