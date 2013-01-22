@@ -52,6 +52,11 @@ class { "apache":
 apache::module { "rewrite":
     ensure => present,
 }
+
+exec { "/usr/sbin/a2dissite default":
+    notify  => Service["apache"],
+    require => Package["apache"],
+}
 EOF;
 
         return $lines;
