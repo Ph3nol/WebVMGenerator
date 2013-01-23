@@ -1,4 +1,4 @@
-vagrantBox:               precise64
+vagrantBox:               squeeze64
 vagrantNFS:               true
 vagrantMemory:            1024
 name:                     My pretty VM
@@ -8,7 +8,7 @@ timezone:                 Europe/Paris
 php:                      true
 phpPearComponents:        []
 phpMyAdmin:               false
-phpModules:               [ 'suhosin', 'mysql', 'intl', 'cli', 'imagick', 'gd', 'xsl', 'mcrypt', 'curl', 'xdebug', 'imap' ]
+phpModules:               [ 'mysql', 'intl', 'cli', 'imagick', 'gd', 'xsl', 'mcrypt', 'curl', 'xdebug', 'imap' ]
 phpXDebugMaxNestingLevel: 100
 systemPackages:           [ 'build-essential', 'curl', 'git-core', 'vim' ]
 apache:                   true

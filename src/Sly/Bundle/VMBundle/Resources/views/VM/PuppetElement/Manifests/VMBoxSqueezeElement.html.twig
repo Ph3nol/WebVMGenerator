@@ -1,0 +1,20 @@
+file { "/etc/apt/sources.list":
+    ensure => file,
+    owner  => root,
+    group  => root,
+    source => "/vagrant/files/sources.list",
+}
+
+exec { "import-gpg":
+    command => "/usr/bin/wget -q http://www.dotdeb.org/dotdeb.gpg -O -| /usr/bin/apt-key add -"
+}
+
+exec { "/usr/bin/apt-get update":
+    require => [File["/etc/apt/sources.list"], Exec["import-gpg"]],
+}
+
+{% if vm.phpVersion == '5.4' %}
+exec { "/usr/bin/dpkg -P php5-suhosin":
+    require => Package["php"],
+}
+{% endif %}

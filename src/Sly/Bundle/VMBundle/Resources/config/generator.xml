@@ -22,6 +22,10 @@
 
         <!-- <<<<< Puppet Elements >>>>> -->
 
+        <service id="sly_vm.puppet_element.vmBoxSqueeze" class="Sly\Bundle\VMBundle\Generator\PuppetElement\VMBoxSqueezeElement">
+            <tag name="sly_vm.puppet_element" />
+        </service>
+
         <service id="sly_vm.puppet_element.system" class="Sly\Bundle\VMBundle\Generator\PuppetElement\SystemElement">
             <tag name="sly_vm.puppet_element" />
         </service>

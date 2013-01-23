@@ -1,18 +1,3 @@
-{% if vm.phpVersion == '5.4' %}
-system::package { "python-software-properties":
-    require => Exec["php54 apt update"],
-}
-
-exec { "add php54 apt-repo":
-    command => "/usr/bin/add-apt-repository ppa:ondrej/php5 -y",
-    require => Package["python-software-properties"],
-}
-
-exec { "php54 apt update":
-    command => "/usr/bin/apt-get update",
-}
-{% endif %}
-
 class { "php":
     source => "/vagrant/files/php/php.ini",
 }
@@ -23,7 +8,7 @@ file { "php5cli.config":
     require => Package["php"],
 }
 
-php::module { {{ phpModules }}:
+php::module { {{ phpModules | raw }}:
     require => Exec["apt-update"],
     notify  => Service["apache"],
 }

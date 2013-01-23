@@ -108,6 +108,10 @@ class Config
     public static function getVagrantBoxes()
     {
         return array(
+            'squeeze64' => array(
+                'name' => 'Debian 6.0.0 (Squeeze) - 64 bits',
+                'url'  => 'https://dl.dropbox.com/u/1543052/Boxes/DebianSqueeze64.box',
+            ),
             'precise64' => array(
                 'name' => 'Ubuntu 12.04 LTS (Precise) - 64 bits',
                 'url'  => 'http://files.vagrantup.com/precise64.box',
