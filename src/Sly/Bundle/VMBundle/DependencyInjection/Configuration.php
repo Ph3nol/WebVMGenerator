@@ -32,6 +32,7 @@ class Configuration implements ConfigurationInterface
                         ->children()
                             ->scalarNode('vagrantBox')->end()
                             ->scalarNode('vagrantNFS')->end()
+                            ->scalarNode('vagrantMemory')->end()
                             ->scalarNode('name')->end()
                             ->scalarNode('hostname')->end()
                             ->scalarNode('ip')->end()

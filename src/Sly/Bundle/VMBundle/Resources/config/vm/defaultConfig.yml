@@ -1,5 +1,6 @@
 vagrantBox:               precise64
 vagrantNFS:               true
+vagrantMemory:            1024
 name:                     My pretty VM
 ip:                       11.11.11.11
 hostname:                 dev.local

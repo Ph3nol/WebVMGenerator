@@ -50,6 +50,13 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
+     * @ORM\Column(name="vagrant_memory", type="integer", length=4)
+     */
+    protected $vagrantMemory;
+
+    /**
+     * {@inheritDoc}
+     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     protected $name;

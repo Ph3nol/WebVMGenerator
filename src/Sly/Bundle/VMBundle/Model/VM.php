@@ -33,9 +33,14 @@ class VM
     protected $vagrantBox;
 
     /**
-     * @var string
+     * @var boolean
      */
     protected $vagrantNFS;
+
+    /**
+     * @var integer
+     */
+    protected $vagrantMemory;
 
     /**
      * @var string
@@ -291,6 +296,26 @@ class VM
     public function setVagrantNFS($vagrantNFS)
     {
         $this->vagrantNFS = $vagrantNFS;
+    }
+
+    /**
+     * Get VagrantMemory.
+     *
+     * @return integer VagrantMemory value
+     */
+    public function getVagrantMemory()
+    {
+        return $this->vagrantMemory;
+    }
+    
+    /**
+     * Set VagrantMemory.
+     *
+     * @param integer $vagrantMemory VagrantMemory value
+     */
+    public function setVagrantMemory($vagrantMemory)
+    {
+        $this->vagrantMemory = $vagrantMemory;
     }
 
     /**

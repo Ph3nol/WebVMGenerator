@@ -78,6 +78,10 @@ class VMType extends AbstractType
                 'required' => false,
                 'data'     => $this->defaultVM->getVagrantNFS()
             ))
+            ->add('vagrantMemory', 'text', array(
+                'required' => true,
+                'attr'     => array('placeholder' => $this->defaultVM->getVagrantMemory())
+            ))
             ->add('name', 'text', array(
                 'required' => true,
                 'attr'     => array('placeholder' => (string) $this->defaultVM)
