@@ -43,6 +43,13 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
+     * @ORM\Column(name="vagrant_nfs", type="boolean")
+     */
+    protected $vagrantNFS;
+
+    /**
+     * {@inheritDoc}
+     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     protected $name;

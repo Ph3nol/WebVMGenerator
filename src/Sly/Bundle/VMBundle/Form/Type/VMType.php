@@ -74,6 +74,10 @@ class VMType extends AbstractType
                 'multiple' => false,
                 'required' => true,
             ))
+            ->add('vagrantNFS', 'checkbox', array(
+                'required' => false,
+                'data'     => $this->defaultVM->getVagrantNFS()
+            ))
             ->add('name', 'text', array(
                 'required' => true,
                 'attr'     => array('placeholder' => (string) $this->defaultVM)

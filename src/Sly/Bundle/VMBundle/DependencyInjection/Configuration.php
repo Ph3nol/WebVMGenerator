@@ -31,6 +31,7 @@ class Configuration implements ConfigurationInterface
                     ->prototype('array')
                         ->children()
                             ->scalarNode('vagrantBox')->end()
+                            ->scalarNode('vagrantNFS')->end()
                             ->scalarNode('name')->end()
                             ->scalarNode('hostname')->end()
                             ->scalarNode('ip')->end()
