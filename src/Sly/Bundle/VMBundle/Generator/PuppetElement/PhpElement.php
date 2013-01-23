@@ -89,7 +89,7 @@ class PhpElement extends BasePuppetElement implements PuppetElementInterface
         $phpCliIniContent = $this->getGenerator()->getTemplating()
             ->render('SlyVMBundle:VM/Files/PHP:phpCli.ini.html.twig', $phpIniRenderOptions);
 
-        file_put_contents($phpFilesPath.'/php.ini', $phpIniContent);
-        file_put_contents($phpFilesPath.'/php-cli.ini', $phpCliIniContent);
+        file_put_contents($phpFilesPath.'/php/php.ini', $phpIniContent);
+        file_put_contents($phpFilesPath.'/php/php-cli.ini', $phpCliIniContent);
     }
 }

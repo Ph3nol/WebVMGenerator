@@ -1,6 +1,6 @@
 {% if vm.phpVersion == '5.4' %}
 system::package { "python-software-properties":
-    require => Exec['php54 apt update'],
+    require => Exec["php54 apt update"],
 }
 
 exec { "add php54 apt-repo":
@@ -9,7 +9,7 @@ exec { "add php54 apt-repo":
 }
 
 exec { "php54 apt update":
-    command => "apt-get update",
+    command => "/usr/bin/apt-get update",
 }
 {% endif %}
 
