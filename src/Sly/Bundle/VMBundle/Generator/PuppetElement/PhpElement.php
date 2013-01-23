@@ -68,10 +68,15 @@ class PhpElement extends BasePuppetElement implements PuppetElementInterface
     public function postProcess()
     {
         $phpFilesPath = sprintf(
-            '%s/%s/files/php',
+            '%s/%s/files',
             $this->getGenerator()->getKernelRootDir(),
             $this->getVM()->getCachePath()
         );
+
+        $this->getGenerator()->getFilesystem()->mkdir(array(
+            $phpFilesPath,
+            $phpFilesPath.'/php',
+        ), 0777);
 
         $phpIniRenderOptions = array(
             'vm'     => $this->getVM(),

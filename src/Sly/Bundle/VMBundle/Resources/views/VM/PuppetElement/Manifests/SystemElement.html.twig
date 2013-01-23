@@ -1,5 +1,13 @@
 class { "system": }
 
+file { "/etc/motd":
+    ensure  => file,
+    mode    => "0644",
+    owner   => "root",
+    group   => "root",
+    content => template("system/motd.erb"),
+}
+
 {% for package in vm.systemPackages %}
 system::package { "{{ package }}": }
 {% endfor %}
