@@ -34,6 +34,7 @@ class SystemElement extends BasePuppetElement implements PuppetElementInterface
     {
         return array(
             array('modules/puppi', 'https://github.com/example42/puppi.git'),
+            array('modules/stdlib', 'https://github.com/puppetlabs/puppetlabs-stdlib.git'),
         );
     }
 

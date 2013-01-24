@@ -1,14 +1,14 @@
-class { "apache":
-    require          => Exec["apt-update"],
-    source_dir       => "/vagrant/files/apache",
-    source_dir_purge => false,
-}
+{% if vm.php %}
+class {"apache": }
+{% else %}
+class { "apache::mod::php": }
+{% endif %}
 
-apache::module { "rewrite":
-    ensure => present,
-}
-
-exec { "/usr/sbin/a2dissite default":
-    notify  => Service["apache"],
-    require => Package["apache"],
+apache::vhost { "{{ vm.hostname }}":
+    priority      => "10",
+    vhost_name    => "{{ vm.hostname }}",
+    port          => "{{ vm.apachePort }}",
+    docroot       => "{{ vm.apacheRootDir }}",
+    serveradmin   => "chuck.norris@{{ vm.hostname }}",
+    serveraliases => [ "" ],
 }
