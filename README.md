@@ -5,6 +5,7 @@
 ## Requirements
 
 * PHP 5.3+
+* Boxes with Puppet 2.7+
 * Java environment (for YUI compressor) - you also can commend assetic filters into main `config.yml` file
 
 ## To do

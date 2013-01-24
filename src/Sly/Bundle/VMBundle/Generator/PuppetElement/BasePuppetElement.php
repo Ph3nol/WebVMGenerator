@@ -124,7 +124,7 @@ abstract class BasePuppetElement
             foreach ($this->getGitSubmodules() as $submodule) {
                 list($path, $url) = $submodule;
 
-                $lines[] = sprintf("git clone %s %s", $url, $path);
+                $lines[] = sprintf("git clone %s %s\n", $url, $path);
             }
 
             return implode('', $lines);
