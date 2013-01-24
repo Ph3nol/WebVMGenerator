@@ -33,7 +33,8 @@ class ApacheElement extends BasePuppetElement implements PuppetElementInterface
     public function getGitSubmodules()
     {
         return array(
-            array('modules/apache', 'https://github.com/example42/puppet-apache.git'),
+            array('modules/firewall', 'https://github.com/puppetlabs/puppetlabs-firewall.git'),
+            array('modules/apache', 'https://github.com/puppetlabs/puppetlabs-apache.git'),
         );
     }
 
