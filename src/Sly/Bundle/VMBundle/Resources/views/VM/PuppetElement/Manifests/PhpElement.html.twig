@@ -2,22 +2,27 @@ class { "php":
     source => "/vagrant/files/php/php.ini",
 }
 
-file { "php5cli.config":
+file { "php5cli-config":
     path    => "/etc/php5/cli/php.ini",
     ensure  => "/vagrant/files/php/php-cli.ini",
     require => Package["php"],
 }
 
+# php::module { [ "libapache2-mod-php5", "php5-cgi" ]:
+#     require => Exec["apt-update"],
+#     notify  => Service["apache2"],
+# }
+
 php::module { {{ phpModules | raw }}:
     require => Exec["apt-update"],
-    notify  => Service["apache"],
+    notify  => Service["apache2"],
 }
 
 {% if apc %}
 php::module { "apc":
     module_prefix => "php-",
     require       => Exec["apt-update"],
-    notify        => Service["apache"],
+    notify        => Service["apache2"],
 }
 {% endif %}
 

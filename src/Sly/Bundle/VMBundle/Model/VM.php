@@ -229,6 +229,26 @@ class VM
     }
 
     /**
+     * Is Ubuntu box.
+     *
+     * @return boolean
+     */
+    public function isUbuntuBox()
+    {
+        return (bool) preg_match('/(precise.*|lucid.*)/', strtolower($this->getVagrantBox()));
+    }
+
+    /**
+     * Is Debian box.
+     *
+     * @return boolean
+     */
+    public function isDebianBox()
+    {
+        return (bool) preg_match('/(squeeze.*)/', strtolower($this->getVagrantBox()));
+    }
+
+    /**
      * Get Id value.
      *
      * @return integer Id value to get

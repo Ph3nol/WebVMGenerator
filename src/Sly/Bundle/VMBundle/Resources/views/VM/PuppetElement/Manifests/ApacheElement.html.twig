@@ -1,14 +1,14 @@
 {% if vm.php %}
-class {"apache": }
-{% else %}
 class { "apache::mod::php": }
+{% else %}
+class {"apache": }
 {% endif %}
 
 apache::vhost { "{{ vm.hostname }}":
-    priority      => "10",
+    priority      => "50",
     vhost_name    => "{{ vm.hostname }}",
     port          => "{{ vm.apachePort }}",
-    docroot       => "{{ vm.apacheRootDir }}",
+    docroot       => "/project{{ vm.apacheRootDir }}",
     serveradmin   => "chuck.norris@{{ vm.hostname }}",
-    serveraliases => [ "" ],
+#   serveraliases => [ "" ],
 }

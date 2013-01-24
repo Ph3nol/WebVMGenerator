@@ -24,7 +24,7 @@ class VMBoxSqueezeElement extends BasePuppetElement implements PuppetElementInte
      */
     public function getCondition()
     {
-        return (bool) ('squeeze64' === $this->getVM()->getVagrantBox());
+        return (bool) $this->getVM()->isDebianBox();
     }
 
     /**
