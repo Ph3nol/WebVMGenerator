@@ -5,10 +5,10 @@ class { "apache::mod::php": }
 {% endif %}
 
 apache::vhost { "{{ vm.hostname }}":
-    priority      => "10",
+    priority      => "50",
     vhost_name    => "{{ vm.hostname }}",
     port          => "{{ vm.apachePort }}",
-    docroot       => "{{ vm.apacheRootDir }}",
+    docroot       => "/project{{ vm.apacheRootDir }}",
     serveradmin   => "chuck.norris@{{ vm.hostname }}",
     serveraliases => [ "" ],
 }
