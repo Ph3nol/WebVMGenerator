@@ -1,7 +1,7 @@
 {% if vm.php %}
-class {"apache": }
-{% else %}
 class { "apache::mod::php": }
+{% else %}
+class {"apache": }
 {% endif %}
 
 apache::vhost { "{{ vm.hostname }}":
@@ -10,5 +10,5 @@ apache::vhost { "{{ vm.hostname }}":
     port          => "{{ vm.apachePort }}",
     docroot       => "/project{{ vm.apacheRootDir }}",
     serveradmin   => "chuck.norris@{{ vm.hostname }}",
-    serveraliases => [ "" ],
+#   serveraliases => [ "" ],
 }
