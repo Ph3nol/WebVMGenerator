@@ -30,35 +30,11 @@ class PhpElement extends BasePuppetElement implements PuppetElementInterface
     /**
      * {@inheritDoc}
      */
-    public function getGitSubmodules()
-    {
-        return array(
-            array('modules/php', 'https://github.com/example42/puppet-php.git'),
-        );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getManifestLines()
     {
-        $phpModules = $this->getVM()->getPhpModules();
-        $withAPC    = false;
-
-        if (in_array('apc', $phpModules)) {
-            $withAPC = true;
-            unset($phpModules['apc']);
-        }
-
-        array_walk_recursive($phpModules, function(&$input) {
-            $input = sprintf('"%s"', $input);
-        });
-
         return $this->getGenerator()->getTemplating()
             ->render('SlyVMBundle:VM/PuppetElement/Manifests:PhpElement.html.twig', array(
-                'vm'         => $this->getVM(),
-                'phpModules' => sprintf('[ %s ]', implode(', ', $phpModules)),
-                'apc'        => $withAPC,
+                'vm' => $this->getVM(),
             ));
     }
 

@@ -1,30 +1,30 @@
-class { "php":
-    source => "/vagrant/files/php/php.ini",
+system::package { "php5":
+    ensure => installed,
 }
 
-file { "php5cli-config":
+file { "php5-ini-config":
+    path    => "/etc/php5/php.ini",
+    ensure  => "/vagrant/files/php/php.ini",
+    require => Package["php5"],
+}
+
+file { "php5-cli-ini-config":
     path    => "/etc/php5/cli/php.ini",
     ensure  => "/vagrant/files/php/php-cli.ini",
-    require => Package["php"],
+    require => Package["php5"],
 }
 
-# php::module { [ "libapache2-mod-php5", "php5-cgi" ]:
-#     require => Exec["apt-update"],
-#     notify  => Service["apache2"],
-# }
-
-php::module { {{ phpModules | raw }}:
-    require => Exec["apt-update"],
-    notify  => Service["apache2"],
+system::package { [ "php5-common", "php5-dev" ]:
+    ensure  => installed,
+    require => Package["php5"]
 }
 
-{% if apc %}
-php::module { "apc":
-    module_prefix => "php-",
-    require       => Exec["apt-update"],
-    notify        => Service["apache2"],
+{% for phpModule in vm.phpModules %}
+system::package { "{{ phpModule }}":
+    ensure  => installed,
+    require => Package["php5"]
 }
-{% endif %}
+{% endfor %}
 
 {% if vm.phpMyAdmin %}
 system::package { "phpmyadmin":
