@@ -15,6 +15,6 @@ exec { "/usr/bin/apt-get update":
 
 {% if vm.phpVersion == '5.4' %}
 exec { "/usr/bin/dpkg -P php5-suhosin":
-    require => Package["php"],
+    require => Package["php5"],
 }
 {% endif %}

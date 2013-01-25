@@ -28,6 +28,6 @@ system::package { "{{ phpModule }}":
 
 {% if vm.phpMyAdmin %}
 system::package { "phpmyadmin":
-    require => Package["php"]
+    require => Package["php5"]
 }
 {% endif %}
