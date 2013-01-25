@@ -1,6 +1,6 @@
-squeeze64:
+squeeze64Puppet27:
     name: Debian 6.0.0 (Squeeze) - 64 bits
-    url:  http://dl.dropbox.com/u/937870/VMs/squeeze64.box
+    url:  http://l4bs.slynett.com/vagrant/squeeze64-puppet27.box
 
 precise64:
     name: Ubuntu 12.04 LTS (Precise) - 64 bits

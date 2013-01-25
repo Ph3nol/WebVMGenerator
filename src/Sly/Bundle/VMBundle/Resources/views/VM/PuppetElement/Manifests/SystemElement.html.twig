@@ -8,8 +8,6 @@ file { "/etc/motd":
     content => template("system/motd.erb"),
 }
 
-system::package { "puppet": }
-
 {% for package in vm.systemPackages %}
 system::package { "{{ package }}": }
 {% endfor %}
