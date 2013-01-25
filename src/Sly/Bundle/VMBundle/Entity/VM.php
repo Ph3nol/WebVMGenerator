@@ -57,6 +57,13 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
+     * @ORM\Column(name="vagrant_cpu", type="integer", length=2)
+     */
+    protected $vagrantCpu;
+
+    /**
+     * {@inheritDoc}
+     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     protected $name;
@@ -186,6 +193,13 @@ class VM extends BaseVM
      * @ORM\Column(name="system_packages", type="array")
      */
     protected $systemPackages;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @ORM\Column(name="mailcatcher", type="boolean")
+     */
+    protected $mailCatcher;
 
     /**
      * {@inheritDoc}

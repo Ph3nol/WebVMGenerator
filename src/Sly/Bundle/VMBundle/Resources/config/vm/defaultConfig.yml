@@ -1,6 +1,7 @@
 vagrantBox:               squeeze64
 vagrantNFS:               true
 vagrantMemory:            1024
+vagrantCpu:               2
 name:                     My pretty VM
 ip:                       11.11.11.11
 hostname:                 dev.local
@@ -19,5 +20,6 @@ nginx:                    false
 varnish:                  false
 mysql:                    true
 mysqlRootPassword:        root
+mailCatcher:              false
 vimConfig:                false
 composer:                 false

@@ -43,6 +43,11 @@ class VM
     protected $vagrantMemory;
 
     /**
+     * @var integer
+     */
+    protected $vagrantCpu;
+
+    /**
      * @var string
      */
     protected $name;
@@ -136,6 +141,11 @@ class VM
      * @var array
      */
     protected $systemPackages;
+
+    /**
+     * @var boolean
+     */
+    protected $mailCatcher;
 
     /**
      * @var boolean
@@ -336,6 +346,26 @@ class VM
     public function setVagrantMemory($vagrantMemory)
     {
         $this->vagrantMemory = $vagrantMemory;
+    }
+
+    /**
+     * Get VagrantCpu.
+     *
+     * @return integer VagrantCpu value
+     */
+    public function getVagrantCpu()
+    {
+        return $this->vagrantCpu;
+    }
+    
+    /**
+     * Set VagrantCpu.
+     *
+     * @param integer $vagrantCpu VagrantCpu value
+     */
+    public function setVagrantCpu($vagrantCpu)
+    {
+        $this->vagrantCpu = $vagrantCpu;
     }
 
     /**
@@ -716,6 +746,26 @@ class VM
     public function setSystemPackages($systemPackages)
     {
         $this->systemPackages = $systemPackages;
+    }
+
+    /**
+     * Get MailCatcher.
+     *
+     * @return boolean MailCatcher value
+     */
+    public function getMailCatcher()
+    {
+        return $this->mailCatcher;
+    }
+    
+    /**
+     * Set MailCatcher.
+     *
+     * @param boolean $mailCatcher MailCatcher value
+     */
+    public function setMailCatcher($mailCatcher)
+    {
+        $this->mailCatcher = $mailCatcher;
     }
 
     /**

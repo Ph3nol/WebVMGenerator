@@ -79,6 +79,7 @@
                             <span class="add-on">Mo</span>
                         </div>
                     </div>
+                    <div class="span3">{{ form_row(form.vagrantCpu, { label: 'Processors allocation (CPUs)' }) }}</div>
                 </div>
             </div>
             <div class="tab-pane" id="components-and-modules">
@@ -142,6 +143,7 @@
                         <h4>Options and Others</h4>
 
                         <ul class="unstyled">
+                            <li>{{ form_row(form.mailCatcher, { label: 'MailCatcher' }) }}</li>
                             <li>{{ form_row(form.vimConfig, { label: 'Vim config', attr: { 'disabled': 'disabled' } }) }}</li>
                             <li>{{ form_row(form.composer, { label: 'Composer' }) }}</li>
                         </ul>

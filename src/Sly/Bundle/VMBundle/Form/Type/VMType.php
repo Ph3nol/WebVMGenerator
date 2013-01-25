@@ -83,6 +83,12 @@ class VMType extends AbstractType
                 'required' => true,
                 'attr'     => array('placeholder' => $this->defaultVM->getVagrantMemory())
             ))
+            ->add('vagrantCpu', 'choice', array(
+                'choices'  => array_combine(range(1,8), range(1,8)),
+                'data'     => $this->defaultVM->getVagrantCpu(),
+                'multiple' => false,
+                'required' => true,
+            ))
             ->add('name', 'text', array(
                 'required' => true,
                 'attr'     => array('placeholder' => (string) $this->defaultVM)
@@ -169,6 +175,10 @@ class VMType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'required' => false,
+            ))
+            ->add('mailCatcher', 'checkbox', array(
+                'required' => false,
+                'data' => $this->defaultVM->getMailCatcher()
             ))
             ->add('vimConfig', 'checkbox', array(
                 'required' => false,
