@@ -89,6 +89,10 @@ class VMType extends AbstractType
                 'multiple' => false,
                 'required' => true,
             ))
+            ->add('vagrantFinalLaunch', 'checkbox', array(
+                'required' => false,
+                'data'     => $this->defaultVM->getVagrantFinalLaunch(),
+            ))
             ->add('name', 'text', array(
                 'required' => true,
                 'attr'     => array('placeholder' => (string) $this->defaultVM)

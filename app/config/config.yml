@@ -24,6 +24,7 @@ twig:
     globals:
         project:
             name:              Web VM Generator
+            version:           0.1-alpha
             url:               http://vmg.slynett.com
             githubUrl:         http://github.com/Ph3nol/WebVMGenerator
             googleAnalyticsID: UA-21571876-4

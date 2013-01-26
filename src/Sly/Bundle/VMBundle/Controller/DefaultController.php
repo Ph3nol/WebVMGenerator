@@ -43,7 +43,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/download/{uKey}.tar", name="vm_download", requirements={ "key" = "\w+" })
+     * @Route("/download/{uKey}.tar", name="vm_download_archive", requirements={"key" = "\w+"})
      */
     public function downloadAction(VM $vm)
     {
@@ -65,7 +65,49 @@ class DefaultController extends Controller
             'attachment; filename="'.$vm->getArchiveFilename().'"'
         );
         
-        $response->send();
+        return $response;
+    }
+
+    /**
+     * @Route("/download/{uKey}.sh", name="vm_download_install", requirements={"key" = "\w+"})
+     */
+    public function downloadInstallScriptAction(VM $vm)
+    {
+        $kernelRootDir = $this->container->getParameter('kernel.root_dir');
+        $request       = $this->get('request');
+        $vmGenerator   = $this->get('sly_vm.generator');
+        $gitModules    = array();
+
+        $vmGenerator->setVM($vm);
+
+        foreach ($vmGenerator->getPuppetElements() as $puppetElement) {
+            $puppetElement->setGenerator($vmGenerator);
+
+            if ($puppetElement->getCondition() && (bool) count($puppetElement->getGitSubmodules())) {
+                foreach ($puppetElement->getGitSubmodules() as $gitModule) {
+                    $gitModules[$gitModule[0]] = $gitModule[1];
+                }
+            }
+        }
+
+        $installContent = $this->renderView('SlyVMBundle:VM:install.html.twig', array(
+            'vm'         => $vm,
+            'gitModules' => $gitModules,
+        ));
+
+        $response = new Response();
+        $response
+            ->setContent($installContent)
+            ->setStatusCode(200)
+        ;
+
+        $response->headers->set('Content-Type', 'application/force-download');
+        $response->headers->set(
+            'Content-Disposition',
+            'attachment; filename="webvmgen-install.sh"'
+        );
+        
+        return $response;
     }
 
     /**

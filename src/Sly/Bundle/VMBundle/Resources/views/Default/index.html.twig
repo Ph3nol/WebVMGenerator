@@ -52,11 +52,6 @@
                   <strong><i class="icon-list"></i> Components and Modules</strong>
               </a>
           </li>
-          <li>
-              <a href="#files" data-toogle="tab">
-                  <strong><i class="icon-edit"></i> Specific Configuration Files</strong>
-              </a>
-          </li>
         </ul>
 
         <div class="tab-content">
@@ -150,28 +145,11 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" id="files">
-                <div class="row">
-                    <div class="span3">
-                        <h3>System files</h3>
-
-                        Soon.
-                    </div>
-
-                    <div class="span3">
-                        <h3>Apache files</h3>
-
-                        Soon.
-                    </div>
-
-                    <div class="span3">
-                        <h3>PHP files</h3>
-
-                        Soon.
-                    </div>
-                </div>
-            </div>
         </div>
+
+        <hr />
+
+        <p>{{ form_row(form.vagrantFinalLaunch, { label: 'Launch Vagrant VM after generated script execution' }) }}</p>
 
         <div class="form-actions">
             <p class="pagination-centered">

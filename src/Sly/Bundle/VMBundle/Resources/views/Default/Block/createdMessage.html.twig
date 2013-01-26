@@ -1,17 +1,8 @@
 <p class="pagination-centered">
-    <a href="{{ path('vm_download', { uKey: vm.uKey }) }}" class="btn btn-primary btn-large">
-        Download TAR archive
+    <a href="{{ path('vm_download_install', { uKey: vm.uKey }) }}" class="btn btn-primary btn-large">
+        Download Shell install script
     </a>
 </p>
-
-<hr />
-
-<ul>
-    <li><a href="{{ path('vm_download', { uKey: vm.uKey }) }}">Download</a> the generated archive</li>
-    <li>Untar the downloaded archive into a <code>vagrant/</code> directory, placed into your project one</li>
-    <li>Go to vagrant/ directory and run <code>sh install.sh</code></li>
-    <li>Start the VM with <code>vagrant up</code> command</li>
-</ul>
 
 <hr />
 
@@ -20,5 +11,5 @@
 
     <p>Copy and paste this line which will install, configure and run your generated VM.</p>
 
-    <textarea id="vm-one-line-installation" readonly="readonly" onclick="this.select()">curl -O {{ url('vm_download', { uKey: vm.uKey }) }} && tar zxvf {{ vm.tempArchiveFilename }} && mv {{ vm.uKey }}/ vagrant/ && rm {{ vm.tempArchiveFilename }} && cd vagrant && sh install.sh && rm -rf install.sh .git* && vagrant up</textarea>
+    <textarea id="vm-one-line-installation" readonly="readonly" onclick="this.select()">wget --no-check-certificate {{ url('vm_download_install', { uKey: vm.uKey }) }} -O webvmgen-install.sh && chmod +x webvmgen-install.sh && ./webvmgen-install.sh</textarea>
 </p>

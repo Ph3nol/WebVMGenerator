@@ -64,6 +64,13 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
+     * @ORM\Column(name="vagrant_final_launch", type="boolean")
+     */
+    protected $vagrantFinalLaunch;
+
+    /**
+     * {@inheritDoc}
+     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     protected $name;

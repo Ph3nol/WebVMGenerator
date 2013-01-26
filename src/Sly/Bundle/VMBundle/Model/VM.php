@@ -48,6 +48,11 @@ class VM
     protected $vagrantCpu;
 
     /**
+     * @var boolean
+     */
+    protected $vagrantFinalLaunch;
+
+    /**
      * @var string
      */
     protected $name;
@@ -162,7 +167,8 @@ class VM
      */
     public function __construct()
     {
-        $this->uKey      = md5(uniqid().time());
+        $this->uKey = md5(uniqid().time());
+
         $vmDefaultConfig = Config::getVMDefaultConfig();
 
         foreach ($vmDefaultConfig as $key => $value) {
@@ -366,6 +372,26 @@ class VM
     public function setVagrantCpu($vagrantCpu)
     {
         $this->vagrantCpu = $vagrantCpu;
+    }
+
+    /**
+     * Get VagrantFinalLaunch value.
+     *
+     * @return boolean VagrantFinalLaunch value to get
+     */
+    public function getVagrantFinalLaunch()
+    {
+        return $this->vagrantFinalLaunch;
+    }
+    
+    /**
+     * Set VagrantFinalLaunch value.
+     *
+     * @param boolean $vagrantFinalLaunch VagrantFinalLaunch value to set
+     */
+    public function setVagrantFinalLaunch($vagrantFinalLaunch)
+    {
+        $this->vagrantFinalLaunch = $vagrantFinalLaunch;
     }
 
     /**

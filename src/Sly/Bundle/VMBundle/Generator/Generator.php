@@ -21,8 +21,9 @@ class Generator
     const VAGRANT_SKELETON_PATH     = '/Resources/skeleton/vagrant';
     const GIT_MODULES_FILE          = '/.gitmodules';
     const VAGRANT_FILE              = '/Vagrantfile';
+    const PUPPET_BASE_MANIFEST_DIR  = '/manifests';
     const PUPPET_BASE_MANIFEST_FILE = '/manifests/base.pp';
-    const VAGRANT_CONFIG_INSTALL    = '/install.sh';
+    const VAGRANT_CONFIG_INSTALL    = 'install_%s.sh';
 
     /**
      * @var \Symfony\Component\Filesystem\Filesystem
@@ -136,6 +137,16 @@ class Generator
     }
 
     /**
+     * Get PuppetElements value.
+     *
+     * @return \Sly\Bundle\VMBundle\Generator\PuppetElement\PuppetElementCollection
+     */
+    public function getPuppetElements()
+    {
+        return $this->puppetElements;
+    }
+
+    /**
      * Generate.
      *
      * @param \Sly\Bundle\VMBundle\Entity\VM $vm Virtual Machine
@@ -159,7 +170,6 @@ class Generator
 
         $this->generateVagrantFile();
         $this->generatePuppetElements();
-        $this->generateInstallScript();
         $this->generateArchiveFromFiles();
 
         $this->filesystem->remove($this->getVM()->getCachePath($this->kernelRootDir));
@@ -196,20 +206,10 @@ class Generator
      */
     private function generatePuppetElements()
     {
-        $gitSubmodulesContent                        = array();
-        $puppetBaseFileContent                       = array();
-        $this->vmInstallScriptElements['gitCloning'] = array();
+        $puppetBaseFileContent = array();
 
         foreach ($this->puppetElements as $puppetElement) {
             $puppetElement->setGenerator($this);
-
-            if ($puppetElement->getCondition() && $puppetElement->getGitSubmodulesContent()) {
-                $gitSubmodulesContent[] = $puppetElement->getGitSubmodulesContent();
-            }
-
-            if ($puppetElement->getCondition() && $puppetElement->getGitCloningContent()) {
-                $this->vmInstallScriptElements['gitCloning'][] = $puppetElement->getGitCloningContent();
-            }
 
             if ($puppetElement->getCondition() && $puppetElement->getManifestContent()) {
                 $puppetBaseFileContent[] = $puppetElement->getManifestContent();
@@ -218,16 +218,12 @@ class Generator
             $puppetElement->postProcess();
         }
 
-        if ((bool) count($gitSubmodulesContent)) {
-            $gitSubmodulesContent = implode('', $gitSubmodulesContent);
-
-            file_put_contents(
-                $this->getVM()->getCachePath($this->kernelRootDir).self::GIT_MODULES_FILE,
-                $gitSubmodulesContent
-            );
-        }
-
         if ((bool) count($puppetBaseFileContent)) {
+            $this->filesystem->mkdir(
+                $this->getVM()->getCachePath($this->kernelRootDir).self::PUPPET_BASE_MANIFEST_DIR,
+                0777
+            );
+
             $puppetBaseFileContent = implode('', $puppetBaseFileContent);
 
             file_put_contents(
@@ -235,21 +231,6 @@ class Generator
                 $puppetBaseFileContent
             );
         }
-    }
-
-    /**
-     * Generate install script.
-     */
-    private function generateInstallScript()
-    {
-        $installScriptContent = $this->getTemplating()->render('SlyVMBundle:VM:install.html.twig', array(
-            'gitCloningElements' => $this->vmInstallScriptElements['gitCloning'],
-        ));
-
-        file_put_contents(
-            $this->getVM()->getCachePath($this->kernelRootDir).self::VAGRANT_CONFIG_INSTALL,
-            $installScriptContent
-        );
     }
 
     /**
