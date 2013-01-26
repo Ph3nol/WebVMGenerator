@@ -20,5 +20,5 @@
 
     <p>Copy and paste this line which will install, configure and run your generated VM.</p>
 
-    <textarea id="vm-one-line-installation" readonly="readonly" onclick="this.select()">curl -O {{ url('vm_download', { uKey: vm.uKey }) }} && tar zxvf {{ vm.tempArchiveFilename }} && mv {{ vm.uKey }}/ vagrant/ && rm {{ vm.tempArchiveFilename }} && cd vagrant && sh install.sh && rm install.sh && vagrant up</textarea>
+    <textarea id="vm-one-line-installation" readonly="readonly" onclick="this.select()">curl -O {{ url('vm_download', { uKey: vm.uKey }) }} && tar zxvf {{ vm.tempArchiveFilename }} && mv {{ vm.uKey }}/ vagrant/ && rm {{ vm.tempArchiveFilename }} && cd vagrant && sh install.sh && rm -rf install.sh .git* && vagrant up</textarea>
 </p>

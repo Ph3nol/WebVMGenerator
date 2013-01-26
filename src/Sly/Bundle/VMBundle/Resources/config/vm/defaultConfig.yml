@@ -1,4 +1,4 @@
-vagrantBox:               squeeze64Puppet27
+vagrantBox:               squeeze64Puppet3
 vagrantNFS:               true
 vagrantMemory:            1024
 vagrantCpu:               2
