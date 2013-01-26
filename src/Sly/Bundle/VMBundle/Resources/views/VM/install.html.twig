@@ -53,12 +53,12 @@ rm -rf $BASE_VAGRANT_DIR/.git*
 echo "Done."
 echo ""
 
+{% if vm.getVagrantFinalLaunch %}
 echo -e "\033[33m--> Vagrant box first launching...\033[0m"
 echo ""
 echo "BE PATIENT, BE PATIENT, BE PATIENT! :)"
-cd $BASE_VAGRANT_DIR
 echo ""
-{% if vm.getVagrantFinalLaunch %}
+cd $BASE_VAGRANT_DIR
 vagrant up
 echo ""
 {% endif %}
