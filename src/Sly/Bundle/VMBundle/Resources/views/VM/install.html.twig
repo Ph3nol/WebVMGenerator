@@ -58,8 +58,10 @@ echo ""
 echo "BE PATIENT, BE PATIENT, BE PATIENT! :)"
 cd $BASE_VAGRANT_DIR
 echo ""
+{% if vm.getVagrantFinalLaunch %}
 vagrant up
 echo ""
+{% endif %}
 
 echo -e "\033[33m--> Ready to go!\033[0m"
 echo ""
