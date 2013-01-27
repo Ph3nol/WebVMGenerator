@@ -10,9 +10,9 @@ apache::mod { "rewrite": }
 
 apache::vhost { "{{ vm.hostname }}":
     priority      => "50",
-    vhost_name    => "{{ vm.hostname }}",
+    vhost_name    => "*",
     port          => "{{ vm.apachePort }}",
     docroot       => "/project{{ vm.apacheRootDir }}",
     serveradmin   => "chuck.norris@{{ vm.hostname }}",
-#   serveraliases => [ "" ],
+    serveraliases => [ "webvm" ],
 }
