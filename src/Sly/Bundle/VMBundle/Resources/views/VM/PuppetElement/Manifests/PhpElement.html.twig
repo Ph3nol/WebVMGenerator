@@ -2,13 +2,13 @@ system::package { "php5":
     ensure => installed,
 }
 
-file { "php5-ini-config":
-    path    => "/etc/php5/php.ini",
+file { "php5-ini-apache2-config":
+    path    => "/etc/php5/apache2/php.ini",
     ensure  => "/vagrant/files/php/php.ini",
     require => Package["php5"],
 }
 
-file { "php5-cli-ini-config":
+file { "php5-ini-cli-config":
     path    => "/etc/php5/cli/php.ini",
     ensure  => "/vagrant/files/php/php-cli.ini",
     require => Package["php5"],

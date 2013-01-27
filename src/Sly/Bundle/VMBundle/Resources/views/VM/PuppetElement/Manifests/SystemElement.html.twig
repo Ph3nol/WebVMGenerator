@@ -8,7 +8,7 @@ file { "/etc/motd":
     content => template("system/motd.erb"),
 }
 
-system::package { [ "augeas-lenses", "augeas-tools", "libaugeas-ruby", "libaugeas0" ]: }
+system::package { [ "augeas-lenses", "augeas-tools", "libaugeas-dev", "libaugeas-ruby", "libaugeas0" ]: }
 {% for package in vm.systemPackages %}
 system::package { "{{ package }}": }
 {% endfor %}
