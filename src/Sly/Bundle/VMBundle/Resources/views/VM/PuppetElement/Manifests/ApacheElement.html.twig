@@ -16,3 +16,13 @@ apache::vhost { "{{ vm.hostname }}":
     serveradmin   => "chuck.norris@{{ vm.hostname }}",
     serveraliases => [ "webvm" ],
 }
+
+{% if vm.phpMyAdmin %}
+file { "phpmyadmin-vhost-creation":
+    path    => "/etc/apache2/sites-enabled/phpmyadmin.conf",
+    ensure  => "/vagrant/files/apache/sites-enabled/phpmyadmin.conf",
+    require => [Package["php5"], Package["apache2"]],
+    owner   => "root",
+    group   => "root",
+}
+{% endif %}
