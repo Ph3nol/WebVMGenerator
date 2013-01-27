@@ -17,6 +17,7 @@
         <service id="sly_vm.form_type_vm" class="%sly_vm.form_type_vm.class%">
             <tag name="form.type" alias="sly_vm_form_type_vm" />
             <argument type="service" id="sly_vm.entity_vm" />
+            <argument>%sly_vm.configuration%</argument>
         </service>
  
         <service id="sly_vm.form_handler_vm" class="%sly_vm.form_handler_vm.class%" scope="request">

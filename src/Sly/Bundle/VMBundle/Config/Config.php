@@ -48,8 +48,10 @@ class Config
 
         $this->vmConfigs->add(self::DEFAULT_CONFIG_NAME, $this->getVMDefaultConfig());
 
-        foreach ($this->config['configurations'] as $vmName => $vmConfig) {
-            $this->vmConfigs->add($vmName, $vmConfig);
+        foreach ($this->config['configurations'] as $vmKey => $vmConfig) {
+            $vmConfig->setConfiguration($vmKey);
+
+            $this->vmConfigs->add($vmKey, $vmConfig);
         }
     }
 

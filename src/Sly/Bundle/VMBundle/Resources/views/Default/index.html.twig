@@ -23,24 +23,24 @@
         </div>
     </div>
 
-    <h3>Virtual Machine pre-configurations</h3>
-
-    <p>
-        <button class="btn btn-small apply-config" data-config="php53">PHP 5.3</button>
-        <button class="btn btn-small apply-config" data-config="php54">PHP 5.4</button>
-        <button class="btn btn-small apply-config" data-config="symfony1">Symfony 1.4</button>
-        <button class="btn btn-small apply-config" data-config="symfony2">Symfony 2</button>
-        <button class="btn btn-small disabled">Drupal 7-</button>
-        <button class="btn btn-small disabled">Drupal 8</button>
-        <button class="btn btn-small disabled">Magento</button>
-        <button class="btn btn-small disabled">Magento 2</button>
-
-        <small>&nbsp;&nbsp;&nbsp; Many pre-configurations are coming...</small>
-    </p>
-
-    <hr />
-
     <form id="vm-creation" action="{{ path('homepage') }}" method="post" {{ form_enctype(form) }}>
+        <div id="vm-configuration-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="vm-configuration-response" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="vm-configuration-response">{{ project.name }} - Welcome</h3>
+            </div>
+            <div class="modal-body">
+                <p>First, choose a <strong>base configuration</strong>:</p>
+
+                <p>{{ form_widget(form.configuration) }}</p>
+
+                <p>Don't worry, you can customize it after! :)</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Apply / Close</button>
+            </div>
+        </div>
+
         <ul class="nav nav-tabs" id="vm-settings">
           <li class="active">
                 <a href="#configuration" data-toogle="tab">

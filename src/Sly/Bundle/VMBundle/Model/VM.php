@@ -30,6 +30,11 @@ class VM
     /**
      * @var string
      */
+    protected $configuration;
+
+    /**
+     * @var string
+     */
     protected $vagrantBox;
 
     /**
@@ -297,6 +302,26 @@ class VM
     public function setUKey($uKey)
     {
         $this->uKey = $uKey;
+    }
+
+    /**
+     * Get Configuration value.
+     *
+     * @return string Configuration value to get
+     */
+    public function getConfiguration()
+    {
+        return $this->configuration;
+    }
+    
+    /**
+     * Set Configuration value.
+     *
+     * @param string $configuration Configuration value to set
+     */
+    public function setConfiguration($configuration)
+    {
+        $this->configuration = $configuration;
     }
 
     /**

@@ -30,6 +30,7 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('configName')
                     ->prototype('array')
                         ->children()
+                            ->scalarNode('label')->end()
                             ->scalarNode('vagrantBox')->end()
                             ->booleanNode('vagrantNFS')->end()
                             ->scalarNode('vagrantCpu')->end()

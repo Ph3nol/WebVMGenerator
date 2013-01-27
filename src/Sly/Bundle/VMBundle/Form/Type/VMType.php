@@ -26,13 +26,20 @@ class VMType extends AbstractType
     private $defaultVM;
 
     /**
+     * @var array
+     */
+    private $bundleConfig;
+
+    /**
      * Constructor.
      *
-     * @param \Sly\Bundle\VMBundle\Entity\VM $defaultVM Default VM entity
+     * @param \Sly\Bundle\VMBundle\Entity\VM $defaultVM    Default VM entity
+     * @param array                          $bundleConfig Bundle container configuration
      */
-    public function __construct(VM $defaultVM)
+    public function __construct(VM $defaultVM, array $bundleConfig)
     {
-        $this->defaultVM = $defaultVM;
+        $this->defaultVM    = $defaultVM;
+        $this->bundleConfig = $bundleConfig;
     }
 
     /**
@@ -40,6 +47,15 @@ class VMType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $defaultConfig  = Config::getVMDefaultConfig();
+        $configurations = array();
+
+        $configurations[Config::DEFAULT_CONFIG_NAME] = $defaultConfig['label'];
+
+        foreach ($this->bundleConfig['configurations'] as $configKey => $config) {
+            $configurations[$configKey] = $config['label'];
+        }
+
         $vagrantBoxes        = Config::getVagrantBoxes();
         $vagrantBoxesChoices = array();
 
@@ -69,6 +85,12 @@ class VMType extends AbstractType
         );
 
         $builder
+            ->add('configuration', 'choice', array(
+                'choices'  => $configurations,
+                'data'     => Config::DEFAULT_CONFIG_NAME,
+                'multiple' => false,
+                'required' => true,
+            ))
             ->add('vagrantBox', 'choice', array(
                 'choices'  => $vagrantBoxesChoices,
                 'data'     => $this->defaultVM->getVagrantBox(),

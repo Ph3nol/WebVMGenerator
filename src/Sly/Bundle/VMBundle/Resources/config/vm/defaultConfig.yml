@@ -1,3 +1,4 @@
+label:                    Default (no configuration)
 vagrantBox:               squeeze64Puppet3
 vagrantNFS:               true
 vagrantMemory:            1024

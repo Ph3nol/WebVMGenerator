@@ -36,7 +36,6 @@ class DefaultController extends Controller
         } elseif ($vmProcessed) {
             return $this->redirect($this->generateUrl('vm_informations'));
         }
-
         return array(
             'form' => $form->createView(),
         );
