@@ -1,23 +1,23 @@
-class ohmyzsh {
-    system::package { "zsh": }
+system::package { "zsh": }
 
-    exec { "oh-my-zsh-install":
-        command => "git clone git://github.com/robbyrussell/oh-my-zsh.git /home/vagrant/.oh-my-zsh",
-        path    => "/bin:/usr/bin",
-        require => Package["zsh"],
-    }
-
-    exec { "define-zsh-by-default":
-        command => "chsh -s /bin/zsh",
-        path    => "/bin:/usr/bin",
-        require => Package["zsh"],
-    }
-
-    file { "zshrc-file-creation":
-        path    => "/home/vagrant/.zshrc",
-        ensure  => "/vagrant/files/.zshrc",
-        require => Exec["oh-my-zsh-install"],
-    }
+exec { "oh-my-zsh-install":
+    command => "git clone git://github.com/robbyrussell/oh-my-zsh.git /home/vagrant/.oh-my-zsh",
+    path    => "/bin:/usr/bin",
+    require => Package["zsh"],
 }
 
-class { "ohmyzsh": }
+exec { "default-zsh-shell":
+    command => "chsh -s /usr/bin/zsh vagrant",
+    unless  => "grep -E \"^vagrant.+:/usr/bin/zsh$\" /etc/passwd",
+    require => Package["zsh"],
+    path    => "/bin:/usr/bin",
+}
+
+file { "zshrc-file-creation":
+    path    => "/home/vagrant/.zshrc",
+    ensure  => "/vagrant/files/.zshrc",
+    require => Exec["oh-my-zsh-install"],
+    owner   => "vagrant",
+    group   => "vagrant",
+    replace => false,
+}
