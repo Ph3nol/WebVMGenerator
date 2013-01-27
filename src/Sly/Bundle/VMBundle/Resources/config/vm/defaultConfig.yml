@@ -1,4 +1,4 @@
-label:                    Default (no configuration)
+label:                    No defined pre-configuration
 vagrantBox:               squeeze64Puppet3
 vagrantNFS:               true
 vagrantMemory:            1024
