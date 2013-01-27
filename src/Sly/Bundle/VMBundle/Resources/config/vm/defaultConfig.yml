@@ -24,3 +24,4 @@ mysqlRootPassword:        root
 mailCatcher:              false
 vimConfig:                false
 composer:                 false
+ohMyZsh:                  true

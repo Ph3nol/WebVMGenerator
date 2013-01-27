@@ -57,14 +57,18 @@ echo ""
 {% if vm.getVagrantFinalLaunch %}
 echo -e "\033[33m--> Vagrant box first launching...\033[0m"
 echo ""
-echo "BE PATIENT, BE PATIENT, BE PATIENT! :)"
+echo "BE PATIENT, BE PATIENT, BE PATIENT... :) What about taking a coffee break?"
 echo ""
 cd $BASE_VAGRANT_DIR
 vagrant up
 echo ""
-{% endif %}
-
 echo -e "\033[33m--> Ready to go!\033[0m"
 echo ""
-echo "More informations and tips? See README file, present into your vagrant/ directory."
+echo -e "Just run \033[32mvagrant ssh/\033[0m into your vagrant/ directory to open your first Vagrant SSH session."
 echo ""
+{% else %}
+echo -e "\033[33m--> Ready to go!\033[0m"
+echo ""
+echo -e "Just run \033[32mvagrant up\033[0m into your vagrant/ directory to construct your Vagrant VM, then \033[32mvagrant ssh/\033[0m to open your first Vagrant SSH session."
+echo ""
+{% endif %}
