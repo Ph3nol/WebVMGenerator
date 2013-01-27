@@ -1,21 +1,3 @@
-file { "/etc/udev/rules.d/70-persistent-net.rules":
-    ensure => absent,
-}
-
-file { "/etc/udev/rules.d/75-persistent-net-generator.rules":
-    ensure  => file,
-    owner   => "root",
-    group   => "root",
-    mode    => "0644",
-    content => "",
-    notify  => Exec["reload-udev"],
-}
-
-exec { "reload-udev" :
-    command     => "/sbin/udevadm control --reload-rules",
-    refreshonly => true,
-}
-
 file { "/etc/apt/sources.list":
     ensure => file,
     owner  => root,
