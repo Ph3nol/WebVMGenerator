@@ -192,6 +192,10 @@ class VMType extends AbstractType
                 'required' => false,
                 'data' => $this->defaultVM->getComposer()
             ))
+            ->add('ohMyZsh', 'checkbox', array(
+                'required' => false,
+                'data' => $this->defaultVM->getOhMyZsh()
+            ))
         ;
     }
 

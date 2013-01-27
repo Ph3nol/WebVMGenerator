@@ -56,6 +56,7 @@ class Configuration implements ConfigurationInterface
                             ->booleanNode('mailCatcher')->end()
                             ->booleanNode('vimConfig')->end()
                             ->booleanNode('composer')->end()
+                            ->booleanNode('ohMyZsh')->end()
                         ->end()
                     ->end()
                 ->end()

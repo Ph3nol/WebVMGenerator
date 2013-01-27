@@ -221,4 +221,11 @@ class VM extends BaseVM
      * @ORM\Column(name="composer", type="boolean")
      */
     protected $composer;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @ORM\Column(name="oh_my_zsh", type="boolean")
+     */
+    protected $ohMyZsh;
 }

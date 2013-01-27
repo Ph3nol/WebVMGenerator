@@ -1,0 +1,23 @@
+class ohmyzsh {
+    system::package { "zsh": }
+
+    exec { "oh-my-zsh-install":
+        command => "git clone git://github.com/robbyrussell/oh-my-zsh.git /home/vagrant/.oh-my-zsh",
+        path    => "/bin:/usr/bin",
+        require => Package["zsh"],
+    }
+
+    exec { "define-zsh-by-default":
+        command => "chsh -s /bin/zsh",
+        path    => "/bin:/usr/bin",
+        require => Package["zsh"],
+    }
+
+    file { "zshrc-file-creation":
+        path    => "/home/vagrant/.zshrc",
+        ensure  => "/vagrant/files/.zshrc",
+        require => Exec["oh-my-zsh-install"],
+    }
+}
+
+class { "ohmyzsh": }

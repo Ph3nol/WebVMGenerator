@@ -48,46 +48,4 @@ class ApacheElement extends BasePuppetElement implements PuppetElementInterface
                 'vm' => $this->getVM(),
             ));
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function postProcess()
-    {
-        $apacheFilesPath = sprintf(
-            '%s/%s/files/apache',
-            $this->getGenerator()->getKernelRootDir(),
-            $this->getVM()->getCachePath()
-        );
-
-        $this->getGenerator()->getFilesystem()->mkdir(array(
-            $apacheFilesPath,
-            $apacheFilesPath.'/sites-enabled',
-        ), 0777);
-
-        $vhosts = array(
-            $this->getVM()->getHostname() => $this->getVM()->getApacheRootDir(),
-        );
-
-        $vhostIndex = 0;
-
-        foreach ($vhosts as $vhostHostname => $vhostRootDir) {
-            $vhostIndex++;
-
-            $vhostFilename = sprintf('%d-%s.conf', $vhostIndex * 10, $vhostHostname);
-            $vhostFilepath = sprintf('%s/sites-enabled/%s', $apacheFilesPath, $vhostFilename);
-
-            $vhostContent = $this->getGenerator()->getTemplating()
-                ->render('SlyVMBundle:VM/Files/Apache:defaultVhost.html.twig', array(
-                    'vm'    => $this->getVM(),
-                    'vHost' => array(
-                        'hostname' => $vhostHostname,
-                        'rootDir'  => $vhostRootDir,
-                    ),
-                ));
-
-            $this->getGenerator()->getFilesystem()->touch($vhostFilepath);
-            file_put_contents($vhostFilepath, $vhostContent);
-        }
-    }
 }

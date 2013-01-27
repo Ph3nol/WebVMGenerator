@@ -163,6 +163,11 @@ class VM
     protected $composer;
 
     /**
+     * @var boolean
+     */
+    protected $ohMyZsh;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -832,5 +837,25 @@ class VM
     public function setComposer($composer)
     {
         $this->composer = $composer;
+    }
+
+    /**
+     * Get OhMyZsh value.
+     *
+     * @return boolean OhMyZsh value to get
+     */
+    public function getOhMyZsh()
+    {
+        return $this->ohMyZsh;
+    }
+    
+    /**
+     * Set OhMyZsh value.
+     *
+     * @param boolean $ohMyZsh OhMyZsh value to set
+     */
+    public function setOhMyZsh($ohMyZsh)
+    {
+        $this->ohMyZsh = $ohMyZsh;
     }
 }

@@ -1,16 +1,25 @@
-file { "/etc/apt/sources.list":
-    ensure => file,
-    owner  => root,
-    group  => root,
-    source => "/vagrant/files/sources.list",
+file { "/etc/apt/sources.list.d/squeeze-backports.list":
+    ensure  => file,
+    owner   => root,
+    group   => root,
+    content => "deb http://backports.debian.org/debian-backports squeeze-backports main",
 }
+
+{% if vm.phpVersion == '5.4' %}
+file { "/etc/apt/sources.list.d/squeeze-php54.list":
+    ensure  => file,
+    owner   => root,
+    group   => root,
+    content => "deb http://packages.dotdeb.org/ squeeze-php54 all",
+}
+{% endif %}
 
 exec { "import-gpg":
     command => "/usr/bin/wget -q http://www.dotdeb.org/dotdeb.gpg -O -| /usr/bin/apt-key add -"
 }
 
 exec { "/usr/bin/apt-get update":
-    require => [File["/etc/apt/sources.list"], Exec["import-gpg"]],
+    require => [File["/etc/apt/sources.list.d/squeeze-backports.list"], Exec["import-gpg"]],
 }
 
 {% if vm.phpVersion == '5.4' %}

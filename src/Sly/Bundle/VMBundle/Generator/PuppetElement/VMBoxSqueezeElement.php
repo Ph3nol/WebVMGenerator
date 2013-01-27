@@ -37,26 +37,4 @@ class VMBoxSqueezeElement extends BasePuppetElement implements PuppetElementInte
                 'vm' => $this->getVM(),
             ));
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function postProcess()
-    {
-        $filesPath = sprintf(
-            '%s/%s/files',
-            $this->getGenerator()->getKernelRootDir(),
-            $this->getVM()->getCachePath()
-        );
-
-        $sourcesFilePath = sprintf('%s/%s', $filesPath, 'sources.list');
-
-        $sourcesListContent = $this->getGenerator()->getTemplating()
-            ->render('SlyVMBundle:VM/Files/Sources:squeezeSources.list.html.twig', array(
-                'vm' => $this->getVM(),
-            ));
-
-        $this->getGenerator()->getFilesystem()->touch($sourcesFilePath);
-        file_put_contents($sourcesFilePath, $sourcesListContent);
-    }
 }
