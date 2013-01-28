@@ -89,8 +89,8 @@
                                 <label for="sly_vm_form_type_vm_apacheRootDirectory">Apache Root directory</label>
 
                                 <div class="input-prepend">
-                                    <span class="add-on">/var/www/vhosts/.../</span>
-                                    {{ form_widget(form.apacheRootDir, { attr: { class: 'span2' } }) }}
+                                    <span class="add-on">/var/www/vhosts/<span id="apache-hostname"></span></span>
+                                    {{ form_widget(form.apacheRootDir, { attr: { class: 'span1' } }) }}
                                 </div>
                             </li>   
                             <li>{{ form_row(form.apacheSSL, { label: 'Apache SSL support', attr: { 'disabled': 'disabled' } }) }}</li>
