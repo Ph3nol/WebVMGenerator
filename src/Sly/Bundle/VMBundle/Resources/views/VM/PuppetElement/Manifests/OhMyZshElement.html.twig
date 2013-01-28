@@ -1,7 +1,7 @@
 system::package { "zsh": }
 
 exec { "oh-my-zsh-install":
-    command => "git clone git://github.com/robbyrussell/oh-my-zsh.git /home/vagrant/.oh-my-zsh",
+    command => "git clone https://github.com/robbyrussell/oh-my-zsh.git /home/vagrant/.oh-my-zsh",
     path    => "/bin:/usr/bin",
     require => Package["zsh"],
 }
