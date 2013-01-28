@@ -58,6 +58,10 @@
             <tag name="sly_vm.puppet_element" />
         </service>
 
+        <service id="sly_vm.puppet_element.vimConfig" class="Sly\Bundle\VMBundle\Generator\PuppetElement\VimConfigElement">
+            <tag name="sly_vm.puppet_element" />
+        </service>
+
         <service id="sly_vm.puppet_element.composer" class="Sly\Bundle\VMBundle\Generator\PuppetElement\ComposerElement">
             <tag name="sly_vm.puppet_element" />
         </service>

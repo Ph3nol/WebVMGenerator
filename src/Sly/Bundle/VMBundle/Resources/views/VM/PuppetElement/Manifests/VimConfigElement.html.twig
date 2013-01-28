@@ -1,0 +1,49 @@
+vcsrepo { "vim-config":
+    path     => "/home/vagrant/.vim-config",
+    ensure   => present,
+    provider => git,
+    source   => "https://github.com/stephpy/vim-config.git",
+    require  => Package["vim"],
+    user    => "vagrant",
+    group   => "vagrant",
+}
+
+file { "vim-config-symlink-vimdir":
+    path   => "/home/vagrant/.vim",
+    ensure => link,
+    target => "/home/vagrant/.vim-config/.vim",
+    require => Vcsrepo["vim-config"],
+}
+
+file { "vim-config-symlink-vimrcfile":
+    path   => "/home/vagrant/.vimrc",
+    ensure => link,
+    target => "/home/vagrant/.vim-config/.vimrc",
+    require => Vcsrepo["vim-config"],
+}
+
+exec { "vim-config-bundle-dir":
+    command => "mkdir -p /home/vagrant/.vim/bundle",
+    path    => "/bin:/usr/bin",
+    require => Vcsrepo["vim-config"],
+    user    => "vagrant",
+    group   => "vagrant",
+}
+
+vcsrepo { "vim-config-vundle":
+    path     => "/home/vagrant/.vim/bundle/vundle",
+    ensure   => present,
+    provider => git,
+    source   => "https://github.com/gmarik/vundle.git",
+    require  => Exec["vim-config-bundle-dir"],
+    user    => "vagrant",
+    group   => "vagrant",
+}
+
+exec { "vim-config-vundle-install":
+    command => "vim -c +BundleInstall +qa",
+    path    => "/bin:/usr/bin",
+    require => Vcsrepo["vim-config-vundle"],
+    user    => "vagrant",
+    group   => "vagrant",
+}
