@@ -1,12 +1,11 @@
-var vmCreationForm = $('#vm-creation');
-
 (function($) {
+    var phpCheckbox = $('#sly_vm_form_type_vm_php');
+    var vimCheckbox = $('#sly_vm_form_type_vm_systemPackages_3');
+
     var configModal = $('#vm-configuration-modal');
     configModal.modal('show');
 
-    var configSelectField = $('#sly_vm_form_type_vm_configuration');
-
-    configSelectField.on('change', function(e){
+    $('#sly_vm_form_type_vm_configuration').on('change', function(e){
         e.preventDefault();
 
         var el           = $(this);
@@ -33,7 +32,7 @@ var vmCreationForm = $('#vm-creation');
         }
     });
 
-    vmCreationForm.on('submit', function(e) {
+    $('#vm-creation').on('submit', function(e) {
         e.preventDefault();
 
         var el            = $(this);
@@ -43,9 +42,9 @@ var vmCreationForm = $('#vm-creation');
         submitInput.attr('disabled', 'disabled');
 
         $.ajax({
-            url:       el.attr('action'),
-            type:      el.attr('method'),
-            data:      el.serialize(),
+            url:  el.attr('action'),
+            type: el.attr('method'),
+            data: el.serialize(),
             success: function(response) {
                 $('.modal-body', responseModal).html(response);
                 responseModal.modal('show');
@@ -53,4 +52,29 @@ var vmCreationForm = $('#vm-creation');
             }
         });
     });
+
+    checkPHPOption(phpCheckbox);
+    phpCheckbox.on('change', function(){
+        checkPHPOption(phpCheckbox);
+    });
+
+    checkVimOption(vimCheckbox);
+    vimCheckbox.on('change', function(){
+        checkVimOption(vimCheckbox);
+    });
 })(jQuery);
+
+
+function checkPHPOption(phpCheckbox)
+{
+    $('.php-options input[type=checkbox]')
+        .attr('disabled', phpCheckbox.is(':checked') ? false : true)
+    ;
+}
+
+function checkVimOption(vimCheckbox)
+{
+    $('.vim-options input[type=checkbox]')
+        .attr('disabled', vimCheckbox.is(':checked') ? false : true)
+    ;
+}

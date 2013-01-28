@@ -1,5 +1,4 @@
-div.php-modules-checkboxes label.checkbox,
-div.pear-components-checkboxes label.checkbox {
+div.php-options label.checkbox {
     display: inline-block;
     width: 40%;
 }

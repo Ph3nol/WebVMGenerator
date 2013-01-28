@@ -119,7 +119,7 @@
 
                         <h4>Modules</h4>
                         
-                        <div class="php-modules-checkboxes">{{ form_widget(form.phpModules) }}</div>
+                        <div class="php-options">{{ form_widget(form.phpModules) }}</div>
 
                         <ul class="unstyled">
                             <li>{{ form_row(form.phpXDebugMaxNestingLevel, { label: 'XDebug nesting level', attr: { class: 'span1' } }) }}</li>
@@ -127,7 +127,7 @@
 
                         <h4>PEAR components</h4>
                         
-                        <div class="pear-components-checkboxes">{{ form_widget(form.phpPearComponents) }}</div>
+                        <div class="php-options">{{ form_widget(form.phpPearComponents) }}</div>
                     </div>
 
                     <div class="span3">
@@ -139,7 +139,9 @@
 
                         <ul class="unstyled">
                             <li>{{ form_row(form.mailCatcher, { label: 'MailCatcher' }) }}</li>
-                            <li>{{ form_row(form.vimConfig, { label: 'Vim config', attr: { 'disabled': 'disabled' } }) }}</li>
+                            <li class="vim-options">
+                                {{ form_row(form.vimConfig, { label: 'Vim config', attr: { 'disabled': 'disabled' } }) }}
+                            </li>
                             <li>{{ form_row(form.composer, { label: 'Composer' }) }}</li>
                             <li>{{ form_row(form.ohMyZsh, { label: 'ZSH + Oh-My-Zsh' }) }}</li>
                         </ul>
