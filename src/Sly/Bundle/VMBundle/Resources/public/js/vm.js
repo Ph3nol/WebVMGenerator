@@ -1,6 +1,7 @@
 (function($) {
-    var phpCheckbox = $('#sly_vm_form_type_vm_php');
-    var vimCheckbox = $('#sly_vm_form_type_vm_systemPackages_3');
+    var phpCheckbox   = $('#sly_vm_form_type_vm_php');
+    var vimCheckbox   = $('#sly_vm_form_type_vm_systemPackages_3');
+    var mysqlCheckbox = $('#sly_vm_form_type_vm_mysql');
 
     var configModal = $('#vm-configuration-modal');
     configModal.modal('show');
@@ -62,19 +63,31 @@
     vimCheckbox.on('change', function(){
         checkVimOption(vimCheckbox);
     });
+
+    checkMySQLOption(mysqlCheckbox);
+    mysqlCheckbox.on('change', function(){
+        checkVimOption(mysqlCheckbox);
+    });
 })(jQuery);
 
 
 function checkPHPOption(phpCheckbox)
 {
-    $('.php-options input[type=checkbox]')
+    $('.php-options input, input.php-options')
         .attr('disabled', phpCheckbox.is(':checked') ? false : true)
     ;
 }
 
 function checkVimOption(vimCheckbox)
 {
-    $('.vim-options input[type=checkbox]')
+    $('.vim-options input, input.vim-options')
         .attr('disabled', vimCheckbox.is(':checked') ? false : true)
+    ;
+}
+
+function checkMySQLOption(mysqlCheckbox)
+{
+    $('.mysql-options input, input.mysql-options')
+        .attr('disabled', mysqlCheckbox.is(':checked') ? false : true)
     ;
 }

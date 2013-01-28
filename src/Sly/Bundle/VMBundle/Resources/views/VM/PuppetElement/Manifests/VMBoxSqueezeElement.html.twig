@@ -5,7 +5,7 @@ file { "/etc/apt/sources.list.d/squeeze-backports.list":
     content => "deb http://backports.debian.org/debian-backports squeeze-backports main",
 }
 
-{% if vm.phpVersion == '5.4' %}
+{% if vm.php and vm.phpVersion == '5.4' %}
 file { "/etc/apt/sources.list.d/squeeze-php54.list":
     ensure  => file,
     owner   => root,
@@ -22,7 +22,7 @@ exec { "/usr/bin/apt-get update":
     require => [File["/etc/apt/sources.list.d/squeeze-backports.list"], Exec["import-gpg"]],
 }
 
-{% if vm.phpVersion == '5.4' %}
+{% if vm.php and vm.phpVersion == '5.4' %}
 exec { "/usr/bin/dpkg -P php5-suhosin":
     require => Package["php5"],
 }
