@@ -1,3 +1,17 @@
-system::package { "libsqlite3-dev":
-    ensure => installed,
+system::package { "libsqlite3-dev": }
+system::package { "swaks": }
+
+exec { "mailcatcher-install":
+    command => "gem install -q --no-verbose mailcatcher",
+    path    => "/bin:/usr/bin",
+    require => [
+        Package["ruby"],
+        Package["libsqlite3-dev"],
+    ],
+}
+
+exec { "mailcatcher-start":
+    command => "mailcatcher -i {{ vm.ip }}",
+    path    => "/bin:/usr/bin:/var/lib/gems/1.8/bin",
+    require => Exec["mailcatcher-install"],
 }
