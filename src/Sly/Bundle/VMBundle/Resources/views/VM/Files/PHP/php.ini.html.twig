@@ -1858,7 +1858,7 @@ ldap.max_links = -1
 
 suhosin.executor.include.whitelist = phar
 
-{% if xDebug %}
+{% if 'xdebug' in vm.phpModules %}
 [xdebug]
 xdebug.max_nesting_level = {{ vm.phpXDebugMaxNestingLevel }}
 {% endif %}

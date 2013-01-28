@@ -17,7 +17,7 @@ apache::vhost { "{{ vm.hostname }}":
     serveraliases => [ "webvm" ],
 }
 
-{% if vm.phpMyAdmin %}
+{% if vm.php and vm.mysql and vm.phpMyAdmin %}
 file { "phpmyadmin-vhost-creation":
     path    => "/etc/apache2/sites-enabled/phpmyadmin.conf",
     ensure  => "/vagrant/files/apache/sites-enabled/phpmyadmin.conf",

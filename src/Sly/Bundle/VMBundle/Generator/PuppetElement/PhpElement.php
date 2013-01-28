@@ -55,8 +55,7 @@ class PhpElement extends BasePuppetElement implements PuppetElementInterface
         ), 0777);
 
         $phpIniRenderOptions = array(
-            'vm'     => $this->getVM(),
-            'xDebug' => in_array('xdebug', $this->getVM()->getPhpModules()),
+            'vm' => $this->getVM(),
         );
 
         $phpIniContent = $this->getGenerator()->getTemplating()

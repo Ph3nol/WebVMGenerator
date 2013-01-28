@@ -197,7 +197,7 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
-     * @ORM\Column(name="mysql_root_password", type="string", length=50)
+     * @ORM\Column(name="mysql_root_password", type="string", length=50, nullable=true)
      */
     protected $mysqlRootPassword;
 

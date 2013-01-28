@@ -66,7 +66,7 @@
 
     checkMySQLOption(mysqlCheckbox);
     mysqlCheckbox.on('change', function(){
-        checkVimOption(mysqlCheckbox);
+        checkMySQLOption(mysqlCheckbox);
     });
 })(jQuery);
 
