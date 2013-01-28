@@ -11,9 +11,9 @@ Vagrant::Config.run do |config|
     config.vm.share_folder "vagrant", "/vagrant", "."
 
     {% if vm.vagrantNFS %}
-    config.vm.share_folder "project", "/project", "..", :nfs => true
+    config.vm.share_folder "project", "/var/www/vhosts/{{ vm.hostname }}", "..", :nfs => true
     {% else %}
-    config.vm.share_folder "project", "/project", ".."
+    config.vm.share_folder "project", "/var/www/vhosts/{{ vm.hostname }}", ".."
     {% endif %}
 
     config.vm.provision :shell, :inline => "echo \"{{ vm.timezone }}\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"

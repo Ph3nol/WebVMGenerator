@@ -12,8 +12,8 @@ apache::vhost { "{{ vm.hostname }}":
     priority      => "50",
     vhost_name    => "*",
     port          => "{{ vm.apachePort }}",
-    docroot       => "/project{{ vm.apacheRootDir }}",
-    serveradmin   => "chuck.norris@{{ vm.hostname }}",
+    docroot       => "/var/www/vhosts/{{ vm.hostname }}{{ vm.apacheRootDir }}",
+    serveradmin   => "admin@{{ vm.hostname }}",
     serveraliases => [ "webvm" ],
 }
 

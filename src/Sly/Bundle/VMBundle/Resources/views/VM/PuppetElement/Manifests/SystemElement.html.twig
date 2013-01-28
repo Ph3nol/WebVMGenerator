@@ -8,15 +8,9 @@ file { "/etc/motd":
     content => template("system/motd.erb"),
 }
 
-system::package { [ "augeas-lenses", "augeas-tools", "libaugeas-dev", "libaugeas-ruby", "libaugeas0" ]: }
 {% for package in vm.systemPackages %}
 system::package { "{{ package }}": }
 {% endfor %}
-
-system::config { "bash_aliases":
-    name   => ".bash_aliases",
-    source => "/vagrant/files/system/bash_aliases",
-}
 
 system::config { "bashrc":
     name   => ".bashrc",
