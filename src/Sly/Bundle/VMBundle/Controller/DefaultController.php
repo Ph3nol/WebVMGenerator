@@ -82,8 +82,8 @@ class DefaultController extends Controller
         foreach ($vmGenerator->getPuppetElements() as $puppetElement) {
             $puppetElement->setGenerator($vmGenerator);
 
-            if ($puppetElement->getCondition() && (bool) count($puppetElement->getGitSubmodules())) {
-                foreach ($puppetElement->getGitSubmodules() as $gitModule) {
+            if ($puppetElement->getCondition() && (bool) count($puppetElement->getGitModules())) {
+                foreach ($puppetElement->getGitModules() as $gitModule) {
                     $gitModules[$gitModule[0]] = $gitModule[1];
                 }
             }

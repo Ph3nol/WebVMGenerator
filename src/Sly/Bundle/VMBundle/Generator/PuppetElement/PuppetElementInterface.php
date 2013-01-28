@@ -31,7 +31,7 @@ interface PuppetElementInterface
     public function getCondition();
 
     /**
-     * Get Git submodules.
+     * Get Git modules, for future cloning.
      *
      * Example:
      * 
@@ -40,11 +40,11 @@ interface PuppetElementInterface
      *     array('path/to/modules/package2', 'https://github.com/example/puppet-package2.git'),
      * );
      *
-     * If no Git submodules are needed, just return an empty array.
+     * If no Git module is needed, just return an empty array.
      * 
      * @return array
      */
-    public function getGitSubmodules();
+    public function getGitModules();
 
     /**
      * Get manifest line(s).

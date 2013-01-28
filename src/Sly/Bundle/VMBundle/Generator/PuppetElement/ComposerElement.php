@@ -30,7 +30,7 @@ class ComposerElement extends BasePuppetElement implements PuppetElementInterfac
     /**
      * {@inheritDoc}
      */
-    public function getGitSubmodules()
+    public function getGitModules()
     {
         return array(
             array('modules/composer', 'https://github.com/willdurand/puppet-composer.git'),

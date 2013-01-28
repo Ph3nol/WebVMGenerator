@@ -30,7 +30,7 @@ class ExampleElement extends BasePuppetElement implements PuppetElementInterface
     /**
      * {@inheritDoc}
      */
-    public function getGitSubmodules()
+    public function getGitModules()
     {
         return array(
             array('modules/example', 'https://github.com/example/puppet-example.git'),

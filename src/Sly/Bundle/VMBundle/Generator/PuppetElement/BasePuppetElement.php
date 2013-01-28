@@ -71,7 +71,7 @@ abstract class BasePuppetElement
     /**
      * @see \Sly\Bundle\VMBundle\Generator\PuppetElement\PuppetElementInterface
      */
-    public function getGitSubmodules()
+    public function getGitModules()
     {
         return array();
     }

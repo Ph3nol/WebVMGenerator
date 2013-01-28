@@ -30,7 +30,7 @@ class ApacheElement extends BasePuppetElement implements PuppetElementInterface
     /**
      * {@inheritDoc}
      */
-    public function getGitSubmodules()
+    public function getGitModules()
     {
         return array(
             array('modules/firewall', 'https://github.com/puppetlabs/puppetlabs-firewall.git'),

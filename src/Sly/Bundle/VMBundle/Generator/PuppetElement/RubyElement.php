@@ -30,7 +30,7 @@ class RubyElement extends BasePuppetElement implements PuppetElementInterface
     /**
      * {@inheritDoc}
      */
-    public function getGitSubmodules()
+    public function getGitModules()
     {
         return array(
             array('modules/ruby', 'https://github.com/puppetlabs/puppetlabs-ruby.git'),
