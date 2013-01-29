@@ -4,30 +4,42 @@ vcsrepo { "vim-config":
     provider => git,
     source   => "https://github.com/stephpy/vim-config.git",
     require  => Package["vim"],
-    user    => "vagrant",
-    group   => "vagrant",
+    user     => "vagrant",
+    group    => "vagrant",
 }
 
 file { "vim-config-symlink-vimdir":
-    path   => "/home/vagrant/.vim",
-    ensure => link,
-    target => "/home/vagrant/.vim-config/.vim",
+    path    => "/home/vagrant/.vim/",
+    ensure  => link,
+    target  => "/home/vagrant/.vim-config/.vim/",
     require => Vcsrepo["vim-config"],
+    owner   => "vagrant",
+    replace => false,
 }
 
 file { "vim-config-symlink-vimrcfile":
-    path   => "/home/vagrant/.vimrc",
-    ensure => link,
-    target => "/home/vagrant/.vim-config/.vimrc",
+    path    => "/home/vagrant/.vimrc",
+    ensure  => link,
+    target  => "/home/vagrant/.vim-config/.vimrc",
     require => Vcsrepo["vim-config"],
+    owner   => "vagrant",
+    replace => false,
 }
 
-exec { "vim-config-bundle-dir":
-    command => "mkdir -p /home/vagrant/.vim/bundle",
-    path    => "/bin:/usr/bin",
+file { "vim-config-viminfo-file":
+    path    => "/home/vagrant/.viminfo",
+    content => "",
     require => Vcsrepo["vim-config"],
-    user    => "vagrant",
-    group   => "vagrant",
+    owner   => "vagrant",
+    replace => false,
+}
+
+file { "vim-config-bundle-dir":
+    path    => "/home/vagrant/.vim/bundle",
+    ensure  => directory,
+    require => Vcsrepo["vim-config"],
+    owner   => "vagrant",
+    replace => false,
 }
 
 vcsrepo { "vim-config-vundle":
@@ -35,13 +47,21 @@ vcsrepo { "vim-config-vundle":
     ensure   => present,
     provider => git,
     source   => "https://github.com/gmarik/vundle.git",
-    require  => Exec["vim-config-bundle-dir"],
-    user    => "vagrant",
-    group   => "vagrant",
+    require  => File["vim-config-bundle-dir"],
+    user     => "vagrant",
+    group    => "vagrant",
 }
 
+# exec { "vim-make-command-t":
+#     command => "rake make",
+#     cwd     => "/home/vagrant/.vim/bundle/Command-T",
+#     unless  => "ls -aFlh /home/vagrant/.vim/bundle/Command-T|grep 'command-t.recipe'",
+#     require => Vcsrepo["vim-config-vundle"]
+# }
+
 exec { "vim-config-vundle-install":
-    command => "vim -c +BundleInstall +qa",
+    command => "vim +BundleInstall! +BundleClean +qall",
+    cwd     => "/home/vagrant/.vim",
     path    => "/bin:/usr/bin",
     require => Vcsrepo["vim-config-vundle"],
     user    => "vagrant",
