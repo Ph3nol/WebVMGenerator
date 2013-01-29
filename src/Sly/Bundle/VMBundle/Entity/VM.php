@@ -211,9 +211,9 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
-     * @ORM\Column(name="mailcatcher", type="boolean")
+     * @ORM\Column(name="ruby_packages", type="array")
      */
-    protected $mailCatcher;
+    protected $rubyPackages;
 
     /**
      * {@inheritDoc}

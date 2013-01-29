@@ -153,9 +153,9 @@ class VM
     protected $systemPackages;
 
     /**
-     * @var boolean
+     * @var array
      */
-    protected $mailCatcher;
+    protected $rubyPackages;
 
     /**
      * @var boolean
@@ -805,23 +805,23 @@ class VM
     }
 
     /**
-     * Get MailCatcher.
+     * Get RubyPackages.
      *
-     * @return boolean MailCatcher value
+     * @return array RubyPackages value
      */
-    public function getMailCatcher()
+    public function getRubyPackages()
     {
-        return $this->mailCatcher;
+        return $this->rubyPackages;
     }
     
     /**
-     * Set MailCatcher.
+     * Set RubyPackages.
      *
-     * @param boolean $mailCatcher MailCatcher value
+     * @param array $rubyPackages RubyPackages value
      */
-    public function setMailCatcher($mailCatcher)
+    public function setRubyPackages($rubyPackages)
     {
-        $this->mailCatcher = $mailCatcher;
+        $this->rubyPackages = $rubyPackages;
     }
 
     /**

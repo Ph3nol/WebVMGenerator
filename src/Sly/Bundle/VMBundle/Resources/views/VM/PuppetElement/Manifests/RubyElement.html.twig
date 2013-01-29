@@ -1,3 +1,28 @@
 class { "ruby":
     gems_version  => "latest"
 }
+
+system::package { "libsqlite3-dev":
+    require => Package["ruby"],
+}
+
+{% for package in vm.rubyPackages %}
+exec { "{{ package }}-install":
+    command => "gem install -q --no-verbose --no-ri --no-rdoc {{ package }}",
+    path    => "/bin:/usr/bin",
+    require => [
+        Package["ruby"],
+        Package["libsqlite3-dev"],
+    ],
+}
+{% endfor %}
+
+{% if 'mailcatcher' in vm.rubyPackages %}
+system::package { "swaks": }
+
+exec { "mailcatcher-start":
+    command => "mailcatcher -i {{ vm.ip }}",
+    path    => "/bin:/usr/bin:/var/lib/gems/1.8/bin",
+    require => Exec["mailcatcher-install"],
+}
+{% endif %}

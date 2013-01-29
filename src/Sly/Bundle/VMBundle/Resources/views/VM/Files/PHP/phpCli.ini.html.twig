@@ -1045,7 +1045,7 @@ smtp_port = 25
 ; For Unix only.  You may supply arguments as well (default: "sendmail -t -i").
 ; http://php.net/sendmail-path
 ;sendmail_path =
-{% if vm.mailCatcher %}
+{% if 'mailcatcher' in vm.rubyPackages %}
 sendmail_path = /usr/bin/env catchmail
 {% endif %}
 

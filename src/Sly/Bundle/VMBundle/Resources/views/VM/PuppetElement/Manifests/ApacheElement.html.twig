@@ -7,14 +7,15 @@ class { "apache": }
 {% endif %}
 
 apache::mod { "rewrite": }
+apache::mod { "headers": }
+apache::mod { "proxy": }
 
 apache::vhost { "{{ vm.hostname }}":
-    priority      => "50",
-    vhost_name    => "*",
-    port          => "{{ vm.apachePort }}",
-    docroot       => "/var/www/vhosts/{{ vm.hostname }}{{ vm.apacheRootDir }}",
-    serveradmin   => "admin@{{ vm.hostname }}",
-    serveraliases => [ "webvm" ],
+    priority    => "50",
+    vhost_name  => "*",
+    port        => "{{ vm.apachePort }}",
+    docroot     => "/var/www/vhosts/{{ vm.hostname }}{{ vm.apacheRootDir }}",
+    serveradmin => "admin@{{ vm.hostname }}",
 }
 
 {% if vm.php and vm.mysql and vm.phpMyAdmin %}

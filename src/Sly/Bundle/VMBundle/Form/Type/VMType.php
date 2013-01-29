@@ -76,12 +76,19 @@ class VMType extends AbstractType
         );
 
         $systemPackages = array(
+            'admin'           => 'Admin monitoring tools',
             'build-essential' => 'Build-Essential package',
             'curl'            => 'Curl',
             'git-core'        => 'Git',
             'vim'             => 'Vim',
             'sendmail'        => 'Sendmail',
             'lynx'            => 'Lynx'
+        );
+
+        $rubyPackages = array(
+            'mailcatcher' => 'MailCatcher',
+            'capistrano'  => 'Capistrano',
+            'capifony'    => 'Capifony',
         );
 
         $builder
@@ -202,9 +209,12 @@ class VMType extends AbstractType
                 'expanded' => true,
                 'required' => false,
             ))
-            ->add('mailCatcher', 'checkbox', array(
+            ->add('rubyPackages', 'choice', array(
+                'choices'  => $rubyPackages,
+                'data'     => $this->defaultVM->getRubyPackages(),
+                'multiple' => true,
+                'expanded' => true,
                 'required' => false,
-                'data' => $this->defaultVM->getMailCatcher()
             ))
             ->add('vimConfig', 'checkbox', array(
                 'required' => false,

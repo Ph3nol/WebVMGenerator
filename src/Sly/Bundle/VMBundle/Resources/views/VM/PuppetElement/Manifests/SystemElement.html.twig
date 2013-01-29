@@ -8,7 +8,7 @@ file { "/etc/motd":
     content => template("system/motd.erb"),
 }
 
-{% for package in vm.systemPackages %}
+{% for package in systemPackages %}
 system::package { "{{ package }}": }
 {% endfor %}
 

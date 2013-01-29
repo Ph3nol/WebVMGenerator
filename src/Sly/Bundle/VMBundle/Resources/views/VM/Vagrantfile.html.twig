@@ -11,7 +11,7 @@ Vagrant::Config.run do |config|
     config.vm.share_folder "vagrant", "/vagrant", "."
 
     {% if vm.vagrantNFS %}
-    config.vm.share_folder "project", "/var/www/vhosts/{{ vm.hostname }}", "..", :nfs => true
+    config.vm.share_folder "project", "/var/www/vhosts/{{ vm.hostname }}", "..", :nfs => true, :create => true, :remount => true
     {% else %}
     config.vm.share_folder "project", "/var/www/vhosts/{{ vm.hostname }}", ".."
     {% endif %}

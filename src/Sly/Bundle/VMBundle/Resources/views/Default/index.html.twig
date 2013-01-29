@@ -84,8 +84,8 @@
 
                         <ul class="unstyled">
                             <li>{{ form_row(form.apache, { label: 'Apache' }) }}</li>
-                            <li>{{ form_row(form.apachePort, { label: 'Apache Port', attr: { class: 'span1' } }) }}</li>
-                            <li>
+                            <li class="apache-options">{{ form_row(form.apachePort, { label: 'Apache Port', attr: { class: 'span1' } }) }}</li>
+                            <li class="apache-options">
                                 <label for="sly_vm_form_type_vm_apacheRootDirectory">Apache Root directory</label>
 
                                 <div class="input-prepend">
@@ -93,7 +93,7 @@
                                     {{ form_widget(form.apacheRootDir, { attr: { class: 'span1' } }) }}
                                 </div>
                             </li>   
-                            <li>{{ form_row(form.apacheSSL, { label: 'Apache SSL support', attr: { 'disabled': 'disabled' } }) }}</li>
+                            <li class="apache-options">{{ form_row(form.apacheSSL, { label: 'Apache SSL support', attr: { 'disabled': 'disabled' } }) }}</li>
                             <li>{{ form_row(form.nginx, { label: 'Nginx', attr: { 'disabled': 'disabled' } }) }}</li>
                             <li>{{ form_row(form.varnish, { label: 'Varnish', attr: { 'disabled': 'disabled' } }) }}</li>
                         </ul>
@@ -131,20 +131,25 @@
                     </div>
 
                     <div class="span3">
-                        <h3>System Packages</h3>
+                        <h3>System</h3>
+
+                        <h4>Packages</h4>
 
                         {{ form_widget(form.systemPackages) }}
 
                         <h4>Options and Others</h4>
 
                         <ul class="unstyled">
-                            <li>{{ form_row(form.mailCatcher, { label: 'MailCatcher' }) }}</li>
                             <li class="vim-options">
-                                {{ form_row(form.vimConfig, { label: 'Vim config', attr: { 'disabled': 'disabled' } }) }}
+                                {{ form_row(form.vimConfig, { label: 'Vim config' }) }}
                             </li>
                             <li>{{ form_row(form.composer, { label: 'Composer' }) }}</li>
                             <li>{{ form_row(form.ohMyZsh, { label: 'ZSH + Oh-My-Zsh' }) }}</li>
                         </ul>
+
+                        <h4>Ruby packages</h4>
+
+                        {{ form_widget(form.rubyPackages) }}
                     </div>
                 </div>
             </div>

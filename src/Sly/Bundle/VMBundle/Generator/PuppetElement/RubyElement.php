@@ -24,7 +24,7 @@ class RubyElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getCondition()
     {
-        return (bool) $this->getVM()->getMailCatcher();
+        return (bool) count($this->getVM()->getRubyPackages());
     }
 
     /**

@@ -44,9 +44,20 @@ class SystemElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getManifestLines()
     {
+        $systemPackages = $this->getVM()->getSystemPackages();
+
+        if (in_array('admin', $systemPackages)) {
+            unset($systemPackages['admin']);
+
+            $systemPackages = array_merge($systemPackages, array(
+                'htop', 'atop',
+            ));
+        }
+
         return $this->getGenerator()->getTemplating()
             ->render('SlyVMBundle:VM/PuppetElement/Manifests:SystemElement.html.twig', array(
-                'vm' => $this->getVM(),
+                'vm'             => $this->getVM(),
+                'systemPackages' => $systemPackages,
             ));
     }
 }

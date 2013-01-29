@@ -2,6 +2,6 @@ squeeze64puppet3:
     name: Debian 6.0.0 (Squeeze) - 64 bits
     url:  http://l4bs.slynett.com/vagrant/squeeze64-puppet3.box
 
-precise64:
-    name: Ubuntu 12.04 LTS (Precise) - 64 bits
-    url:  http://files.vagrantup.com/precise64.box
+# precise64:
+#     name: Ubuntu 12.04 LTS (Precise) - 64 bits
+#     url:  http://files.vagrantup.com/precise64.box
