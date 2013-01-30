@@ -1,14 +1,17 @@
+class { "apache": }
+
 {% if vm.php %}
 class { "apache::mod::php":
     require => Package["php5"]
 }
-{% else %}
-class { "apache": }
+{% endif %}
+
+{% if vm.apacheSSL %}
+class { "apache::mod::ssl": }
 {% endif %}
 
 apache::mod { "rewrite": }
 apache::mod { "headers": }
-apache::mod { "proxy": }
 
 apache::vhost { "{{ vm.hostname }}":
     priority    => "50",
