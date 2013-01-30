@@ -13,7 +13,7 @@ phpPearComponents:        []
 phpMyAdmin:               false
 phpModules:               [ 'php5-mysql', 'php5-intl', 'php5-cli', 'php5-imagick', 'php5-gd', 'php5-xsl', 'php5-mcrypt', 'php5-curl', 'php5-xdebug', 'php5-imap' ]
 phpXDebugMaxNestingLevel: 100
-systemPackages:           [ 'admin', 'build-essential', 'curl', 'git-core', 'vim' ]
+systemPackages:           [ 'build-essential', 'curl', 'git-core', 'vim' ]
 apache:                   true
 apachePort:               80
 apacheRootDir:            /
