@@ -32,11 +32,20 @@ class SystemElement extends BasePuppetElement implements PuppetElementInterface
      */
     public function getGitModules()
     {
-        return array(
+        $modules = array(
             array('modules/puppi', 'https://github.com/example42/puppi.git'),
             array('modules/stdlib', 'https://github.com/puppetlabs/puppetlabs-stdlib.git'),
             array('modules/vcsrepo', 'https://github.com/puppetlabs/puppetlabs-vcsrepo.git'),
+            array('modules/apt', 'https://github.com/puppetlabs/puppetlabs-apt.git'),
         );
+
+        if (in_array('nodejs', $this->getVM()->getSystemPackages())) {
+            $modules[] = array(
+                'modules/nodejs', 'https://github.com/willdurand/puppet-nodejs.git',
+            );
+        }
+
+        return $modules;
     }
 
     /**
@@ -46,18 +55,9 @@ class SystemElement extends BasePuppetElement implements PuppetElementInterface
     {
         $systemPackages = $this->getVM()->getSystemPackages();
 
-        if (in_array('admin', $systemPackages)) {
-            unset($systemPackages['admin']);
-
-            $systemPackages = array_merge($systemPackages, array(
-                'htop', 'atop',
-            ));
-        }
-
         return $this->getGenerator()->getTemplating()
             ->render('SlyVMBundle:VM/PuppetElement/Manifests:SystemElement.html.twig', array(
-                'vm'             => $this->getVM(),
-                'systemPackages' => $systemPackages,
+                'vm' => $this->getVM(),
             ));
     }
 }

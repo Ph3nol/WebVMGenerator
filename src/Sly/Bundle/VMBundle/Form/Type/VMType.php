@@ -82,7 +82,8 @@ class VMType extends AbstractType
             'git-core'        => 'Git',
             'vim'             => 'Vim',
             'sendmail'        => 'Sendmail',
-            'lynx'            => 'Lynx'
+            'lynx'            => 'Lynx',
+            'nodejs'          => 'Node.js',
         );
 
         $rubyPackages = array(

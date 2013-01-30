@@ -8,8 +8,27 @@ file { "/etc/motd":
     content => template("system/motd.erb"),
 }
 
-{% for package in systemPackages %}
-system::package { "{{ package }}": }
+{% for package in vm.systemPackages %}
+    {% if package == 'admin' %}
+        system::package { "htop": }
+        system::package { "atop": }
+    {% elseif package == 'nodejs' %}
+        system::package { "python": }
+        system::package { "g++": }
+        system::package { "make": }
+        system::package { "wget": }
+        system::package { "tar": }
+
+        class { "nodejs":
+            version => "v0.8.0"
+        }
+
+        package { "bower":
+            provider => npm
+        }
+    {% else %}
+        system::package { "{{ package }}": }
+    {% endif %}
 {% endfor %}
 
 system::config { "bashrc":
