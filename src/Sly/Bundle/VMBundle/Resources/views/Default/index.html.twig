@@ -178,6 +178,12 @@
 
     {% render url('vm_configs_component') %}
 
+    {% if app.request.query.has('c') %}
+        <script type="text/javascript">
+            var vmUKey = '{{ app.request.query.get('c') }}';
+        </script>
+    {% endif %}
+
     {% javascripts filter='yui_js'
         '@SlyVMBundle/Resources/public/js/*'
     %}

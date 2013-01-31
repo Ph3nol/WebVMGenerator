@@ -18,8 +18,8 @@ use Sly\Bundle\VMBundle\Config\Config,
  */
 class Generator
 {
+    const README_FILE               = '/README';
     const VAGRANT_SKELETON_PATH     = '/Resources/skeleton/vagrant';
-    const GIT_MODULES_FILE          = '/.gitmodules';
     const VAGRANT_FILE              = '/Vagrantfile';
     const PUPPET_BASE_MANIFEST_DIR  = '/manifests';
     const PUPPET_BASE_MANIFEST_FILE = '/manifests/base.pp';
@@ -169,6 +169,7 @@ class Generator
         );
 
         $this->generateVagrantFile();
+        $this->generateReadmeFile();
         $this->generatePuppetElements();
         $this->generateArchiveFromFiles();
 
@@ -196,6 +197,21 @@ class Generator
         file_put_contents(
             $this->getVM()->getCachePath($this->kernelRootDir).self::VAGRANT_FILE,
             $vagrantFileContent
+        );
+    }
+
+    /**
+     * Generate README file.
+     */
+    private function generateReadmeFile()
+    {
+        $readmeFileContent = $this->getTemplating()->render('SlyVMBundle:VM:README.html.twig', array(
+            'vm' => $this->getVM(),
+        ));
+
+        file_put_contents(
+            $this->getVM()->getCachePath($this->kernelRootDir).self::README_FILE,
+            $readmeFileContent
         );
     }
 

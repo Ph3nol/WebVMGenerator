@@ -5,8 +5,10 @@
     var mysqlCheckbox  = $('#sly_vm_form_type_vm_mysql');
     var vmHostname     = $('#sly_vm_form_type_vm_hostname');
 
-    var configModal = $('#vm-configuration-modal');
-    configModal.modal('show');
+    if (typeof(vmUKey) == 'undefined') {
+        var configModal = $('#vm-configuration-modal');
+        configModal.modal('show');
+    }
 
     $('#sly_vm_form_type_vm_configuration').on('change', function(e){
         e.preventDefault();

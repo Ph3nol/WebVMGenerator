@@ -20,8 +20,22 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $request     = $this->get('request');
-        $form        = $this->get('sly_vm.form_vm');
+        $request = $this->get('request');
+        $form    = $this->get('sly_vm.form_vm');
+
+        if ($request->query->has('c')) {
+            $em = $this->getDoctrine()->getEntityManager();
+
+            $vm = $em
+                ->getRepository('SlyVMBundle:VM')
+                ->findOneByUKey($request->query->get('c'))
+            ;
+
+            if ($vm) {
+                $form->setData($vm);
+            }
+        }
+
         $formHandler = $this->get('sly_vm.form_handler_vm');
         $vmProcessed = $formHandler->process();
  
