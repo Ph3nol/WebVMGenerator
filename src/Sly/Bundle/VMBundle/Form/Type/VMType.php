@@ -84,6 +84,7 @@ class VMType extends AbstractType
             'sendmail'        => 'Sendmail',
             'lynx'            => 'Lynx',
             'nodejs'          => 'Node.js',
+            'yui-compressor'  => 'Java environment + YUI',
         );
 
         $rubyPackages = array(
