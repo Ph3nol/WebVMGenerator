@@ -205,7 +205,7 @@ class Generator
      */
     private function generateReadmeFile()
     {
-        $readmeFileContent = $this->getTemplating()->render('SlyVMBundle:VM:README.html.twig', array(
+        $readmeFileContent = $this->getTemplating()->render('SlyVMBundle:VM:readme.html.twig', array(
             'vm' => $this->getVM(),
         ));
 
