@@ -1,6 +1,4 @@
-system::package { "php5":
-    ensure => installed,
-}
+class { "php": }
 
 file { "php5-ini-apache2-config":
     path    => "/etc/php5/apache2/php.ini",
@@ -14,17 +12,38 @@ file { "php5-ini-cli-config":
     require => Package["php5"],
 }
 
-system::package { [ "php5-common", "php5-dev" ]:
-    ensure  => installed,
-    require => Package["php5"]
-}
-
 {% for phpModule in vm.phpModules %}
-system::package { "{{ phpModule }}":
-    ensure  => installed,
-    require => Package["php5"]
-}
+php::module { "{{ phpModule }}": }
 {% endfor %}
+
+{% if vm.phpPearComponents | length %}
+class { "pear": }
+
+pear::package { "PEAR": }
+{% for phpPearComponent in vm.phpPearComponents %}
+pear::package { "{{ phpPearComponent }}": }
+{% endfor %}
+
+
+# pear::channel { "phpunit":
+#     url => "pear.phpunit.de",
+# }
+# 
+# pear::channel { "symfony2":
+#     url     => "pear.symfony.com",
+#     require => Exec["pear-channel-phpunit"],
+# }
+# 
+# pear::channel { "symfony1":
+#     url     => "pear.symfony-project.com",
+#     require => Exec["pear-channel-symfony2"],
+# }
+# 
+# pear::channel { "components":
+#     url     => "components.ez.no",
+#     require => Exec["pear-channel-symfony1"],
+# }
+{% endif %}
 
 {% if vm.mysql and vm.phpMyAdmin %}
 system::package { "phpmyadmin":

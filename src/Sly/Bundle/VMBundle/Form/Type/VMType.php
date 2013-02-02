@@ -66,14 +66,11 @@ class VMType extends AbstractType
         $phpVersions = array('5.3', '5.4');
 
         $phpModules = array(
-            'php5-mysql', 'php5-sqlite', 'php5-intl', 'php5-cli', 'php5-imagick', 'php5-gd', 'php5-xsl',
-            'php5-mcrypt', 'php5-curl', 'php5-xdebug', 'php5-imap', 'php5-apc',
+            'mysql', 'sqlite', 'intl', 'cli', 'imagick', 'gd', 'xsl',
+            'mcrypt', 'curl', 'xdebug', 'imap', 'apc',
         );
 
-        $phpPearComponents = array(
-            'phpunit'        => 'PHPUnit',
-            'phpcodesniffer' => 'PHPCodeSniffer',
-        );
+        $phpPearComponents = array('PHPUnit', 'PHP_CodeSniffer');
 
         $systemPackages = array(
             'admin'           => 'Admin monitoring tools',
@@ -187,7 +184,7 @@ class VMType extends AbstractType
                 'required' => true,
             ))
             ->add('phpPearComponents', 'choice', array(
-                'choices'  => $phpPearComponents,
+                'choices'  => array_combine($phpPearComponents, $phpPearComponents),
                 'data'     => $this->defaultVM->getPhpPearComponents(),
                 'multiple' => true,
                 'expanded' => true,

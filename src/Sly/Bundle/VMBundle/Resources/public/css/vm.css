@@ -3,9 +3,9 @@ div.php-options label.checkbox {
     width: 40%;
 }
 
-#vm-one-line-installation {
+.vm-shell-instruction {
     width: 94%;
-    height: 60px;
+    height: 46px;
     padding: 2%;
     font-size: .8em;
     line-height: 1.2em;

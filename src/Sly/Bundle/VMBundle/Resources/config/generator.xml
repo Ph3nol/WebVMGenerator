@@ -42,14 +42,6 @@
             <tag name="sly_vm.puppet_element" />
         </service>
 
-        <service id="sly_vm.puppet_element.phpPear" class="Sly\Bundle\VMBundle\Generator\PuppetElement\PhpPearElement">
-            <tag name="sly_vm.puppet_element" />
-        </service>
-
-        <!-- <service id="sly_vm.puppet_element.phpPecl" class="Sly\Bundle\VMBundle\Generator\PuppetElement\PhpPeclElement">
-            <tag name="sly_vm.puppet_element" />
-        </service> -->
-
         <service id="sly_vm.puppet_element.ruby" class="Sly\Bundle\VMBundle\Generator\PuppetElement\RubyElement">
             <tag name="sly_vm.puppet_element" />
         </service>

@@ -10,6 +10,15 @@
         configModal.modal('show');
     }
 
+    $('#generate-vm-ip-address').on('click', function(e){
+        e.preventDefault();
+
+        ipNumeric = Math.floor(Math.random() * (255 - 1 + 1)) + 1;
+        ipAddress = '11.11.11.%randNumeric%'.replace('%randNumeric%', ipNumeric);
+
+        $('#sly_vm_form_type_vm_ip').val(ipAddress);
+    });
+
     $('#sly_vm_form_type_vm_configuration').on('change', function(e){
         e.preventDefault();
 

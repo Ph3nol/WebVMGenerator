@@ -30,6 +30,22 @@ class PhpElement extends BasePuppetElement implements PuppetElementInterface
     /**
      * {@inheritDoc}
      */
+    public function getGitModules()
+    {
+        $modules = array(
+            array('modules/php', 'https://github.com/example42/puppet-php.git'),
+        );
+
+        if ((bool) count($this->getVM()->getPhpPearComponents())) {
+            $modules[] = array('modules/pear', 'https://github.com/treehouseagency/puppet-pear.git');
+        }
+
+        return $modules;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getManifestLines()
     {
         return $this->getGenerator()->getTemplating()

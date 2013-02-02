@@ -19,6 +19,7 @@ apache::vhost { "{{ vm.hostname }}":
     port        => "{{ vm.apachePort }}",
     docroot     => "/var/www/vhosts/{{ vm.hostname }}{{ vm.apacheRootDir }}",
     serveradmin => "admin@{{ vm.hostname }}",
+    template    => "system/apache-default-vhost.erb",
 }
 
 {% if vm.php and vm.mysql and vm.phpMyAdmin %}
