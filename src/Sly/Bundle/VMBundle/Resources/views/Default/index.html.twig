@@ -78,7 +78,6 @@
                 </div>
 
                 <div class="row">
-                    <div class="span3">{{ form_row(form.vagrantNFS, { label: 'NFS mount for project folder' }) }}</div>
                     <div class="span3">
                         <label for="sly_vm_form_type_vm_vagrantMemory">CPU and Memory attributions</label>
 
@@ -94,6 +93,12 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="span3">
+                        <ul class="unstyled">
+                            <li>{{ form_row(form.vagrantNFS, { label: 'NFS mount for project folder' }) }}</li>
+                        </ul>
                     </div>
                 </div>
             </div>

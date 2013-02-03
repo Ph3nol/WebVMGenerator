@@ -277,7 +277,7 @@ class VM
     /**
      * Get Id value.
      *
-     * @return integer Id value to get
+     * @return integer
      */
     public function getId()
     {
@@ -287,7 +287,7 @@ class VM
     /**
      * Get UKey value.
      *
-     * @return string UKey value to get
+     * @return string
      */
     public function getUKey()
     {
@@ -307,7 +307,7 @@ class VM
     /**
      * Get Configuration value.
      *
-     * @return string Configuration value to get
+     * @return string
      */
     public function getConfiguration()
     {
@@ -327,7 +327,7 @@ class VM
     /**
      * Get VagrantBox value.
      *
-     * @return string VagrantBox value to get
+     * @return string
      */
     public function getVagrantBox()
     {
@@ -407,7 +407,7 @@ class VM
     /**
      * Get VagrantFinalLaunch value.
      *
-     * @return boolean VagrantFinalLaunch value to get
+     * @return boolean
      */
     public function getVagrantFinalLaunch()
     {
@@ -427,7 +427,7 @@ class VM
     /**
      * Get Name value.
      *
-     * @return string Name value to get
+     * @return string
      */
     public function getName()
     {
@@ -447,7 +447,7 @@ class VM
     /**
      * Get Hostname value.
      *
-     * @return string Hostname value to get
+     * @return string
      */
     public function getHostname()
     {
@@ -467,7 +467,7 @@ class VM
     /**
      * Get Ip value.
      *
-     * @return string Ip value to get
+     * @return string
      */
     public function getIp()
     {
@@ -487,7 +487,7 @@ class VM
     /**
      * Get Timezone value.
      *
-     * @return string Timezone value to get
+     * @return string
      */
     public function getTimezone()
     {
@@ -507,7 +507,7 @@ class VM
     /**
      * Get Apache value.
      *
-     * @return boolean Apache value to get
+     * @return boolean
      */
     public function getApache()
     {
@@ -527,7 +527,7 @@ class VM
     /**
      * Get ApachePort value.
      *
-     * @return integer ApachePort value to get
+     * @return integer
      */
     public function getApachePort()
     {
@@ -547,7 +547,7 @@ class VM
     /**
      * Get ApacheRootDir value.
      *
-     * @return string ApacheRootDir value to get
+     * @return string
      */
     public function getApacheRootDir()
     {
@@ -567,7 +567,7 @@ class VM
     /**
      * Get ApacheSSL value.
      *
-     * @return boolean ApacheSSL value to get
+     * @return boolean
      */
     public function getApacheSSL()
     {
@@ -587,7 +587,7 @@ class VM
     /**
      * Get Nginx value.
      *
-     * @return boolean Nginx value to get
+     * @return boolean
      */
     public function getNginx()
     {
@@ -607,7 +607,7 @@ class VM
     /**
      * Get Mysql value.
      *
-     * @return boolean Mysql value to get
+     * @return boolean
      */
     public function getMysql()
     {
@@ -627,7 +627,7 @@ class VM
     /**
      * Get MysqlRootPassword value.
      *
-     * @return string MysqlRootPassword value to get
+     * @return string
      */
     public function getMysqlRootPassword()
     {
@@ -647,7 +647,7 @@ class VM
     /**
      * Get Varnish value.
      *
-     * @return boolean Varnish value to get
+     * @return boolean
      */
     public function getVarnish()
     {
@@ -667,7 +667,7 @@ class VM
     /**
      * Get Php value.
      *
-     * @return boolean Php value to get
+     * @return boolean
      */
     public function getPhp()
     {
@@ -687,7 +687,7 @@ class VM
     /**
      * Get PhpXDebugMaxNestingLevel value.
      *
-     * @return integer PhpXDebugMaxNestingLevel value to get
+     * @return integer
      */
     public function getPhpXDebugMaxNestingLevel()
     {
@@ -707,7 +707,7 @@ class VM
     /**
      * Get PhpVersion value.
      *
-     * @return string PhpVersion value to get
+     * @return string
      */
     public function getPhpVersion()
     {
@@ -727,7 +727,7 @@ class VM
     /**
      * Get PhpPearComponents value.
      *
-     * @return array PhpPearComponents value to get
+     * @return array
      */
     public function getPhpPearComponents()
     {
@@ -747,7 +747,7 @@ class VM
     /**
      * Get PhpMyAdmin value.
      *
-     * @return boolean PhpMyAdmin value to get
+     * @return boolean
      */
     public function getPhpMyAdmin()
     {
@@ -767,7 +767,7 @@ class VM
     /**
      * Get PhpModules value.
      *
-     * @return array PhpModules value to get
+     * @return array
      */
     public function getPhpModules()
     {
@@ -787,7 +787,7 @@ class VM
     /**
      * Get SystemPackages value.
      *
-     * @return array SystemPackages value to get
+     * @return array
      */
     public function getSystemPackages()
     {
@@ -827,7 +827,7 @@ class VM
     /**
      * Get VimConfig value.
      *
-     * @return boolean VimConfig value to get
+     * @return boolean
      */
     public function getVimConfig()
     {
@@ -847,7 +847,7 @@ class VM
     /**
      * Get Composer value.
      *
-     * @return boolean Composer value to get
+     * @return boolean
      */
     public function getComposer()
     {
@@ -867,7 +867,7 @@ class VM
     /**
      * Get OhMyZsh value.
      *
-     * @return boolean OhMyZsh value to get
+     * @return boolean
      */
     public function getOhMyZsh()
     {

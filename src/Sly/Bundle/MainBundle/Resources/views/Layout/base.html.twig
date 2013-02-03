@@ -25,7 +25,12 @@
                 </a>
                 <div class="nav-collapse collapse">
                   <ul class="nav">
-                        <li class="active"><a href="{{ path('homepage') }}">Home</a></li>
+                      <li>
+                        <span class="label label-info" style="margin-top: 11px;">
+                            {{ project.version }} version - WORK IN PROGRESS
+                        </span>
+                      </li>
+                      <li class="active"><a href="{{ path('homepage') }}">Home</a></li>
                   </ul>
 
                   <ul class="nav pull-right">
@@ -46,12 +51,6 @@
         </div>
 
         <div class="container">
-            <p class="pagination-centered">
-                <span class="label label-important">
-                    {{ project.version }} version - Work in progress
-                </span>
-            </p>
-
             <div class="hero-unit">
                 <p class="pagination-centered">
                     Some seconds to <strong>generate your Web/LAMP Virtual Machine</strong>,
