@@ -26,13 +26,13 @@ file { "vim-config-symlink-vimrcfile":
     replace => false,
 }
 
-file { "vim-config-viminfo-file":
-    path    => "/home/vagrant/.viminfo",
-    content => "",
-    require => Vcsrepo["vim-config"],
-    owner   => "vagrant",
-    replace => false,
-}
+# file { "vim-config-viminfo-file":
+#     path    => "/home/vagrant/.viminfo",
+#     content => "",
+#     require => Vcsrepo["vim-config"],
+#     owner   => "vagrant",
+#     replace => false,
+# }
 
 file { "vim-config-bundle-dir":
     path    => "/home/vagrant/.vim/bundle",
@@ -60,10 +60,8 @@ vcsrepo { "vim-config-vundle":
 # }
 
 exec { "vim-config-vundle-install":
-    command => "vim +BundleInstall! +BundleClean +qall",
+    command => "vim +BundleInstall! +BundleClean +qall &",
     cwd     => "/home/vagrant/.vim",
     path    => "/bin:/usr/bin",
     require => Vcsrepo["vim-config-vundle"],
-    user    => "vagrant",
-    group   => "vagrant",
 }
