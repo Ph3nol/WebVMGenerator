@@ -20,6 +20,7 @@ apache::vhost { "{{ vm.hostname }}":
     docroot     => "/var/www/vhosts/{{ vm.hostname }}{{ vm.apacheRootDir }}",
     serveradmin => "admin@{{ vm.hostname }}",
     template    => "system/apache-default-vhost.erb",
+    override    => "All",
 }
 
 {% if vm.php and vm.mysql and vm.phpMyAdmin %}
