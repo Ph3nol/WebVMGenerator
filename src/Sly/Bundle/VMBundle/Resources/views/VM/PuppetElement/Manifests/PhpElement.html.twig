@@ -12,8 +12,17 @@ file { "php5-ini-cli-config":
     require => Package["php5"],
 }
 
+php::module { "common": }
+php::module { "dev": }
+
 {% for phpModule in vm.phpModules %}
-php::module { "{{ phpModule }}": }
+{% if (phpModule in ['apc']) %}
+    php::module { "{{ phpModule }}":
+      module_prefix => "php-",
+    }
+{% else %}
+    php::module { "{{ phpModule }}": }
+{% endif %}
 {% endfor %}
 
 {% if vm.phpPearComponents | length %}
@@ -23,7 +32,6 @@ pear::package { "PEAR": }
 {% for phpPearComponent in vm.phpPearComponents %}
 pear::package { "{{ phpPearComponent }}": }
 {% endfor %}
-
 
 # pear::channel { "phpunit":
 #     url => "pear.phpunit.de",
