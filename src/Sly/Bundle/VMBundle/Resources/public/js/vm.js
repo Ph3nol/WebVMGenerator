@@ -1,3 +1,5 @@
+var specialCharacters = { "à": "a", "á": "a", "â": "a", "ã": "a", "ä": "a", "å": "a", "ò": "o", "ó": "o", "ô": "o", "õ": "o", "ö": "o", "ø": "o", "è": "e", "é": "e", "ê": "e", "ë": "e", "ç": "c", "ì": "i", "í": "i", "î": "i", "ï": "i", "ù": "u", "ú": "u", "û": "u", "ü": "u", "ÿ": "y", "ñ": "n", "-": " ", "_": " " }; 
+
 (function($) {
     var apacheCheckbox = $('#sly_vm_form_type_vm_apache');
     var phpCheckbox    = $('#sly_vm_form_type_vm_php');
@@ -9,6 +11,14 @@
         var configModal = $('#vm-configuration-modal');
         configModal.modal('show');
     }
+
+    $('#sly_vm_form_type_vm_name').on('keyup', function(e){
+        e.preventDefault();
+
+        var el = $(this);
+
+        el.val(replaceSpecialCharacters(el.val()));
+    });
 
     $('#generate-vm-ip-address').on('click', function(e){
         e.preventDefault();
@@ -115,4 +125,10 @@ function checkMySQLOption(mysqlCheckbox) {
 
 function checkVMHostname(vmHostname) {
     $('#apache-hostname').html(vmHostname.val());
+}
+
+function replaceSpecialCharacters(text) {
+    var reg = /[àáäâèéêëçìíîïòóôõöøùúûüÿñ_-]/gi;
+
+    return text.replace(reg, function() { return specialCharacters[arguments[0]]; });
 }
