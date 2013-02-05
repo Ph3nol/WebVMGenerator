@@ -26,30 +26,10 @@ file { "vim-config-symlink-vimrcfile":
     replace => false,
 }
 
-# file { "vim-config-viminfo-file":
-#     path    => "/home/vagrant/.viminfo",
-#     content => "",
-#     require => Vcsrepo["vim-config"],
-#     owner   => "vagrant",
-#     replace => false,
-# }
-
-file { "vim-config-bundle-dir":
-    path    => "/home/vagrant/.vim/bundle",
-    ensure  => directory,
+file { "vim-vimrc-local-after":
+    path    => "/home/vagrant/.vimrc.local.after",
+    ensure  => "/vagrant/files/vimrc.local.after",
     require => Vcsrepo["vim-config"],
-    owner   => "vagrant",
-    replace => false,
-}
-
-vcsrepo { "vim-config-vundle":
-    path     => "/home/vagrant/.vim/bundle/vundle",
-    ensure   => present,
-    provider => git,
-    source   => "https://github.com/gmarik/vundle.git",
-    require  => File["vim-config-bundle-dir"],
-    user     => "vagrant",
-    group    => "vagrant",
 }
 
 # exec { "vim-make-command-t":
@@ -58,10 +38,3 @@ vcsrepo { "vim-config-vundle":
 #     unless  => "ls -aFlh /home/vagrant/.vim/bundle/Command-T|grep 'command-t.recipe'",
 #     require => Vcsrepo["vim-config-vundle"]
 # }
-
-exec { "vim-config-vundle-install":
-    command => "vim +BundleInstall! +BundleClean +qall &",
-    cwd     => "/home/vagrant/.vim",
-    path    => "/bin:/usr/bin",
-    require => Vcsrepo["vim-config-vundle"],
-}

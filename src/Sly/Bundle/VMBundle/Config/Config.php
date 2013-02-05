@@ -115,4 +115,70 @@ class Config
             )
         );
     }
+
+    /**
+     * Get choices options.
+     * 
+     * @return array
+     */
+    public static function getChoicesOptions($key)
+    {
+        switch ($key) {
+            default:
+                return array();
+
+                break;
+
+            case 'phpVersions':
+                $options = array('5.3', '5.4');
+
+                return array_combine($options, $options);
+
+                break;
+
+            case 'phpModules':
+                $options = array(
+                    'mysql', 'sqlite', 'intl', 'cli', 'imagick', 'gd', 'xsl',
+                    'mcrypt', 'curl', 'xdebug', 'imap', 'apc',
+                );
+
+                return array_combine($options, $options);
+
+                break;
+
+            case 'phpPearComponents':
+                $options = array(
+                    'PHPUnit', 'PHP_CS', 'XML_RPC', 'XML_Util', 'XML_Serializer',
+                    'Archive_Tar', 'SOAP', 'Console_Table'
+                );
+
+                return array_combine($options, $options);
+
+                break;
+
+            case 'systemPackages':
+                return array(
+                    'admin'           => 'Admin monitoring tools',
+                    'build-essential' => 'Build-Essential package',
+                    'curl'            => 'Curl',
+                    'git-core'        => 'Git',
+                    'vim'             => 'Vim',
+                    'sendmail'        => 'Sendmail',
+                    'lynx'            => 'Lynx',
+                    'nodejs'          => 'Node.js',
+                    'yui-compressor'  => 'Java environment + YUI',
+                );
+
+                break;
+
+            case 'rubyPackages':
+                return array(
+                    'mailcatcher' => 'MailCatcher',
+                    'capistrano'  => 'Capistrano',
+                    'capifony'    => 'Capifony',
+                );
+
+                break;
+        }
+    }
 }

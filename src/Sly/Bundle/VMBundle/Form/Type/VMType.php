@@ -63,33 +63,6 @@ class VMType extends AbstractType
             $vagrantBoxesChoices[$vagrantKey] = $vagrantBox['name'];
         }
 
-        $phpVersions = array('5.3', '5.4');
-
-        $phpModules = array(
-            'mysql', 'sqlite', 'intl', 'cli', 'imagick', 'gd', 'xsl',
-            'mcrypt', 'curl', 'xdebug', 'imap', 'apc',
-        );
-
-        $phpPearComponents = array('PHPUnit', 'PHP_CodeSniffer');
-
-        $systemPackages = array(
-            'admin'           => 'Admin monitoring tools',
-            'build-essential' => 'Build-Essential package',
-            'curl'            => 'Curl',
-            'git-core'        => 'Git',
-            'vim'             => 'Vim',
-            'sendmail'        => 'Sendmail',
-            'lynx'            => 'Lynx',
-            'nodejs'          => 'Node.js',
-            'yui-compressor'  => 'Java environment + YUI',
-        );
-
-        $rubyPackages = array(
-            'mailcatcher' => 'MailCatcher',
-            'capistrano'  => 'Capistrano',
-            'capifony'    => 'Capifony',
-        );
-
         $builder
             ->add('configuration', 'choice', array(
                 'choices'  => $configurations,
@@ -178,13 +151,13 @@ class VMType extends AbstractType
                 'data'     => $this->defaultVM->getPhpXDebugMaxNestingLevel()
             ))
             ->add('phpVersion', 'choice', array(
-                'choices'  => array_combine($phpVersions, $phpVersions),
+                'choices'  => Config::getChoicesOptions('phpVersions'),
                 'data'     => $this->defaultVM->getPhpVersion(),
                 'multiple' => false,
                 'required' => true,
             ))
             ->add('phpPearComponents', 'choice', array(
-                'choices'  => array_combine($phpPearComponents, $phpPearComponents),
+                'choices'  => Config::getChoicesOptions('phpPearComponents'),
                 'data'     => $this->defaultVM->getPhpPearComponents(),
                 'multiple' => true,
                 'expanded' => true,
@@ -195,21 +168,21 @@ class VMType extends AbstractType
                 'data'     => $this->defaultVM->getPhpMyAdmin()
             ))
             ->add('phpModules', 'choice', array(
-                'choices'  => array_combine($phpModules, $phpModules),
+                'choices'  => Config::getChoicesOptions('phpModules'),
                 'data'     => $this->defaultVM->getPhpModules(),
                 'multiple' => true,
                 'expanded' => true,
                 'required' => false,
             ))
             ->add('systemPackages', 'choice', array(
-                'choices'  => $systemPackages,
+                'choices'  => Config::getChoicesOptions('systemPackages'),
                 'data'     => $this->defaultVM->getSystemPackages(),
                 'multiple' => true,
                 'expanded' => true,
                 'required' => false,
             ))
             ->add('rubyPackages', 'choice', array(
-                'choices'  => $rubyPackages,
+                'choices'  => Config::getChoicesOptions('rubyPackages'),
                 'data'     => $this->defaultVM->getRubyPackages(),
                 'multiple' => true,
                 'expanded' => true,

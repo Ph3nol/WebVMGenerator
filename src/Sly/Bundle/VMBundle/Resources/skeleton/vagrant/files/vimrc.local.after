@@ -1,0 +1,21 @@
+" Setting up Vundle - the vim plugin bundler                                                                      
+    let needsBundle=1
+    let vundleReadme=expand('~/.vim/bundle/vundle/README.md')
+    if !filereadable(vundleReadme)
+        echo "Installing Vundle..."
+        echo ""
+        silent !mkdir -p ~/.vim/bundle
+        silent !git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+        let needsBundle=0
+    endif
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+
+    source ~/.vim/vimrc.bundle
+
+    if needsBundle == 0
+        echo "Installing Bundles, please ignore key map error messages..."
+        echo ""
+        :BundleInstall
+    endif
+" Setting up Vundle - the vim plugin bundler end
