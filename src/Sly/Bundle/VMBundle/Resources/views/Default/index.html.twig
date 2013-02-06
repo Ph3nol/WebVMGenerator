@@ -120,7 +120,9 @@
                             </li>   
                             <li class="apache-options">{{ form_row(form.apacheSSL, { label: 'Apache SSL support', attr: { 'disabled': 'disabled' } }) }}</li>
                             <li>{{ form_row(form.nginx, { label: 'Nginx', attr: { 'disabled': 'disabled' } }) }}</li>
+                            <li class="nginx-options">{{ form_row(form.nginxPort, { label: 'Nginx Port', attr: { class: 'span1' } }) }}</li>
                             <li>{{ form_row(form.varnish, { label: 'Varnish' }) }}</li>
+                            <li class="varnish-options">{{ form_row(form.varnishPort, { label: 'Varnish Port', attr: { class: 'span1' } }) }}</li>
                         </ul>
                     </div>
 

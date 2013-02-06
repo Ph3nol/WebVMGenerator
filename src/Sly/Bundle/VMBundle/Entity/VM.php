@@ -183,9 +183,23 @@ class VM extends BaseVM
     /**
      * {@inheritDoc}
      *
+     * @ORM\Column(name="nginx_port", type="integer", length=5)
+     */
+    protected $nginxPort;
+
+    /**
+     * {@inheritDoc}
+     *
      * @ORM\Column(name="varnish", type="boolean")
      */
     protected $varnish;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @ORM\Column(name="varnish_port", type="integer", length=5)
+     */
+    protected $varnishPort;
 
     /**
      * {@inheritDoc}

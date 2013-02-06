@@ -133,9 +133,19 @@ class VM
     protected $nginx;
 
     /**
+     * @var string
+     */
+    protected $nginxPort;
+
+    /**
      * @var boolean
      */
     protected $varnish;
+
+    /**
+     * @var string
+     */
+    protected $varnishPort;
 
     /**
      * @var boolean
@@ -605,6 +615,26 @@ class VM
     }
 
     /**
+     * Get NginxPort value.
+     *
+     * @return integer NginxPort value to get
+     */
+    public function getNginxPort()
+    {
+        return $this->nginxPort;
+    }
+    
+    /**
+     * Set NginxPort value.
+     *
+     * @param integer $nginxPort NginxPort value to set
+     */
+    public function setNginxPort($nginxPort)
+    {
+        $this->nginxPort = $nginxPort;
+    }
+
+    /**
      * Get Mysql value.
      *
      * @return boolean
@@ -662,6 +692,26 @@ class VM
     public function setVarnish($varnish)
     {
         $this->varnish = $varnish;
+    }
+
+    /**
+     * Get VarnishPort value.
+     *
+     * @return integer VarnishPort value to get
+     */
+    public function getVarnishPort()
+    {
+        return $this->varnishPort;
+    }
+    
+    /**
+     * Set VarnishPort value.
+     *
+     * @param integer $varnishPort VarnishPort value to set
+     */
+    public function setVarnishPort($varnishPort)
+    {
+        $this->varnishPort = $varnishPort;
     }
 
     /**

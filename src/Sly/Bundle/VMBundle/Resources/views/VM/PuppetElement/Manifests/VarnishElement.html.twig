@@ -1,6 +1,6 @@
 class { 'varnish':
     puppi    => true,
     options  => {
-        port => '81',
+        port => '{{ vm.varnishPort }}',
     },
 }   

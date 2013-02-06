@@ -47,30 +47,4 @@ class VarnishElement extends BasePuppetElement implements PuppetElementInterface
                 'vm' => $this->getVM(),
             ));
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    // public function postProcess()
-    // {
-    //     $varnishFilesPath = sprintf(
-    //         '%s/%s/files',
-    //         $this->getGenerator()->getKernelRootDir(),
-    //         $this->getVM()->getCachePath()
-    //     );
-
-    //     $this->getGenerator()->getFilesystem()->mkdir(array(
-    //         $varnishFilesPath,
-    //         $varnishFilesPath.'/php',
-    //     ), 0777);
-
-    //     $varnishFilesOptions = array(
-    //         'vm' => $this->getVM(),
-    //     );
-
-    //     $varnishDefaultVclContent = $this->getGenerator()->getTemplating()
-    //         ->render('SlyVMBundle:VM/Files/Varnish:default.vcl.html.twig', $varnishFilesOptions);
-
-    //     file_put_contents($varnishFilesPath.'/varnish/default.vcl', $varnishDefaultVclContent);
-    // }
 }

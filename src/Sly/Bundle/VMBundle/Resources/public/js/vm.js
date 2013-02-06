@@ -2,6 +2,8 @@ var specialCharacters = { "à": "a", "á": "a", "â": "a", "ã": "a", "ä": "a",
 
 (function($) {
     var apacheCheckbox = $('#sly_vm_form_type_vm_apache');
+    var nginxCheckbox = $('#sly_vm_form_type_vm_nginx');
+    var varnishCheckbox = $('#sly_vm_form_type_vm_varnish');
     var phpCheckbox    = $('#sly_vm_form_type_vm_php');
     var vimCheckbox    = $('#sly_vm_form_type_vm_systemPackages_4');
     var mysqlCheckbox  = $('#sly_vm_form_type_vm_mysql');
@@ -82,6 +84,16 @@ var specialCharacters = { "à": "a", "á": "a", "â": "a", "ã": "a", "ä": "a",
         checkApacheOption(apacheCheckbox);
     });
 
+    checkNginxOption(nginxCheckbox);
+    nginxCheckbox.on('change', function(){
+        checkNginxOption(nginxCheckbox);
+    });
+
+    checkVarnishOption(varnishCheckbox);
+    varnishCheckbox.on('change', function(){
+        checkVarnishOption(varnishCheckbox);
+    });
+
     checkPHPOption(phpCheckbox);
     phpCheckbox.on('change', function(){
         checkPHPOption(phpCheckbox);
@@ -106,6 +118,16 @@ var specialCharacters = { "à": "a", "á": "a", "â": "a", "ã": "a", "ä": "a",
 function checkApacheOption(apacheCheckbox) {
     $('.apache-options input, input.apache-options').attr('readonly', apacheCheckbox.is(':checked') ? false : true);
     $('.apache-options input[type=checkbox], input[type=checkbox].apache-options').attr('disabled', apacheCheckbox.is(':checked') ? false : true);
+}
+
+function checkNginxOption(nginxCheckbox) {
+    $('.nginx-options input, input.nginx-options').attr('readonly', nginxCheckbox.is(':checked') ? false : true);
+    $('.nginx-options input[type=checkbox], input[type=checkbox].nginx-options').attr('disabled', nginxCheckbox.is(':checked') ? false : true);
+}
+
+function checkVarnishOption(varnishCheckbox) {
+    $('.varnish-options input, input.varnish-options').attr('readonly', varnishCheckbox.is(':checked') ? false : true);
+    $('.varnish-options input[type=checkbox], input[type=checkbox].varnish-options').attr('disabled', varnishCheckbox.is(':checked') ? false : true);
 }
 
 function checkPHPOption(phpCheckbox) {

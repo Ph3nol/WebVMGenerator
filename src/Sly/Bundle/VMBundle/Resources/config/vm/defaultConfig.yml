@@ -19,7 +19,9 @@ apachePort:               80
 apacheRootDir:            /
 apacheSSL:                false
 nginx:                    false
+nginxPort:                81
 varnish:                  false
+varnishPort:              82
 mysql:                    true
 mysqlRootPassword:        root
 mailCatcher:              false

@@ -130,9 +130,17 @@ class VMType extends AbstractType
                 'required' => false,
                 'data'     => $this->defaultVM->getNginx()
             ))
+            ->add('nginxPort', 'text', array(
+                'required' => false,
+                'data'     => $this->defaultVM->getNginxPort()
+            ))
             ->add('varnish', 'checkbox', array(
                 'required' => false,
                 'data'     => $this->defaultVM->getVarnish()
+            ))
+            ->add('varnishPort', 'text', array(
+                'required' => false,
+                'data'     => $this->defaultVM->getVarnishPort()
             ))
             ->add('mysql', 'checkbox', array(
                 'required' => false,
