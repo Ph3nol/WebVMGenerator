@@ -34,6 +34,14 @@
             <tag name="sly_vm.puppet_element" />
         </service>
 
+        <service id="sly_vm.puppet_element.varnish" class="Sly\Bundle\VMBundle\Generator\PuppetElement\VarnishElement">
+            <tag name="sly_vm.puppet_element" />
+        </service>
+
+        <service id="sly_vm.puppet_element.nginx" class="Sly\Bundle\VMBundle\Generator\PuppetElement\NginxElement">
+            <tag name="sly_vm.puppet_element" />
+        </service>
+
         <service id="sly_vm.puppet_element.mysql" class="Sly\Bundle\VMBundle\Generator\PuppetElement\MysqlElement">
             <tag name="sly_vm.puppet_element" />
         </service>
