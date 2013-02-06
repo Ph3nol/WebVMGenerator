@@ -1,0 +1,10 @@
+backend default {
+  .host = "{{ vm.hostname }}";
+  .port = "81";
+}
+
+sub vcl_fetch {
+  if(req.url == "/") {
+    set beresp.do_esi = true;
+  }
+}
