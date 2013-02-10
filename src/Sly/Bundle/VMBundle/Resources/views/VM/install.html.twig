@@ -33,7 +33,7 @@ echo ""
 
 echo -e "\033[33m--> Uncompacting downloaded archive...\033[0m"
 echo ""
-tar zxf $BASE_SCRIPT_DIR/{{ vm.tempArchiveFilename }}
+tar xf $BASE_SCRIPT_DIR/{{ vm.tempArchiveFilename }}
 mv $BASE_SCRIPT_DIR/{{ vm.uKey }} $BASE_VAGRANT_DIR
 echo "Done."
 echo ""
