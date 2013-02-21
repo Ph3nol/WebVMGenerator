@@ -18,7 +18,7 @@ php::module { "dev": }
 {% for phpModule in vm.phpModules %}
 {% if (phpModule in ['apc']) %}
     php::module { "{{ phpModule }}":
-      module_prefix => "php-",
+      module_prefix => "php5-",
     }
 {% else %}
     php::module { "{{ phpModule }}": }
