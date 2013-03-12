@@ -32,3 +32,8 @@ Here is an example:
     <tag name="sly_vm.puppet_element" />
 </service>
 ```
+
+## License
+
+This project is under the MIT license.
+See the [complete license](https://github.com/Ph3nol/WebVMGenerator/blob/master/LICENSE).
