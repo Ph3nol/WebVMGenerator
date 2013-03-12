@@ -1,6 +1,16 @@
 {
-    "name": "symfony/framework-standard-edition",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "name": "sly/webvmgenerator",
+    "description": "A generator service to make your Vagrant + Puppet web Virtual Machines easily.",
+    "keywords": ["web", "vm", "generator", "vagrant", "puppet"],
+    "homepage": "http://vmg.slynett.com",
+    "type": "website",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cédric Dugat",
+            "email": "cedric@dugat.me"
+        }
+    ],
     "autoload": {
         "psr-0": { "": "src/" }
     },
