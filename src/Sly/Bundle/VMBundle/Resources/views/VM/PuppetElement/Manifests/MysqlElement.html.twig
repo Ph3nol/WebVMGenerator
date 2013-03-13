@@ -2,3 +2,7 @@ class { "mysql":
     root_password => "{% if vm.mysqlRootPassword %}{{ vm.mysqlRootPassword }}{% endif %}",
     require       => Exec["apt-update"],
 }
+
+system::package { "mytop":
+    require => Package["mysql"]
+}
